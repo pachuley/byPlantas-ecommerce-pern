@@ -24,13 +24,13 @@ server.post('/', (req, res, next) => {
 	 });
 });
 
-server.delete('/:name', (req,res)=>{
-	Category.destroy({where:{name:req.params.name}})
+server.delete('/:id', (req,res)=>{
+	Category.destroy({where:{id:req.params.id}})
 	.then(resp=>{
 		if(resp === 0){
 			return res.status(400).send('no se elimino nada')
 		}else{
-			res.send(`se elimino la categoria llamada: ${req.params.name}`)
+			res.send(`se elimino la categoria numero: ${req.params.id}`)
 		}		
 	})
 })
