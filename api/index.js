@@ -23,6 +23,7 @@ const {
   PORT_API
 } = process.env;
 
+
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(`${PORT_API}`, () => {
