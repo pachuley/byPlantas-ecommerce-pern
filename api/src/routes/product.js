@@ -11,22 +11,19 @@ server.get('/', (req, res, next) => {
 		.catch(next);
 });
 
-// server.post('/add', (req, res) =>{
+server.post('/', (req, res) =>{
+	const addProduct = req.body;
+	Product.create({
+		nameProduct: addProduct.nameProduct,
+		descriptionProduct: addProduct.descriptionProduct,
+		priceProduct: addProduct.priceProduct,
+		stockProduct: addProduct.stockProduct,
+		urlProduct: addProduct.urlProduct,
+	})
+	.then(response=>res.status(201).send(response));
+})
 
-// 	const addProduct = req.body;
-// 	Product.create({
-// 		id:addProduct.id,
-// 		nameProduct: addProduct.nameProduct,
-// 		descriptionProduct: addProduct.descriptionProduct,
-// 		priceProduct: addProduct.priceProduct,
-// 		stockProducts: addProduct.stockProducts,
-// 		urlProducts: addProduct.urlProduct,
-// 		createdAt:addProduct.createdAt,
-// 		updatedAt:addProduct.updatedAt
-// 	})
-// 	.then(response=>res.send(response));
-// })
-server.get('/delete/:id',(req,res)=>{
+server.delete('/:id',(req,res)=>{
 	let id = req.params.id;
 	Product.destroy({
 		where:{id:id}
@@ -38,6 +35,7 @@ server.get('/delete/:id',(req,res)=>{
 		}
 	})
 })
+
 server.get('/:id',(req,res)=>{
 	let id = req.params.id;
 	Product.findAll({
@@ -50,22 +48,25 @@ server.get('/:id',(req,res)=>{
 		}
 	})
 })
-server.post('/add', (req, res) =>{
 
-	const addProduct = req.body;
-	Product.create({
-		id:addProduct.id,
-		nameProduct: addProduct.nameProduct,
-		descriptionProduct: addProduct.descriptionProduct,
-		priceProduct: addProduct.priceProduct,
-		stockProducts: addProduct.stockProducts,
-		urlProducts: addProduct.urlProduct,
-		createdAt:addProduct.createdAt,
-		updatedAt:addProduct.updatedAt
+
+server.put('/:id', function (req, res, next) {
+
+	let {nameProduct, descriptionProduct, priceProduct, stockProduct, urlProduct} = req.body
+	Product.update(
+	  { nameProduct: nameProduct,
+		descriptionProduct: descriptionProduct,
+		priceProduct: priceProduct,
+		stockProduct: stockProduct,
+		urlProduct: urlProduct,
+	},
+	  {returning: true, where: {id: req.params.id} }
+	)
+	.then((response) => {
+	  res.json(response)
 	})
-	.then(response=>res.send(response));
-})
-
+	.catch(next)
+   })
 
 module.exports = server;
 

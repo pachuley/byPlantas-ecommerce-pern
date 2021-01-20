@@ -19,17 +19,16 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    stockProducts: {
+    stockProduct: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    urlProducts: {
+    urlProduct: {
       type: DataTypes.TEXT,
       // validate:{
       //   isUrl:true
       // }
     },
-
   });
 };
 
