@@ -9,7 +9,6 @@ server.get('/', (req, res, next) => {
 		.catch(next);
 });
 
-
 server.post('/', (req, res, next) => {
    const {name, description} = req.body;
 
@@ -25,6 +24,15 @@ server.post('/', (req, res, next) => {
 	 });
 });
 
-
+server.delete('/:name', (req,res)=>{
+	Category.destroy({where:{name:req.params.name}})
+	.then(resp=>{
+		if(resp === 0){
+			return res.status(400).send('no se elimino nada')
+		}else{
+			res.send(`se elimino la categoria llamada: ${req.params.name}`)
+		}		
+	})
+})
 
 module.exports = server;
