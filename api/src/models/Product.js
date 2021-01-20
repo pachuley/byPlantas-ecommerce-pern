@@ -25,7 +25,9 @@ module.exports = (sequelize) => {
     },
     urlProducts: {
       type: DataTypes.TEXT,
-
+      // validate:{
+      //   isUrl:true
+      // }
     },
 
   });
@@ -33,6 +35,3 @@ module.exports = (sequelize) => {
 
 
 
-// DATABASE CREATION
-
-// Product.belongsToMany(Category, { through: 'CategoriesXProducts' })
