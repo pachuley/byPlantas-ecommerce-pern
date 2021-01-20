@@ -27,7 +27,7 @@ server.delete('/:id',(req,res)=>{
 	let id = req.params.id;
 	Product.destroy({
 		where:{id:id}
-	}).then(function(result){
+	}).then((result)=>{
 		if(result){
 			res.redirect(200,'/products');
 		}else{
@@ -48,7 +48,6 @@ server.get('/:id',(req,res)=>{
 		}
 	})
 })
-
 
 server.put('/:id', function (req, res, next) {
 
