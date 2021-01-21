@@ -3,8 +3,8 @@ const { Product } = require('../db.js');
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
-		.then(products => {
-			res.send(products);
+		.then(categories => {
+			res.send(categories);
 		})
 		.catch(next);
 });
