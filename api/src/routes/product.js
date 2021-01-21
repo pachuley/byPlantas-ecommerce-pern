@@ -7,6 +7,7 @@ server.get('/', (req, res, next) => {
 	
 		.then(products => {
 			res.send(products);
+
 		})
 		.catch(next);
 });
