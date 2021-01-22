@@ -1,5 +1,6 @@
 import React,{useState}from 'react';
 import axios from 'axios';
+const {REACT_APP_BACKEND_URL} = process.env;
 
 
 const Formulario = (props) => {
@@ -20,27 +21,10 @@ const Formulario = (props) => {
    const agregarProducto = (e) =>{
      console.log(producto)
        e.preventDefault()
+        console.log(process.env)
 
-       axios.get('http://localhost:5002/products')
-       .then(res => {
-         console.log(res.data)
-         const dataNueva = res.data.filter(x => x.nameProduct === producto.nameProduct)
-         return dataNueva;
-       })
-       .then(res => {
-         console.log(res)
-         if(res[0]) {
-          axios.put(`http://localhost:5002/products/${res[0].id}`, producto)
-           .then(res => {
-             console.log(res)
-           })
-           .catch(err => {
-             console.log(err)
-           })
-
-         }
-         else {
-           axios.post('http://localhost:5002/products', producto)
+           axios.post(`${REACT_APP_BACKEND_URL}/products`, producto)
+           
            .then(res => {
              console.log(res)
            })
@@ -48,12 +32,10 @@ const Formulario = (props) => {
              console.log(err)
            })
          }
-       })
-          
-       
-}
+
 
   return (
+   
       <form onSubmit={agregarProducto}>
     <div>
       <label>name</label>
@@ -97,5 +79,6 @@ const Formulario = (props) => {
       </form>
   )
 }
+
 
 export default Formulario
