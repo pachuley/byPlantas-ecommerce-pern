@@ -9,6 +9,7 @@ module.exports = (sequelize) => {
     nameProduct: {
       type: DataTypes.TEXT,
       allowNull: false,
+      unique:true
 
     },
     descriptionProduct: {
