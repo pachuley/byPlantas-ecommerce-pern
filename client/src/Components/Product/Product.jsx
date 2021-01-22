@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import ProductCard from '../ProductCard/ProductCard'
-import axios from 'axios'
+import ProductCard from '../ProductCard/ProductCard';
+// import axios from 'axios';
 
 // levanto los datos de forma local para probar, se debe cambiar
 const data = require("./productsTestFront.json");
@@ -8,15 +8,19 @@ const data = require("./productsTestFront.json");
 const ProductContainer = () => {
 
     const [ products, setProducts ] = useState([])
-
+    
     useEffect(()=>{
-        axios.get('')
-        .then(res=>{
-            console.log(res)
-            setProducts(res)
-            
-        })
-    }, [])
+        // axios.get(data)
+        // .then(resp=>{
+        //     console.log(resp)
+            setProducts(data);
+            return ()=>{
+                setProducts([])
+            }
+        }, [])
+    
+    // , []
+    // )
 // pongo, []) porque no voy a recibir callbacks
 
     return (
