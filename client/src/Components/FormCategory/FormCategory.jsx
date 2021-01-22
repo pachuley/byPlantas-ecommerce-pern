@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styles from './formCategory.module.css';
 import axios from 'axios';
+const {REACT_APP_BACKEND_URL} = process.env;
 
 export default function FormCategory (){
     const [category, setCategory] = useState({name: '', description: ''})
@@ -13,7 +14,7 @@ export default function FormCategory (){
     }
     const handleSubmit = e => {
         e.preventDefault()
-        axios.post(`http://localhost:3001/products/category`, category)//cambiar el puerto a la variable 'PORT_API'
+        axios.post(`${REACT_APP_BACKEND_URL}/products/category`, category)//variable del .env
         .then(resp=>{console.log(resp)})
         .catch(err=>{console.log(err)})
     }
