@@ -12,7 +12,7 @@ const { nameProduct, descriptionProduct, priceProduct, urlProduct, stockProduct,
             <Link to={`/products/:${_id}`}>
             <img className={`${style.img}`} src={urlProduct}/>
             <ul>{nameProduct}</ul>
-            <ul>{descriptionProduct}</ul>
+            
             <ul>ARS {priceProduct}</ul>
             <ul>{stockProduct}</ul>
             </Link>

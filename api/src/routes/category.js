@@ -2,11 +2,11 @@ const server = require('express').Router();
 const { Category } = require('../db.js');
 
 server.get('/', (req, res, next) => {
-    Category.findAll()
-        .then(products => {
-            res.send(products);
-        })
-        .catch(next);
+	Category.findAll()
+		.then(categories => {
+			res.status(200).json(categories);
+		})
+		.catch(next);
 });
 
 server.post('/', (req, res, next) => {
