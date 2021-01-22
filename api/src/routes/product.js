@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const { response } = require('../app.js');
 const Op = Sequelize.Op;
 
+server.use('/category', require('./category.js'))
 // ---Rutas GET--- //
 server.get('/', (req, res, next) => {
 	if(req.query.searchKeywords){
