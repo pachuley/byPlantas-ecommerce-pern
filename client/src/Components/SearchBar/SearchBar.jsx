@@ -1,14 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-
-
-/*const SearchBar = () => {
-
-    const [searchKeywords, setSearchKeywords] = 
-    return (  );
-}
-export default SearchBar;*/
-
+const {REACT_APP_BACKEND_URL} = process.env;
 
 export class SearchBar extends Component {
   constructor(props) {
@@ -25,7 +17,7 @@ export class SearchBar extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(this.state)
-    axios.get(`http://localhost:3001/search?query=${this.state.searchKeywords}`)
+    axios.get(`${REACT_APP_BACKEND_URL}/search?query=${this.state.searchKeywords}`)
     .then(res => {
         console.log(res)
     }).catch(err => {
