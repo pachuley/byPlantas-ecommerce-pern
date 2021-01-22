@@ -3,7 +3,7 @@ import ProductCard from '../ProductCard/ProductCard';
 // import axios from 'axios';
 
 // levanto los datos de forma local para probar, se debe cambiar
-const data = require("./productsTestFront.json");
+const data = require("../Product/productsTestFront.json");
 
 const Catalog = () => {
 
@@ -39,4 +39,4 @@ const Catalog = () => {
 
 }
 
-export default ProductContainer;
+export default Catalog;
