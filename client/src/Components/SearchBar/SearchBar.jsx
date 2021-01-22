@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
-
+require('dotenv').config();
+const {REACT_APP_BACKEND_URL} = process.env;
 
 export class SearchBar extends Component {
   constructor(props) {
