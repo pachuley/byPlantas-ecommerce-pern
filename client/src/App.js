@@ -1,12 +1,23 @@
 import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {Switch, Route} from 'react-router-dom'
+import Product from './Components/Product/Product'
+import Catalog from './Components/Catalog/Catalog'
 
 function App() {
   return (
-    <div>
+    <>
+      <Switch>
+        <Route path="/products" exact render={() => <Catalog/>}/>
+        <Route path='/products/:id' render={({match}) => <Product match={match}/>}/>
+      </Switch>
 
-    </div>
+
+    </>
   );
 }
+
+ 
 
 export default App;
