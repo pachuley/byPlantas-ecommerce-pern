@@ -1,0 +1,70 @@
+/* Buttons */
+
+.btn-byplantas {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 32px;
+    border-radius: 50px;
+    transition: 0.5s;
+    margin: 10px;
+    color: #f5f5ef;
+    background: #507b00;
+}
+  
+.btn-byplantas:hover {
+    background: #f5f5ef;
+    color: #507b00;
+}
+  
+.btn-byplantas-reverse {
+    font-family: "Montserrat", sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 8px 28px;
+    border-radius: 25px;
+    transition: 0.5s;
+    margin-top: 10px;
+    border: 2px solid #f5f5ef;
+    color: #f5f5ef;
+}
+  
+.btn-byplantas-reverse:hover {
+    background: #507b00;
+    border: 2px solid #507b00;
+}
+    
+    /* Boton que redirige al tope de la pagina / debe copiarse el codigo abajo del footer */
+  
+.back-to-top {
+    position: fixed;
+    display: none;
+    background: #507b00;
+    color: #f5f5ef;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    line-height: 1;
+    font-size: 16px;
+    border-radius: 50%;
+    right: 15px;
+    bottom: 15px;
+    transition: background 0.5s;
+    z-index: 11;
+}
+    
+.back-to-top i {
+    padding-top: 12px;
+    color: #f5f5ef;
+}
+    
+@media (max-width: 768px) {
+    .back-to-top {
+    bottom: 15px;
+    }
+}
