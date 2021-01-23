@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 const ProductCard = (props) =>{
 
-const { nameProduct, descriptionProduct, priceProduct, urlProduct, stockProduct, _id} = props;
-
+const { nameProduct, descriptionProduct, priceProduct, urlProduct, stockProduct, id} = props;
+    console.log(props)
     return(
   
         <div className={`${style.boxes}`}>
-            <Link to={`/products/:${_id}`}>
+            <Link to={`/products/${id}`}>
             <img className={`${style.img}`} src={urlProduct}/>
             <ul>{nameProduct}</ul>
             

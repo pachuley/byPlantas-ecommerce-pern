@@ -1,108 +1,47 @@
-import React, { useState }from 'react'
-import axios from 'axios'
-import Product from './product'
-import {
-    BrowserRouter as Router,
-    Link,
-    Route,
-    Switch,
-  } from 'react-router-dom';
-  import styles from './formCategory.module.css';
+
+import React, {useState, useEffect} from 'react';
 import ProductCard from '../ProductCard/ProductCard';
+import axios from 'axios';
+const {REACT_APP_BACKEND_URL} = process.env;
+// levanto los datos de forma local para probar, se debe cambiar
 
 
+const Catalog = () => {
 
-
-export default class Catalog extends React.Component{
-
-    constructor(props){
-        super(props)
-         this.state={
-            products: [],
-            category: [],
-            actualCategory: ''
-        }
-        
-        this.showProducts = this.showProducts.bind(this)
-        this.showCategories = this.showCategories.bind(this)
-        this.getProducts = this.getProducts.bind(this)
-        this.change = this.change.bind(this)
-        
-    }
-
-    componentDidMount(){
-        axios.get((`${REACT_APP_BACKEND_URL}/products/category`, category)
-            .then(response =>{
-                this.setState({
-                    products: response.data,
-                    category: response.data
-                    
-                })
-                console.log('Loaded')
-            })
-            .catch(error => {
-                console.log(error)
-            })
-        )}
-
-    getProducts(e){   
-        axios.get(`${REACT_APP_BACKEND_URL}/products/category`+ e.target.value)
-        .then (response =>{
-            this.setState({
-                products: response.data,
-            })
-            console.log(this.state)
+    const [ products, setProducts ] = useState([])
+    console.log(products)
+    useEffect(()=>{
+        axios.get(`${REACT_APP_BACKEND_URL}/products`)
+        .then(resp=>{
+            // console.log(resp)
+            setProducts(resp.data)
             
         })
-
-        .catch(error => {
+        .catch(error=>{
             console.log(error)
         })
+    
+    
+    
+    }, [])
 
-    }
-    
 
-    showCategories =() => 
-        this.state.category.map(element => 
-           <option key = {element.id} value = {element.userId}>{element.userId} </option>
-        );
-        
+    return (
+        <div className='Catalog'>
+            HOLA
+            
+            {products.map(product=> <ProductCard
+            id = {product.id}
+            nameProduct = {product.nameProduct}
+            descriptionProduct = {product.descriptionProduct}
+            priceProduct = {product.priceProduct}
+            stockProducts = {product.stockProduct}
+            urlProduct = {product.urlProduct}
+            />)}
 
-    showProducts=()=>
-          
-        this.state.products.map(element => 
-            <ProductCard
-                name = {element.title}
-                price = {element.id}
-                stock = {element.stock}
-                image = {element.image}
-            />
-        )
-    
-    
-    change(){
-        this.setState({
-            products: [{
-                title:'start ',
-                body: 'change'
-            }]
-        })
-    }
-    
-    
-
-    render(){
-        const showCategories = this.showCategories()
-        const showProducts = this.showProducts()
-        return (
-            <section >
-                <div className='shopSection'><h3>Categorias:</h3>
-                <select className='categorySelect' onChange={(e)=>this.getProducts(e)}>{showCategories}</select>
-                </div>
-                {showProducts}
-            </section>
-           
-        )
-    }
+        </div>
+    )
 
 }
+
+export default Catalog;
