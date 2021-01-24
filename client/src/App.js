@@ -5,6 +5,9 @@ import {Switch, Route} from 'react-router-dom'
 import Product from './Components/Product/Product'
 import Catalog from './Components/Catalog/Catalog'
 
+import ProductContainer from './Components/Product/Product';
+
+
 function App() {
   return (
     <>

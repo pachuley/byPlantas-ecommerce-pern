@@ -1,32 +1,37 @@
+
 import React, {useState, useEffect} from 'react';
 import ProductCard from '../ProductCard/ProductCard';
-// import axios from 'axios';
-
+import axios from 'axios';
+const {REACT_APP_BACKEND_URL} = process.env;
 // levanto los datos de forma local para probar, se debe cambiar
-const data = require("./productsTestFront.json");
 
-const ProductContainer = () => {
+
+const Catalog = () => {
 
     const [ products, setProducts ] = useState([])
-    
+    console.log(products)
     useEffect(()=>{
-        // axios.get(data)
-        // .then(resp=>{
-        //     console.log(resp)
-            setProducts(data);
-            return ()=>{
-                setProducts([])
-            }
-        }, [])
+        axios.get(`${REACT_APP_BACKEND_URL}/products`)
+        .then(resp=>{
+            // console.log(resp)
+            setProducts(resp.data)
+            
+        })
+        .catch(error=>{
+            console.log(error)
+        })
     
-    // , []
-    // )
-// pongo, []) porque no voy a recibir callbacks
+    
+    
+    }, [])
+
 
     return (
-        <div className='productContainer'>
-            {data.map(product=> <ProductCard
-            id = {product._id}
+        <div className='Catalog'>
+            HOLA
+            
+            {products.map(product=> <ProductCard
+            id = {product.id}
             nameProduct = {product.nameProduct}
             descriptionProduct = {product.descriptionProduct}
             priceProduct = {product.priceProduct}
@@ -39,4 +44,4 @@ const ProductContainer = () => {
 
 }
 
-export default ProductContainer;
+export default Catalog;

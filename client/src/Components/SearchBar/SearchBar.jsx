@@ -16,10 +16,9 @@ export class SearchBar extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state)
-    axios.get(`${REACT_APP_BACKEND_URL}/search?query=${this.state.searchKeywords}`)
+    axios.get(`${REACT_APP_BACKEND_URL}/products/search?query=${this.state.searchKeywords}`)
     .then(res => {
-        console.log(res)
+        console.log(res.data)
     }).catch(err => {
         console.log(err)
     })
