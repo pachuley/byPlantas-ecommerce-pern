@@ -3,13 +3,14 @@ import axios from 'axios';
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
-const Formulario = (props) => {
+
+const Formulario = ({nameProduct, descriptionProduct, priceProduct,stockProduct}) => {
   
   const [producto, setProducto] = useState({
-      nameProduct:props ? props.nameProduct : "",
-      descriptionProduct:props ? props.descriptionProduct : "",
-      priceProduct: props ? props.priceProduct :"",
-      stockProduct : props ? props.stockProduct : ""
+      nameProduct : "",
+      descriptionProduct : "",
+      priceProduct :"",
+      stockProduct : ""
   })
   
     const handleInputChange = (e) =>{
@@ -21,10 +22,9 @@ const Formulario = (props) => {
    const agregarProducto = (e) =>{
      console.log(producto)
        e.preventDefault()
-        console.log(process.env)
+        //console.log(process.env)
 
            axios.post(`${REACT_APP_BACKEND_URL}/products`, producto)
-           
            .then(res => {
              console.log(res)
            })
@@ -33,6 +33,7 @@ const Formulario = (props) => {
            })
          }
 
+      
 
   return (
    
@@ -74,6 +75,7 @@ const Formulario = (props) => {
      onChange={handleInputChange}
      value={producto.stockProduct}
      />
+    
      </div>
      <button className="btn btn-primary btn-block" type="submit">Agregar</button>
       </form>
