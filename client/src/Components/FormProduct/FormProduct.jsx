@@ -5,10 +5,10 @@ const {REACT_APP_BACKEND_URL} = process.env;
 
 const FormProduct = (props) => {
   const [producto, setProducto] = useState({
-      nameProduct:props ? props.nameProduct : "",
-      descriptionProduct:props ? props.descriptionProduct : "",
-      priceProduct: props ? props.priceProduct :"",
-      stockProduct : props ? props.stockProduct : ""
+      nameProduct:"",
+      descriptionProduct:"",
+      priceProduct:"",
+      stockProduct :""
   })
   const [categories, setCategories] = useState([])
   const [checks, setChecks] = useState([])
@@ -29,35 +29,36 @@ const FormProduct = (props) => {
   //y los saca cuando la propiedad checked esta en false
   const handleClick = e => {
     if(e.target.checked){
-      setChecks([...checks, {name:e.target.name, id:e.target.id}])
+      setChecks([...checks, parseInt(e.target.id)])
     }else{
-      const newChecks = checks.filter(x=>x.name!==e.target.name)
+      const newChecks = checks.filter(x=>x!==parseInt(e.target.id))
       setChecks(newChecks)
     }
   }
 
   //este es el handleSubmit que al usar el boton submit hace un post y agrega el producto a la base de datos,
   // y si hay inputs checkbox con la propiedad checked en true, hace un post por cada check en el estado checks para agregar las categorias al producto
-  const agregarProducto = (e) =>{
+  const handleSubmit = (e) =>{
     e.preventDefault()
     var prodId;
     axios.post(`${REACT_APP_BACKEND_URL}/products`, producto)
     .then(res => {
-      console.log(res)
       prodId = res.data.id;
-      if(checks.length > 0){
-        checks.forEach(x=>{
-          axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/${x.id}`)
-          .then(resp=>{console.log(resp)})
-        })
-      }
+      axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/setCategories`,checks)
+      .then(resp=>{console.log(resp)})
     })
     .catch(err => {console.log(err)})
   }
 
+  // const prueba = e => {
+  //   e.preventDefault()
+  //   axios.post(`${REACT_APP_BACKEND_URL}/products/17/category/setCategories`, checks)
+  //   .then(resp=>{console.log(resp)})
+  // }
+
   return (
    
-      <form onSubmit={agregarProducto}>
+      <form onSubmit={handleSubmit}>
     <div>
       <label>name</label>
      <input 
@@ -79,7 +80,7 @@ const FormProduct = (props) => {
      />
      <label>Precio</label>
      <input
-     type="text"
+     type="number"
      name="priceProduct"
      className="form-control mb-2"
      placeholder="Ingrese precio"
@@ -88,23 +89,26 @@ const FormProduct = (props) => {
      />
       <label>Stock</label>
      <input
-     type="text"
+     type="number"
      name="stockProduct"
-     placeholder=" Ingrese Stock"
+     placeholder="Ingrese Stock"
      className="form-control mb-2"
      onChange={handleInputChange}
      value={producto.stockProduct}
      />
      </div>
      <label>Categories</label>
-       {categories.map((x,index)=>{
+     <div className='d-flex justify-content-around flex-wrap'>
+      {categories.map((x,index)=>{
         return(
           <div key={index}>
-            <input type='checkbox' id={x.id} name={x.name} onClick={handleClick}/>
-            <label htmlFor={x.id}>{x.name}</label>
+            <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onClick={handleClick}/>
+            <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
           </div>
         )
-       })}
+      })}
+     </div>
+       
      <button className="btn btn-primary btn-block" type="submit">Agregar</button>
       </form>
   )
