@@ -103,6 +103,18 @@ server.post('/', (req, res) =>{
 	})
 	.then(response=>res.status(201).send(response));
 })
+server.post('/:idProducto/category/setCategories',(req,res)=>{
+	var cat;
+	Category.findAll({where:{id:{[Op.in]:req.body}}})
+	.then(resp=>{
+		cat=resp;
+	})
+	Product.findByPk(req.params.idProducto)
+	.then(resp=>{
+		resp.setCategories(cat)
+		res.send('se deleteo todo')
+	})
+})
 server.post('/:idProducto/category/:idCategoria', (req,res)=>{
     var cat;
     Category.findByPk(req.params.idCategoria)
