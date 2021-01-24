@@ -14,13 +14,10 @@ function App() {
       <Switch>
         <Route path="/products" exact render={() => <Catalog/>}/>
         <Route path='/products/:id' render={({match}) => <Product match={match}/>}/>
+        <Route path='/products' exact render={() => <FormProduct/>}/>
+        <Route path='/products/category' render={() => <FormCategory/>}/>
       </Switch>
-
-
     </>
   );
 }
-
- 
-
 export default App;
