@@ -12,25 +12,26 @@ server.get("/", (req, res, next) => {
     .catch(next);
 });
 server.get("/search", (req, res, next) => {
-  const { product } = req.query;
+  const product = req.query.query;
+  console.log(product)
   Product.findAll({
     where: {
       [Op.or]: [
         {
-          name: {
+          nameProduct: {
             [Op.iLike]: `%${product}%`,
           },
         },
         {
-          description: {
+          descriptionProduct: {
             [Op.iLike]: `%${product}%`,
           },
         },
       ],
     },
   })
-    .then((product) => {
-      res.send(product);
+    .then((response) => {
+      res.status(200).json(response);
     })
     .catch((err) => {
       return res.send("no se encontraron match").status(400);
