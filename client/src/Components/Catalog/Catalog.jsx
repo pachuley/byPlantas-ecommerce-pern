@@ -6,25 +6,7 @@ const {REACT_APP_BACKEND_URL} = process.env;
 // levanto los datos de forma local para probar, se debe cambiar
 
 
-const Catalog = ({products}) => {
-
-    /* const [ products, setProducts ] = useState([]) */
-/*     useEffect(()=>{
-        axios.get(`${REACT_APP_BACKEND_URL}/products`)
-        .then(resp=>{
-            // console.log(resp)
-            setProducts(resp.data)
-            
-        })
-        .catch(error=>{
-            console.log(error)
-        })
-    
-    
-    
-    }, []) */
-
-    
+const Catalog = ({products}) => { 
     return (
         <div className='Catalog'>
             <h5 className={`m-0 text-center`}>Productos</h5>
