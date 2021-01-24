@@ -28,7 +28,6 @@ const Catalog = () => {
 
     return (
         <div className='Catalog'>
-            HOLA
             
             {products.map(product=> <ProductCard
             id = {product.id}
