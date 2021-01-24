@@ -61,11 +61,6 @@ server.post('/:idProducto/category/setCategories',(req,res)=>{
 		res.send('se deleteo todo')
 	})
 })
-server.post('/:idProducto/category/:idCategoria', (req,res)=>{
-    var cat;
-    Category.findByPk(req.params.idCategoria)
-    .then(resp=>{
-        cat = resp
 server.get("/:id", (req, res) => {
   let id = req.params.id;
   Product.findAll({
