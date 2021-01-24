@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const ProductCard = (props) =>{
 
 const { nameProduct, descriptionProduct, priceProduct, urlProduct, stockProduct, id} = props;
-    console.log(props)
     return(
   
         <div className={`${style.boxes}`}>
