@@ -1,14 +1,17 @@
 import React, {Fragment} from 'react';
-import SearchBar from '../SearchBar/SearchBar'
 import CategoriesFilter from '../CategoriesFilters/CategoriesFilters'
+import InputFilter from '../InputFilter/InputFilter'
 
-const FiltersContainer = ({categories,handleCategory,categorySelected}) => {
+const FiltersContainer = ({categories,handleCategory,categorySelected,handleInputFilter}) => {
     
     return ( 
         <Fragment>
             <h5 className={`m-0 text-center`}>Filtrar</h5>
             <hr/>
-            <SearchBar/>
+            {/* <SearchBar/> */}
+            <InputFilter 
+                handleInputFilter={handleInputFilter}
+            />
             <CategoriesFilter 
                 categories={categories}
                 handleCategory={handleCategory}
