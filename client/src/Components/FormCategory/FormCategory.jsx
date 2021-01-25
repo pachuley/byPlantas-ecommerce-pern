@@ -15,13 +15,16 @@ export default function FormCategory (){
     const handleSubmit = e => {
         e.preventDefault()
         axios.post(`${REACT_APP_BACKEND_URL}/products/category`, category)//variable del .env
-        .then(resp=>{console.log(resp)})
+        .then(resp=>{
+            alert('Categoria Agregada')
+            console.log(resp)
+        })
         .catch(err=>{console.log(err)})
     }
 
     return(
         <div className='container'>
-            <form className={` w-25 py-3 needs-validation mx-auto`} onSubmit={handleSubmit, ()=>alert('Categoria Agregada')} novalidate>
+            <form className={` w-25 py-3 needs-validation mx-auto`} onSubmit={handleSubmit}>
                 <h2 className={`text-center`}>Agregar Una Categoría</h2>
                 <label htmlFor='inputNameCategory' className='form-label'>Nombre</label>
                 <input 
