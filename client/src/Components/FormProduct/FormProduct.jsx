@@ -45,7 +45,10 @@ const FormProduct = (props) => {
     .then(res => {
       prodId = res.data.id;
       axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/setCategories`,checks)
-      .then(resp=>{console.log(resp)})
+      .then(resp=>{
+        ()=>alert('Producto Agregado')
+        console.log(resp)
+      })
     })
     .catch(err => {console.log(err)})
   }
@@ -58,7 +61,7 @@ const FormProduct = (props) => {
 
   return (
    
-    <form className="mx-auto w-25 py-3" onSubmit={handleSubmit, ()=>alert('Producto Agregado')}>
+    <form className="mx-auto w-25 py-3" onSubmit={handleSubmit}>
       <div className='container'>
         <h2 className={`text-center`}>Agregar Un Producto</h2>
         <div>
