@@ -24,7 +24,7 @@ export default function FormCategory (){
 
     return(
         <div className='container'>
-            <form className={` w-25 py-3 needs-validation mx-auto`} onSubmit={handleSubmit}>
+            <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={handleSubmit}>
                 <h2 className={`text-center`}>Agregar Una Categoría</h2>
                 <label htmlFor='inputNameCategory' className='form-label'>Nombre</label>
                 <input 
