@@ -13,7 +13,7 @@ const List = (props) => {
       stockProduct : props ? props.stockProduct : ""
   });
   const [products, setProducts] = useState([]);
-  
+
 
    useEffect(()=>{
     axios.get(`${REACT_APP_BACKEND_URL}/products`, producto)

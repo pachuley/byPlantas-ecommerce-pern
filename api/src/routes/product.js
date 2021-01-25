@@ -37,6 +37,30 @@ server.get("/search", (req, res, next) => {
       return res.send("no se encontraron match").status(400);
     });
 });
+// ---Rutas POST--- //
+server.post('/', (req, res) =>{
+	const addProduct = req.body;
+	Product.create({
+		nameProduct: addProduct.nameProduct,
+		descriptionProduct: addProduct.descriptionProduct,
+		priceProduct: addProduct.priceProduct,
+		stockProduct: addProduct.stockProduct,
+		urlProduct: addProduct.urlProduct,
+	})
+	.then(response=>res.status(201).send(response));
+})
+server.post('/:idProducto/category/setCategories',(req,res)=>{
+	var cat;
+	Category.findAll({where:{id:{[Op.in]:req.body}}})
+	.then(resp=>{
+		cat=resp;
+	})
+	Product.findByPk(req.params.idProducto)
+	.then(resp=>{
+		resp.setCategories(cat)
+		res.send('se deleteo todo')
+	})
+})
 server.get("/:id", (req, res) => {
   let id = req.params.id;
   Product.findAll({
@@ -73,7 +97,7 @@ server.get("/category/:nombreCat", function (req, res, next) {
             },
           ],
         });
-      }
+      } 
     })
     .then(function (products) {
       if (!products) {

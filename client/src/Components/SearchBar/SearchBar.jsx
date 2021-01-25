@@ -30,16 +30,17 @@ export class SearchBar extends Component {
       <div>
         <form className="form-container" onSubmit={(e) => this.handleSubmit(e)}>
           <div>
-            <label className="label" htmlFor="searchKeywords">Products: </label>
+            {/* <label className="label" htmlFor="searchKeywords">Buscar: </label> */}
             <input
               type="text"
               id="searchBar"
               autoComplete="off"
               value={searchKeywords}
               onChange={(e) => this.handleChange(e)}
+              className='form-control form-control-sm'
             />
           </div>
-          <button type="submit" >BUSCAR</button>
+          <button type="submit" className="my-2 btn btn-sm btn-secondary btn-block">BUSCAR</button>
         </form>
       </div>
     );
