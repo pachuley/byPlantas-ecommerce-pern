@@ -58,59 +58,60 @@ const FormProduct = (props) => {
 
   return (
    
-      <form onSubmit={handleSubmit}>
-    <div>
-      <label>name</label>
-     <input 
-     type="text"
-     name="nameProduct"
-     className="form-control mb-2"
-     placeholder="Ingrese Producto"
-     onChange={handleInputChange}
-     value={producto.nameProduct}
-     />
-    <label>Descripción</label>
-     <input 
-     type="text"
-     name="descriptionProduct"
-     className="form-control mb-2"
-     placeholder="Ingrese Descripción"
-     onChange={handleInputChange}
-     value={producto.descriptionProduct}
-     />
-     <label>Precio</label>
-     <input
-     type="number"
-     name="priceProduct"
-     className="form-control mb-2"
-     placeholder="Ingrese precio"
-     onChange={handleInputChange}
-     value={producto.priceProduct}
-     />
-      <label>Stock</label>
-     <input
-     type="number"
-     name="stockProduct"
-     placeholder="Ingrese Stock"
-     className="form-control mb-2"
-     onChange={handleInputChange}
-     value={producto.stockProduct}
-     />
-     </div>
-     <label>Categories</label>
-     <div className='d-flex justify-content-around flex-wrap'>
-      {categories.map((x,index)=>{
-        return(
-          <div key={index}>
-            <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onClick={handleClick}/>
-            <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
-          </div>
-        )
-      })}
-     </div>
-       
-     <button className="btn btn-primary btn-block" type="submit">Agregar</button>
-      </form>
+    <form onSubmit={handleSubmit}>
+      <div className='container'>
+        <div>
+          <label>Nombre</label>
+            <input 
+              type="text"
+              name="nameProduct"
+              className="form-control mb-2"
+              placeholder="Ingrese Producto"
+              onChange={handleInputChange}
+              value={producto.nameProduct}
+            />
+          <label>Descripción</label>
+            <input 
+              type="text"
+              name="descriptionProduct"
+              className="form-control mb-2"
+              placeholder="Ingrese Descripción"
+              onChange={handleInputChange}
+              value={producto.descriptionProduct}
+            />
+          <label>Precio</label>
+            <input
+              type="number"
+              name="priceProduct"
+              className="form-control mb-2"
+              placeholder="Ingrese precio"
+              onChange={handleInputChange}
+              value={producto.priceProduct}
+            />
+          <label>Stock</label>
+            <input
+              type="number"
+              name="stockProduct"
+              placeholder="Ingrese Stock"
+              className="form-control mb-2"
+              onChange={handleInputChange}
+              value={producto.stockProduct}
+            />
+        </div>
+      <div>
+        <label>Categorias</label>
+          {categories.map((x,index)=>{
+            return(
+              <div key={index}>
+                <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onClick={handleClick}/>
+                <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
+              </div>
+            )
+          })}
+      </div> 
+      <button className="btn btn-primary btn-block" type="submit">Agregar</button>
+    </div>
+  </form>
   )
 }
 
