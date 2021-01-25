@@ -12,30 +12,55 @@ server.get("/", (req, res, next) => {
     .catch(next);
 });
 server.get("/search", (req, res, next) => {
-  const { product } = req.query;
+  const product = req.query.query;
+  console.log(product)
   Product.findAll({
     where: {
       [Op.or]: [
         {
-          name: {
+          nameProduct: {
             [Op.iLike]: `%${product}%`,
           },
         },
         {
-          description: {
+          descriptionProduct: {
             [Op.iLike]: `%${product}%`,
           },
         },
       ],
     },
   })
-    .then((product) => {
-      res.send(product);
+    .then((response) => {
+      res.status(200).json(response);
     })
     .catch((err) => {
       return res.send("no se encontraron match").status(400);
     });
 });
+// ---Rutas POST--- //
+server.post('/', (req, res) =>{
+	const addProduct = req.body;
+	Product.create({
+		nameProduct: addProduct.nameProduct,
+		descriptionProduct: addProduct.descriptionProduct,
+		priceProduct: addProduct.priceProduct,
+		stockProduct: addProduct.stockProduct,
+		urlProduct: addProduct.urlProduct,
+	})
+	.then(response=>res.status(201).send(response));
+})
+server.post('/:idProducto/category/setCategories',(req,res)=>{
+	var cat;
+	Category.findAll({where:{id:{[Op.in]:req.body}}})
+	.then(resp=>{
+		cat=resp;
+	})
+	Product.findByPk(req.params.idProducto)
+	.then(resp=>{
+		resp.setCategories(cat)
+		res.send('se deleteo todo')
+	})
+})
 server.get("/:id", (req, res) => {
   let id = req.params.id;
   Product.findAll({
@@ -72,7 +97,7 @@ server.get("/category/:nombreCat", function (req, res, next) {
             },
           ],
         });
-      }
+      } 
     })
     .then(function (products) {
       if (!products) {

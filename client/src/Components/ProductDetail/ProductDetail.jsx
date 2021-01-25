@@ -1,36 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import style from './productDetail.module.css'
+import axios from 'axios'
 
+const {REACT_APP_BACKEND_URL} = process.env;
 
-const ProductDetail = (detail) =>{
-
-// const { nameProduct, descriptionProduct, priceProduct, urlProduct, stockProduct, _id} = props;
-console.log(detail)
+const ProductDetail = ({match}) =>{
+        const [product, setProduct] = useState({})
+        useEffect(()=>{
+            getProduct()
+        }, [])
+        const getProduct = () => {
+            axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`)
+            .then(res => {
+                setProduct(res.data[0])
+            })
+        }
+        console.log(product)
     return(
-
-
-<div className="card mb-3">
-<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png" className="card-img-top" />
-<div className="card-body">
-  {/* <h5 className="card-title"> {nameProduct} </h5>
-  <p className="card-text">{descriptionProduct}</p> */}
-
-  <button type="button" className="btn btn-outline-success">Add</button>
-  <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-</div>
-</div>
-        
-
+        <div className={`mt-5`}>
+           <div className="row py-5">
+               <div className="col-4">
+                <img src={`${product.urlProduct ? product.urlProduct : ''}`} alt="" className="img-fluid"/>
+               </div>
+               <div className="col-8">
+                    <h3 className='h3'>{product.nameProduct}</h3>
+                    <hr/>
+                    <p>{product.descriptionProduct}</p>
+                    <hr/>
+                    <button className="btn btn-outline-success">Agregar al Carrito</button>
+               </div>
+           </div>
+        </div>
     )
 }
 
 
 export default ProductDetail;
-
- {/* <div className={`${style.boxes}`}>
-            <img className={`${style.img}`} src={urlProduct}/>
-            <ul>{nameProduct}</ul>
-            <ul>{descriptionProduct}</ul>
-            <ul>ARS {priceProduct}</ul>
-            <ul>{stockProduct}</ul>
-            <button onClick={()=>alert("Not so fast!")}>Add to Cart</button>
-        </div> */}

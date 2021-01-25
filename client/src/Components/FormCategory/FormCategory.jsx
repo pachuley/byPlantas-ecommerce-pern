@@ -20,14 +20,30 @@ export default function FormCategory (){
     }
 
     return(
-        <div className={styles.dadDiv}>
-            <h2>Agregar Una Categoria</h2>
-            <form onSubmit={handleSubmit}>
-                <input name='name' type='text' placeholder='Nombre...' value={category.name} onChange={handleChange}/>
-                <br />
-                <textarea name='description' placeholder='Descripcion...' value={category.description} onChange={handleChange}/>
-                <br />
-                <button type='submit'>Agregar</button>
+        <div className='container'>
+            <h2>Agregar Una Categoría</h2>
+            <form className={`needs-validation`} onSubmit={handleSubmit} novalidate>
+                <label htmlFor='inputNameCategory' className='form-label'>Nombre</label>
+                <input 
+                    id='inputNameCategory' 
+                    name='name' 
+                    className='form-control' 
+                    type='text' 
+                    placeholder='Ingrese Nombre' 
+                    value={category.name} 
+                    onChange={handleChange} 
+                    required/>
+                <label htmlFor='inputDescriptionCategory' className='form-label'>Descripción</label>
+                <textarea 
+                    id='inputDescriptionCategory' 
+                    name='description' 
+                    className='form-control' 
+                    rows="3" 
+                    placeholder='Ingrese Descripción' 
+                    value={category.description} 
+                    onChange={handleChange} 
+                    required/>
+                <button className='btn btn-primary mt-2 mb-3' type='submit'>Agregar</button>
             </form>
         </div>
     )
