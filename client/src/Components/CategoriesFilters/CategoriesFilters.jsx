@@ -8,7 +8,7 @@ const CategoriesFilter = ({categories,handleCategory,categorySelected}) => {
                 {categories.map(category => {
                     return <li  
                                 className={category.name === categorySelected ? 
-                                "list-group-item active m-0" : "list-group-item m-0"} 
+                                "list-group-item active m-0" : "list-group-item m-0 text-secondary"} 
                                 onClick={() => handleCategory(category)}
                                 key={category.id}
                             >
