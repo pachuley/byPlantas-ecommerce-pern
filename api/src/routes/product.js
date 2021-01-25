@@ -39,13 +39,14 @@ server.get("/search", (req, res, next) => {
 });
 // ---Rutas POST--- //
 server.post('/', (req, res) =>{
+  console.log(req.body)
 	const addProduct = req.body;
 	Product.create({
 		nameProduct: addProduct.nameProduct,
 		descriptionProduct: addProduct.descriptionProduct,
 		priceProduct: addProduct.priceProduct,
 		stockProduct: addProduct.stockProduct,
-		urlProduct: addProduct.urlProduct,
+		urlProduct: addProduct.imgProduct,
 	})
 	.then(response=>res.status(201).send(response));
 })
