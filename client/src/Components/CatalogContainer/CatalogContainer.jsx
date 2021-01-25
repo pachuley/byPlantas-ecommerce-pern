@@ -68,8 +68,8 @@ const CatalogContainer = () => {
             {loading ? 
                 <Spinner />
                     :
-                    <div className="container my-3">
-                        <div className="row">
+                    <div className="container my-5">
+                        <div className="row pt-5">
                             <div className={`col-3 p-2 ${style.border}`}>
                                 <FiltersContainer 
                                     categories={categories}

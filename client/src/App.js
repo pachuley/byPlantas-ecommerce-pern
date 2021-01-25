@@ -16,8 +16,8 @@ function App() {
     <>
       <NavBar />
       <Switch>
-        <Route path="/products" render={() => <CatalogContainer/>}/>
-        <Route path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
+        <Route path="/products" exact render={() => <CatalogContainer/>}/>
+        <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
         <Route path='/addProduct' exact render={() => <FormProduct/>}/>
         <Route path='/addCategory' exact render={() => <FormCategory/>}/>
       </Switch>
