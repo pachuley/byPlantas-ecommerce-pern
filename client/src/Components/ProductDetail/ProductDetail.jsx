@@ -17,7 +17,7 @@ const ProductDetail = ({match}) =>{
         }
         console.log(product)
     return(
-        <div className={`mt-5`}>
+        <div className={`mt-5 px-5`}>
            <div className="row py-5">
                <div className="col-4">
                 <img src={`${product.urlProduct ? product.urlProduct : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} alt="" className="img-fluid"/>
