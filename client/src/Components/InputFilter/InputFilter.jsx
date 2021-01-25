@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InputFilter = ({handleInputFilter}) => {
+const InputFilter = ({handleInputFilter,value}) => {
     return ( 
         <input 
             type="text"
@@ -8,6 +8,7 @@ const InputFilter = ({handleInputFilter}) => {
             name="inputSearchFilter"
             onChange={handleInputFilter}
             placeholder='Buscar producto...'
+            value={value}
         />
      );
 }
