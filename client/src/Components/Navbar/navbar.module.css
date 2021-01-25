@@ -13,3 +13,20 @@
 .liMargin {
     margin-left: 2em;
 }
+
+
+.link{
+    margin-left: 2rem;
+    color: white
+}
+.link:hover{
+    margin-left: 2rem;
+    color: lightgrey;
+    text-decoration: none;
+}
+.alink{
+    color: #59ba04;
+}
+.alink:hover{
+    color: #4da103
+}
