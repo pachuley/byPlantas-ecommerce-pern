@@ -9,6 +9,7 @@ import FormCategory from './Components/FormCategory/FormCategory'
 import ProductDetail from './Components/ProductDetail/ProductDetail'
 import NavBar from './Components/Navbar/Navbar';
 import Footer from './Ui_Components/Footer/Footer';
+import Home from './Components/Home/Home'
 
 import ProductList from './Components/ProductList/ProductsList'
 
@@ -19,6 +20,7 @@ function App() {
       <NavBar />
       <div class='masterSwitch'>
         <Switch>
+          <Route path='/' exact render={() => <Home />}/>
           <Route path="/products" exact render={() => <CatalogContainer/>}/>
           <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
           <Route path='/addProduct' exact render={() => <FormProduct/>}/>

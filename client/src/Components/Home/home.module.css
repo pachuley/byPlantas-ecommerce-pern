@@ -1,0 +1,8 @@
+.home{
+    height: 80vh;
+    background-image: linear-gradient(to right bottom,rgba(126, 213, 111, 0.7),rgba(40, 180, 133, 0.7)),url('https://images.pexels.com/photos/3872908/pexels-photo-3872908.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-size: cover;
+    background-position: top;
+    clip-path: polygon(0 0, 100% 0, 100% 70vh, 0 100%);
+
+}
