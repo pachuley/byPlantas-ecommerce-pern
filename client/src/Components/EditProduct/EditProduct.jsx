@@ -4,14 +4,26 @@ import React, {Fragment, useState, useEffect} from 'react'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
-const EditProduct = (props) => { 
+const EditProduct = ({product}) => { 
 
- const [producto, setProducto] = useState(props);
+  const [prod, setProduct ] = useState(product)
+  const handleInpedit = (e) => {
+    console.log(e.target.value)
+    setProduct({
+      ...prod,
+      [e.target.name]:e.target.value
+    })
+  } 
 
- const [products, setProducts] = useState([]);
-  
-  
-   useEffect(()=>{
+  const handleButtonEdit = (e) => {
+    let body = {...prod}
+    axios.put(`${REACT_APP_BACKEND_URL}/products/${prod.id}`,body)
+    .then(res => {
+      console.log(res)
+      window.location = '/prodlist'
+    })
+  }
+/*    useEffect(()=>{
     axios.get(`${REACT_APP_BACKEND_URL}/products`, producto)
             .then(res => {
               console.log(res)
@@ -31,13 +43,79 @@ const EditProduct = (props) => {
            setProducto(products.map((p => p.props === props)
 
            ))}
-          )}
+          )} */
             
   
  return ( 
    <Fragment>
+     
+      <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#id${product.id}`}>
+        Edit
+      </button>
+
+      
+      <div className="modal" id={`id${product.id}`}>
+        <div className="modal-dialog">
+          <div className="modal-content">
+
+            <div className="modal-header">
+              <h4 className="modal-title">Editar Producto</h4>
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div className="modal-body">
+              <input 
+                type="text" 
+                className="form-control my-2" 
+                placeholder="Nombre" 
+                onChange={(e) => handleInpedit(e)}
+                value={prod.nameProduct}
+                name='nameProduct'
+                />
+              <input 
+                type="text" 
+                className="form-control my-2" 
+                placeholder="Descripción"  
+                value={prod.descriptionProduct}
+                name='descriptionProduct'
+                onChange={(e) => handleInpedit(e)}
+                />
+              <input 
+                type="number
+                " className="form-control my-2" 
+                placeholder="Precio"  
+                value={prod.priceProduct}
+                name='priceProduct'
+                onChange={(e) => handleInpedit(e)}
+                />
+              <input 
+                type="number" 
+                className="form-control my-2" 
+                placeholder="Stock"  
+                value={prod.stockProduct}
+                name='stockProduct'
+                onChange={(e) => handleInpedit(e)}
+                />
+            </div>
+
+            <div className="modal-footer">
+              <button 
+                type="button" 
+                className="btn btn-warning" 
+                data-dismiss="modal"
+                onClick={(e)=>{handleButtonEdit(e)}}
+                >
+                Edit
+              </button>
+
+              <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
    
-<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>handleEdition(props)}>
+{/* <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={()=>handleEdition(props)}>
   Editar
 </button>
 
@@ -62,7 +140,8 @@ const EditProduct = (props) => {
       </div>
     </div>
   </div>
-</div>
+</div> */}
+
   </Fragment>
   )
 }
