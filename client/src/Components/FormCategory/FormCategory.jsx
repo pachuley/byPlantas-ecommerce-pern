@@ -16,7 +16,7 @@ export default function FormCategory (){
         e.preventDefault()
         axios.post(`${REACT_APP_BACKEND_URL}/products/category`, category)//variable del .env
         .then(resp=>{
-            ()=>alert('Categoria Agregada')
+            alert('Categoria Agregada')
             console.log(resp)
         })
         .catch(err=>{console.log(err)})
