@@ -10,6 +10,8 @@ import ProductDetail from './Components/ProductDetail/ProductDetail'
 import NavBar from './Components/Navbar/Navbar';
 import Footer from './Ui_Components/Footer/Footer';
 
+import ProductList from './Components/ProductList/ProductsList'
+
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
           <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
           <Route path='/addProduct' exact render={() => <FormProduct/>}/>
           <Route path='/addCategory' exact render={() => <FormCategory/>}/>
+          <Route path='/productslist'>
+            <ProductList />
+          </Route>
         </Switch>
       </div>
       <Footer />
