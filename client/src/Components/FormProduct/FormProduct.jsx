@@ -61,61 +61,61 @@ const FormProduct = (props) => {
 
   return (
    
-    <form className="mx-auto w-25 py-3" onSubmit={handleSubmit}>
       <div className='container'>
-        <h2 className={`text-center`}>Agregar Un Producto</h2>
-        <div>
-          <label>Nombre</label>
-            <input 
-              type="text"
-              name="nameProduct"
-              className="form-control mb-2"
-              placeholder="Ingrese Producto"
-              onChange={handleInputChange}
-              value={producto.nameProduct}
-            />
-          <label>Descripción</label>
-            <input 
-              type="text"
-              name="descriptionProduct"
-              className="form-control mb-2"
-              placeholder="Ingrese Descripción"
-              onChange={handleInputChange}
-              value={producto.descriptionProduct}
-            />
-          <label>Precio</label>
-            <input
-              type="number"
-              name="priceProduct"
-              className="form-control mb-2"
-              placeholder="Ingrese precio"
-              onChange={handleInputChange}
-              value={producto.priceProduct}
-            />
-          <label>Stock</label>
-            <input
-              type="number"
-              name="stockProduct"
-              placeholder="Ingrese Stock"
-              className="form-control mb-2"
-              onChange={handleInputChange}
-              value={producto.stockProduct}
-            />
-        </div>
-      <div>
-        <label>Categorias</label>
-          {categories.map((x,index)=>{
-            return(
-              <div key={index}>
-                <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onClick={handleClick}/>
-                <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
-              </div>
-            )
-          })}
-      </div> 
-      <button className='btn btn-primary mt-2 mb-3' type='submit'>Agregar</button>
+        <form className="mx-auto w-50 py-3" onSubmit={handleSubmit}>
+            <h2 className={`text-center`}>Agregar Un Producto</h2>
+            <div>
+              <label>Nombre</label>
+                <input 
+                  type="text"
+                  name="nameProduct"
+                  className="form-control mb-2"
+                  placeholder="Ingrese Producto"
+                  onChange={handleInputChange}
+                  value={producto.nameProduct}
+                />
+              <label>Descripción</label>
+                <input 
+                  type="text"
+                  name="descriptionProduct"
+                  className="form-control mb-2"
+                  placeholder="Ingrese Descripción"
+                  onChange={handleInputChange}
+                  value={producto.descriptionProduct}
+                />
+              <label>Precio</label>
+                <input
+                  type="number"
+                  name="priceProduct"
+                  className="form-control mb-2"
+                  placeholder="Ingrese precio"
+                  onChange={handleInputChange}
+                  value={producto.priceProduct}
+                />
+              <label>Stock</label>
+                <input
+                  type="number"
+                  name="stockProduct"
+                  placeholder="Ingrese Stock"
+                  className="form-control mb-2"
+                  onChange={handleInputChange}
+                  value={producto.stockProduct}
+                />
+            </div>
+          <div>
+            <label>Categorias</label>
+              {categories.map((x,index)=>{
+                return(
+                  <div key={index}>
+                    <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onClick={handleClick}/>
+                    <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
+                  </div>
+                )
+              })}
+          </div> 
+          <button className='btn btn-primary mt-2 mb-3' type='submit'>Agregar</button>
+      </form>
     </div>
-  </form>
   )
 }
 
