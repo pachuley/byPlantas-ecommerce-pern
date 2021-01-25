@@ -3,70 +3,91 @@ import style from './catalogContainer.module.css'
 import axios from 'axios'
 import Catalog from '../Catalog/Catalog'
 import FiltersContainer from '../FiltersContainer/FiltersContainer'
+import Spinner from '../Spinner/Spinner'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
-
+/* 
+    Componente contenedor de los filtros y el listado del catalogo
+*/
 const CatalogContainer = () => {
     const [products, setProducts] = useState([])
     const [categories, setCategories] = useState([])
     const [categorySelected, setCategorySelected] = useState('')
+    const [inpfilter, setInpfilter] = useState('')
+    const [loading, setLoading] = useState(false)
 
     useEffect(()=>{
-        axios.get(`${REACT_APP_BACKEND_URL}/category`)
-        .then(resp=>{
-            setCategories(resp.data)
-        })
-        .catch(error=>{
-
-        })
-
-        axios.get(`${REACT_APP_BACKEND_URL}/products`)
-        .then(resp=>{
-            setProducts(resp.data)
-        })
-        .catch(error=>{
-
-        })
+        getProducts()
+        getCategories()
     }, [])
+    
+    const getCategories = () => {
+        setLoading(true)
+        axios.get(`${REACT_APP_BACKEND_URL}/category`)
+            .then(res => {
+                setCategories(res.data)
+                setLoading(false)
+            })
+    }
+    const getProducts = async () => {
+        setLoading(true)
+        axios.get(`${REACT_APP_BACKEND_URL}/products`)
+            .then(res => {
+                setProducts(res.data)
+                setLoading(false)
+            })
+    }
 
     const handleCategory = (category) => {
         setCategorySelected(category.name)
     }
-
-    const listProducts = () => {
-        let arrRes = []
-        let exist = false
-        if(!categorySelected){
+    const handleInputFilter = (event) => {
+        setInpfilter(event.target.value)
+    }
+    /* (product.nameProduct.concat(product.descriptionProduct)).toLowerCase().includes(inpfilter.toLocaleLowerCase()) */
+    const productsFiltered = () => {
+        if(!categorySelected && !inpfilter){
             return products
         }
-        products.forEach(product => {
-            exist = product.categories.some (prodCat => prodCat.name === categorySelected)
-            if(exist){
-                arrRes.push(product)
-            }
+        if(!categorySelected && inpfilter){
+            return products.filter(product => 
+                (product.nameProduct.concat(product.descriptionProduct)).toLowerCase().includes(inpfilter.toLocaleLowerCase()))
+        }
+        return products.filter(product => {
+            return  product.categories.some(cat => cat.name === categorySelected) && (product.nameProduct.concat(product.descriptionProduct)).toLowerCase().includes(inpfilter.toLocaleLowerCase())
         })
-        return arrRes
+    }
+    const handleCleanFilters = () => {
+        setCategorySelected('')
+        setInpfilter('')
     }
     
     return ( 
         <Fragment>
-            <div className="container-fluid m-5">
-                <div className="row">
-                    <div className={`col-2 p-2 ${style.border}`}>
-                        <FiltersContainer 
-                            categories={categories}
-                            handleCategory={handleCategory}
-                            categorySelected={categorySelected}
-                        />
+            {loading ? 
+                <Spinner />
+                    :
+                    <div className="container my-3">
+                        <div className="row">
+                            <div className={`col-3 p-2 ${style.border}`}>
+                                <FiltersContainer 
+                                    categories={categories}
+                                    handleCategory={handleCategory}
+                                    categorySelected={categorySelected}
+                                    handleInputFilter={handleInputFilter}
+                                    handleCleanFilters={handleCleanFilters}
+                                    value={inpfilter}
+                                />
+                            </div>
+                            <div className={`col-9 p-2`}>
+                                <Catalog 
+                                    products={productsFiltered()}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className={`col-10 p-2`}>
-                        <Catalog 
-                            products={listProducts()}
-                        />
-                    </div>
-                </div>
-            </div>
+            }
         </Fragment>
      );
 }
