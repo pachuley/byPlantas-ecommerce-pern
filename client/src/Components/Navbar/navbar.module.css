@@ -1,17 +1,15 @@
-header  {
+.headerText  {
     text-decoration: none;
 }
 
-h1 {
+.h1Margin {
     margin-left: 4em;
-    color: #fffae5;
 }
 
-ul {
+.ulMargin {
     margin-right: 5em;
 }
 
-li {
+.liMargin {
     margin-left: 2em;
-    color: #fffae5;
 }

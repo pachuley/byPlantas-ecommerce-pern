@@ -58,7 +58,7 @@ const FormProduct = (props) => {
 
   return (
    
-    <form onSubmit={handleSubmit}>
+    <form className="mx-auto w-25 py-3" onSubmit={handleSubmit, ()=>alert('Producto Agregado')}>
       <div className='container'>
         <h2>Agregar Un Producto</h2>
         <div>
@@ -110,7 +110,7 @@ const FormProduct = (props) => {
             )
           })}
       </div> 
-      <button className="btn btn-primary btn-block" type="submit">Agregar</button>
+      <button className='btn btn-primary mt-2 mb-3' type='submit'>Agregar</button>
     </div>
   </form>
   )

@@ -167,12 +167,13 @@ server.delete("/:idProducto/category/:idCategoria", (req, res) => {
 });
 // ---Rutas PUT--- //
 server.put("/:id", function (req, res, next) {
+  console.log(req.body)
   let {
     nameProduct,
     descriptionProduct,
     priceProduct,
     stockProduct,
-    urlProduct,
+    /* urlProduct, */
   } = req.body;
   Product.update(
     {
@@ -180,7 +181,7 @@ server.put("/:id", function (req, res, next) {
       descriptionProduct: descriptionProduct,
       priceProduct: priceProduct,
       stockProduct: stockProduct,
-      urlProduct: urlProduct,
+      /* urlProduct: urlProduct, */
     },
     { returning: true, where: { id: req.params.id } }
   )

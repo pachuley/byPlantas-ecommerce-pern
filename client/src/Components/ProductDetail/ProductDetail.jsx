@@ -20,14 +20,14 @@ const ProductDetail = ({match}) =>{
         <div className={`mt-5`}>
            <div className="row py-5">
                <div className="col-4">
-                <img src={`${product.urlProduct ? product.urlProduct : ''}`} alt="" className="img-fluid"/>
+                <img src={`${product.urlProduct ? product.urlProduct : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} alt="" className="img-fluid"/>
                </div>
                <div className="col-8">
                     <h3 className='h3'>{product.nameProduct}</h3>
                     <hr/>
                     <p>{product.descriptionProduct}</p>
                     <hr/>
-                    <button className="btn btn-outline-success">Agregar al Carrito</button>
+                    <button className="btn btn-outline-success" onClick={()=> alert("New feature available soon")}>Agregar al Carrito</button>
                </div>
            </div>
         </div>
