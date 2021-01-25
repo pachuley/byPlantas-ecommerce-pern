@@ -15,12 +15,14 @@ function App() {
   return (
     <>
       <NavBar />
-      <Switch>
-        <Route path="/products" exact render={() => <CatalogContainer/>}/>
-        <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
-        <Route path='/addProduct' exact render={() => <FormProduct/>}/>
-        <Route path='/addCategory' exact render={() => <FormCategory/>}/>
-      </Switch>
+      <div class='masterSwitch'>
+        <Switch>
+          <Route path="/products" exact render={() => <CatalogContainer/>}/>
+          <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
+          <Route path='/addProduct' exact render={() => <FormProduct/>}/>
+          <Route path='/addCategory' exact render={() => <FormCategory/>}/>
+        </Switch>
+      </div>
       <Footer />
     </>
   );
