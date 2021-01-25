@@ -1,5 +1,5 @@
-header {
-    background-color: #507b00;
+header  {
+    text-decoration: none;
 }
 
 h1 {
@@ -13,4 +13,5 @@ ul {
 
 li {
     margin-left: 2em;
+    color: #fffae5;
 }
