@@ -14,7 +14,6 @@ const List = (props) => {
   });
   const [products, setProducts] = useState([]);
   
-  
 
    useEffect(()=>{
     axios.get(`${REACT_APP_BACKEND_URL}/products`, producto)
@@ -32,11 +31,12 @@ const List = (props) => {
         console.log(id)
         axios.delete(`${REACT_APP_BACKEND_URL}/products/${id}`)
           .then(res =>{
-            console.log('se elimino')
+      alert('se elimino')
             setProducts(products.filter(p => p.id !== id))
           })
       }
 
+  
     return (
         <div className="container">
            
@@ -62,7 +62,7 @@ const List = (props) => {
                        <td>{p.descriptionProduct}</td>
                        <td>{p.priceProduct}</td>
                        <td>{p.stockProduct}</td>
-                         <td><EditProduct producto={p}/></td>
+                       <td><EditProduct producto={p}/></td>
       
                        <td><button type="button" className="btn btn-danger" onClick={()=>handleDelete(p.id)}>Eliminar</button></td>
                        </tr>

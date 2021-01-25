@@ -51,8 +51,8 @@ const EditProduct = (props) => {
       <div className="modal-body">
         <form>
           <input type="text" name="nameProduct" placeholder="Ingrese Producto"/>
-          <input type="text" name="descriptionProduct" placeholder="Ingrese Producto"/>
-          <input type="text" name="priceProduct" placeholder="Ingrese Descripción"/>
+          <input type="text" name="descriptionProduct" placeholder="Ingrese Descripción"/>
+          <input type="text" name="priceProduct" placeholder="Ingrese Precio"/>
           <input type="text" name="stockProduct" placeholder="Ingrese Stock"/>
         </form>
       </div>
