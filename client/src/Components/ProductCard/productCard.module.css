@@ -1,4 +1,4 @@
-.boxes{
+/*.boxes{
     background-color: rgb(27, 141, 135);
     border: 1 solid black;
     padding: 10px;
@@ -10,9 +10,16 @@
     justify-content: center;
     border-radius: 2%;
     color: white;
-}
+}*/
 
 .img{
-    height: 150px;
-    width: 150px;
+    height: 7em;
+}
+
+.cardContainer {
+    width: 10em;
+}
+
+.textContainer {
+    padding: 0;
 }
