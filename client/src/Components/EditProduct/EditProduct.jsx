@@ -20,7 +20,7 @@ const EditProduct = ({product}) => {
     axios.put(`${REACT_APP_BACKEND_URL}/products/${prod.id}`,body)
     .then(res => {
       console.log(res)
-      window.location = '/prodlist'
+      window.location = '/productslist'
     })
   }
             
