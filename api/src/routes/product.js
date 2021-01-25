@@ -80,12 +80,13 @@ server.get("/category/:nombreCat", async function (req, res, next) {
     res.status(200).json({
       data: { count: prod.length, rows: prod },
     });
-  } catch (err) {
+  } catch (error) {
     return res
       .json({
         status: "success",
+        message: error.message,
       })
-      .status(500);
+      .status(400);
   }
 });
 // -------------------------- Rutas POST -------------------------- //
@@ -106,7 +107,10 @@ server.post("/:idProducto/category/setCategories", async (req, res) => {
     });
     const prod = await Product.findByPk(req.params.idProducto);
     prod.setCategories(cat);
-    res.send("se seteo correctamente la categoria");
+    res.json({
+      status: "success",
+      message: "se seteo correctamente la categoria",
+    });
   } catch (error) {
     res.status(400).json({
       status: "error",
@@ -125,21 +129,24 @@ server.post("/:idProducto/category/:idCategoria", (req, res) => {
   });
 });
 // -------------------------- Rutas DELETE -------------------------- //
-server.delete("/:id", async (req, res) => {
-  try {
-    let id = await req.params.id;
-    let val = await Product.destroy({
-      where: { id: id },
+server.delete("/:id", (req, res) => {
+  let id = req.params.id;
+  Product.destroy({
+    where: { id: id },
+  })
+    .then((result) => {
+      if (result) {
+        res.redirect(200, "/products");
+      } else {
+        throw new Error("No se encontro un producto con ede Id");
+      }
+    })
+    .catch((error) => {
+      res.status(400).json({
+        status: "error",
+        message: error.message,
+      });
     });
-    if (val) {
-      res.redirect(200, "/products");
-    }
-  } catch (error) {
-    res.status(400).json({
-      status: "error",
-      message: error.message,
-    });
-  }
 });
 
 server.delete("/:idProducto/category/:idCategoria", async (req, res) => {
@@ -147,7 +154,6 @@ server.delete("/:idProducto/category/:idCategoria", async (req, res) => {
     const cat = await Category.findByPk(req.params.idCategoria);
     const product = await Product.findByPk(req.params.idProducto);
     product.removeCategory(cat, { through: { selfGranted: false } });
-    console.log(cat);
     if (cat !== null) {
       res.status(200).json({
         status: "success",
@@ -159,7 +165,7 @@ server.delete("/:idProducto/category/:idCategoria", async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: "error",
-      message: "No coincide con ninguna categoria",
+      message: error.message,
     });
   }
 });
