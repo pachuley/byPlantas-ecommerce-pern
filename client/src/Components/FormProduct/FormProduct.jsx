@@ -60,7 +60,7 @@ const FormProduct = (props) => {
    
     <form className="mx-auto w-25 py-3" onSubmit={handleSubmit, ()=>alert('Producto Agregado')}>
       <div className='container'>
-        <h2>Agregar Un Producto</h2>
+        <h2 className={`text-center`}>Agregar Un Producto</h2>
         <div>
           <label>Nombre</label>
             <input 
