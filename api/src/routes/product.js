@@ -97,7 +97,7 @@ server.get("/category/:nombreCat", function (req, res, next) {
             },
           ],
         });
-      }
+      } 
     })
     .then(function (products) {
       if (!products) {
