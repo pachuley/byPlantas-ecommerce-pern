@@ -46,7 +46,7 @@ const FormProduct = (props) => {
       prodId = res.data.id;
       axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/setCategories`,checks)
       .then(resp=>{
-        ()=>alert('Producto Agregado')
+        alert('Producto Agregado')
         console.log(resp)
       })
     })
