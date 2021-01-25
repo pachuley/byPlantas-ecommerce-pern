@@ -43,6 +43,7 @@ const EditProduct = ({product}) => {
             </div>
 
             <div className="modal-body">
+              <label>Nombre</label>
               <input 
                 type="text" 
                 className="form-control my-2" 
@@ -51,6 +52,7 @@ const EditProduct = ({product}) => {
                 value={prod.nameProduct}
                 name='nameProduct'
                 />
+              <label>Descripción</label>
               <input 
                 type="text" 
                 className="form-control my-2" 
@@ -59,6 +61,7 @@ const EditProduct = ({product}) => {
                 name='descriptionProduct'
                 onChange={(e) => handleInpedit(e)}
                 />
+              <label>Precio</label>
               <input 
                 type="number
                 " className="form-control my-2" 
@@ -67,6 +70,7 @@ const EditProduct = ({product}) => {
                 name='priceProduct'
                 onChange={(e) => handleInpedit(e)}
                 />
+              <label>Stock</label>
               <input 
                 type="number" 
                 className="form-control my-2" 
