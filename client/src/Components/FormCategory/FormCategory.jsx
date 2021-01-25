@@ -21,25 +21,25 @@ export default function FormCategory (){
 
     return(
         <div className='container'>
-            <h2>Agregar Una Categoria</h2>
+            <h2>Agregar Una Categoría</h2>
             <form className={`needs-validation`} onSubmit={handleSubmit} novalidate>
-                <label htmlFor='inputNameCategory' className='form-label'>Ingrese Un Nombre</label>
+                <label htmlFor='inputNameCategory' className='form-label'>Nombre</label>
                 <input 
                     id='inputNameCategory' 
                     name='name' 
                     className='form-control' 
                     type='text' 
-                    placeholder='Nombre...' 
+                    placeholder='Ingrese Nombre' 
                     value={category.name} 
                     onChange={handleChange} 
                     required/>
-                <label htmlFor='inputDescriptionCategory' className='form-label'>Ingrese Una Description</label>
+                <label htmlFor='inputDescriptionCategory' className='form-label'>Descripción</label>
                 <textarea 
                     id='inputDescriptionCategory' 
                     name='description' 
                     className='form-control' 
                     rows="3" 
-                    placeholder='Descripcion...' 
+                    placeholder='Ingrese Descripción' 
                     value={category.description} 
                     onChange={handleChange} 
                     required/>

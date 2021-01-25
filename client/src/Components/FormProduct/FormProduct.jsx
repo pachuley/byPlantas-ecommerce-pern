@@ -60,6 +60,7 @@ const FormProduct = (props) => {
    
     <form onSubmit={handleSubmit}>
       <div className='container'>
+        <h2>Agregar Un Producto</h2>
         <div>
           <label>Nombre</label>
             <input 
