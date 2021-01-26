@@ -4,7 +4,6 @@ const { User } = require("../db.js");
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 
-
 server.use(bodyParser.urlencoded({extended: false}));
 server.use(bodyParser.json());
 
@@ -16,6 +15,7 @@ server.get('/', (req,res,next ) => {
                 res.status(200).json(users)
             })
         .catch(next)
+});
  
 server.post('/register', async (req, res) => {
     try {
@@ -40,15 +40,13 @@ server.post('/register', async (req, res) => {
 
 server.put('/:id', async (req, res) => {
     try {
-        console.log(req.body)
         const {email, password} = req.body;
         const encryptedPassword = await bcrypt.hash(password, 10);
-        console.log(email)
         await User.update({
             email: email, 
             encryptedPassword: encryptedPassword
-        });  
-        console.log(email)
+        }, { returning: true, where: { id: req.params.id } 
+    });  
         res.status(201).json('Usuario modificado');
     } catch(e) {
         if(e.parent.code === '23505') {
@@ -57,8 +55,6 @@ server.put('/:id', async (req, res) => {
             res.status(500).json('Algo está mal');
         }
     }
-
 });
-
 
 module.exports = server;
