@@ -1,3 +1,4 @@
+
 const server = require("express").Router();
 const { User } = require("../db.js");
 const bodyParser = require('body-parser');
@@ -8,6 +9,14 @@ server.use(bodyParser.urlencoded({extended: false}));
 server.use(bodyParser.json());
 
 // Routes
+  // GET: /users
+server.get('/', (req,res,next ) => {
+    Users.findAll()
+        .then(users => {
+                res.status(200).json(users)
+            })
+        .catch(next)
+ 
 server.post('/register', async (req, res) => {
     try {
         const {email, password} = req.body;
@@ -30,6 +39,7 @@ server.post('/register', async (req, res) => {
             res.status(500).json('Algo está mal');
         }
     }
+
 });
 
 
