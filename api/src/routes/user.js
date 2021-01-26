@@ -20,15 +20,14 @@ server.post('/register', async (req, res) => {
         await User.create({
             email: email, 
             encryptedPassword: encryptedPassword
-        });
-    
-        res.status(200).json('Gracias por registrarse!');
+        });   
+        res.status(201).json('Gracias por registrarse!');
     } catch(e) {
         console.log(e.parent.code)
         if(e.parent.code === '23505') {
-            res.status(400).json('Un usuario con ese email ya existe');
+            res.status(409).json('Un usuario con ese email ya existe');
         } else {
-            res.status(400).json('Algo está mal');
+            res.status(500).json('Algo está mal');
         }
     }
 });
