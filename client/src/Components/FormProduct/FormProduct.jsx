@@ -41,6 +41,7 @@ const FormProduct = (props) => {
   const handleSubmit = (e) =>{
     e.preventDefault()
     var prodId;
+    console.log(producto)
     axios.post(`${REACT_APP_BACKEND_URL}/products`, producto)
     .then(res => {
       prodId = res.data.id;
@@ -100,6 +101,15 @@ const FormProduct = (props) => {
                   className="form-control mb-2"
                   onChange={handleInputChange}
                   value={producto.stockProduct}
+                />
+                <label>Url imagen</label>
+                <input
+                  type="text"
+                  name="imgProduct"
+                  placeholder="Url"
+                  className="form-control mb-2"
+                  onChange={handleInputChange}
+                  value={producto.urlProduct}
                 />
             </div>
           <div>
