@@ -1,17 +1,45 @@
-const server = require('express')
-const Sequelize = require('sequelize');
-const {users} = require('../db')
-const {response } = require('../app.js');
+
+const server = require("express").Router();
+const { User } = require("../db.js");
+const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 
-// --- Rutas GET --- 
+server.use(bodyParser.urlencoded({extended: false}));
+server.use(bodyParser.json());
 
+// Routes
+  // GET: /users
 server.get('/', (req,res,next ) => {
     Users.findAll()
         .then(users => {
                 res.status(200).json(users)
             })
         .catch(next)
+ 
+server.post('/register', async (req, res) => {
+    try {
+        const {email, password} = req.body;
+        if (!email || !password) {
+            res.status(400).json(`Por favor introduce tu ${!email ? "email" : 'password'}!`)
+        }
+        console.log(password)
+        const encryptedPassword = await bcrypt.hash(password, 10);
+        console.log(encryptedPassword)
+        await User.create({
+            email: email, 
+            encryptedPassword: encryptedPassword
+        });   
+        res.status(201).json('Gracias por registrarse!');
+    } catch(e) {
+        console.log(e.parent.code)
+        if(e.parent.code === '23505') {
+            res.status(409).json('Un usuario con ese email ya existe');
+        } else {
+            res.status(500).json('Algo está mal');
+        }
+    }
+
 });
 
 
