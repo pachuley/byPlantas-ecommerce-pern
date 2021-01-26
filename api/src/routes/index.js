@@ -8,6 +8,6 @@ const router = Router();
 // router.use('/auth', authRouter);
 router.use('/products', require('./product.js'));
 router.use('/category', require('./category.js'))
-router.use('/user', require('./user.js'))
+router.use('/users', require('./users.js'))
 
 module.exports = router;
