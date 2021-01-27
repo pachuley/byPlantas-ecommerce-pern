@@ -1,11 +1,6 @@
-
 const server = require("express").Router();
 const { User } = require("../db.js");
-const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
-
-server.use(bodyParser.urlencoded({extended: false}));
-server.use(bodyParser.json());
 
 // Routes
   // GET: /users
