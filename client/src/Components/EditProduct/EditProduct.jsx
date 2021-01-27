@@ -49,16 +49,16 @@ const EditProduct = ({product}) => {
                 className="form-control my-2" 
                 placeholder="Nombre" 
                 onChange={(e) => handleInpedit(e)}
-                value={prod.nameProduct}
-                name='nameProduct'
+                value={prod.name}
+                name='name'
                 />
               <label>Descripción</label>
               <input 
                 type="text" 
                 className="form-control my-2" 
                 placeholder="Descripción"  
-                value={prod.descriptionProduct}
-                name='descriptionProduct'
+                value={prod.description}
+                name='description'
                 onChange={(e) => handleInpedit(e)}
                 />
               <label>Precio</label>
@@ -66,8 +66,8 @@ const EditProduct = ({product}) => {
                 type="number
                 " className="form-control my-2" 
                 placeholder="Precio"  
-                value={prod.priceProduct}
-                name='priceProduct'
+                value={prod.price}
+                name='price'
                 onChange={(e) => handleInpedit(e)}
                 />
               <label>Stock</label>
@@ -75,8 +75,8 @@ const EditProduct = ({product}) => {
                 type="number" 
                 className="form-control my-2" 
                 placeholder="Stock"  
-                value={prod.stockProduct}
-                name='stockProduct'
+                value={prod.stock}
+                name='stock'
                 onChange={(e) => handleInpedit(e)}
                 />
             </div>

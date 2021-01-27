@@ -5,10 +5,10 @@ const {REACT_APP_BACKEND_URL} = process.env;
 
 const FormProduct = (props) => {
   const [producto, setProducto] = useState({
-      nameProduct:"",
-      descriptionProduct:"",
-      priceProduct:"",
-      stockProduct :""
+      name:"",
+      description:"",
+      price:"",
+      stock :""
   })
   const [categories, setCategories] = useState([])
   const [checks, setChecks] = useState([])
@@ -69,38 +69,38 @@ const FormProduct = (props) => {
               <label>Nombre</label>
                 <input 
                   type="text"
-                  name="nameProduct"
+                  name="name"
                   className="form-control mb-2"
                   placeholder="Ingrese Producto"
                   onChange={handleInputChange}
-                  value={producto.nameProduct}
+                  value={producto.name}
                 />
               <label>Descripción</label>
                 <input 
                   type="text"
-                  name="descriptionProduct"
+                  name="description"
                   className="form-control mb-2"
                   placeholder="Ingrese Descripción"
                   onChange={handleInputChange}
-                  value={producto.descriptionProduct}
+                  value={producto.description}
                 />
               <label>Precio</label>
                 <input
                   type="number"
-                  name="priceProduct"
+                  name="price"
                   className="form-control mb-2"
                   placeholder="Ingrese precio"
                   onChange={handleInputChange}
-                  value={producto.priceProduct}
+                  value={producto.price}
                 />
               <label>Stock</label>
                 <input
                   type="number"
-                  name="stockProduct"
+                  name="stock"
                   placeholder="Ingrese Stock"
                   className="form-control mb-2"
                   onChange={handleInputChange}
-                  value={producto.stockProduct}
+                  value={producto.stock}
                 />
                 <label>Url imagen</label>
                 <input
@@ -109,7 +109,7 @@ const FormProduct = (props) => {
                   placeholder="Url"
                   className="form-control mb-2"
                   onChange={handleInputChange}
-                  value={producto.urlProduct}
+                  value={producto.imgs}
                 />
             </div>
           <div>

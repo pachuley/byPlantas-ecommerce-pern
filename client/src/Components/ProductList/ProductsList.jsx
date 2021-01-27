@@ -51,10 +51,10 @@ const ProductsList = (props) => {
                        products.map((p)=>{
                         return(
                                 <tr>
-                                  <td>{p.nameProduct}</td>
-                                  <td>{p.descriptionProduct}</td>
-                                  <td>{p.priceProduct}</td>
-                                  <td>{p.stockProduct}</td>
+                                  <td>{p.name}</td>
+                                  <td>{p.description}</td>
+                                  <td>{p.price}</td>
+                                  <td>{p.stock}</td>
                                   <td>
                                     <EditProduct product={p}/>
                                   </td>

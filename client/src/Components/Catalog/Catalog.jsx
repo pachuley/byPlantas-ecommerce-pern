@@ -1,4 +1,3 @@
-
 import React, {useState, useEffect} from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import axios from 'axios';
@@ -17,19 +16,17 @@ const Catalog = ({products}) => {
                     <ProductCard
                     key={product.id}
                     id = {product.id}
-                    nameProduct = {product.nameProduct}
-                    descriptionProduct = {product.descriptionProduct}
-                    priceProduct = {product.priceProduct}
-                    stockProducts = {product.stockProduct}
-                    urlProduct = {product.urlProduct}
+                    name = {product.name}
+                    description = {product.description}
+                    price = {product.price}
+                    stock = {product.stock}
+                    imgs = {product.imgs}
                     />
                 </div>
-                    )}
-
+                )}
             </div>
         </div>
     )
-
 }
 
 export default Catalog;

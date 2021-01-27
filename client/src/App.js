@@ -1,18 +1,14 @@
 import React from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
 import {Switch, Route} from 'react-router-dom'
-
 import CatalogContainer from './Components/CatalogContainer/CatalogContainer'
 import FormProduct from './Components/FormProduct/FormProduct'
 import FormCategory from './Components/FormCategory/FormCategory'
 import ProductDetail from './Components/ProductDetail/ProductDetail'
-import NavBar from './Components/Navbar/Navbar';
+import NavBar from './Ui_Components/Navbar/Navbar';
 import Footer from './Ui_Components/Footer/Footer';
 import Home from './Components/Home/Home'
-
 import ProductList from './Components/ProductList/ProductsList'
-
 
 function App() {
   return (

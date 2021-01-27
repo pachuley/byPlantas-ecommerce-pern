@@ -45,17 +45,17 @@ const CatalogContainer = () => {
     const handleInputFilter = (event) => {
         setInpfilter(event.target.value)
     }
-    /* (product.nameProduct.concat(product.descriptionProduct)).toLowerCase().includes(inpfilter.toLocaleLowerCase()) */
+    /* (product.name.concat(product.description)).toLowerCase().includes(inpfilter.toLocaleLowerCase()) */
     const productsFiltered = () => {
         if(!categorySelected && !inpfilter){
             return products
         }
         if(!categorySelected && inpfilter){
             return products.filter(product => 
-                (product.nameProduct.concat(product.descriptionProduct)).toLowerCase().includes(inpfilter.toLocaleLowerCase()))
+                (product.name.concat(product.description)).toLowerCase().includes(inpfilter.toLocaleLowerCase()))
         }
         return products.filter(product => {
-            return  product.categories.some(cat => cat.name === categorySelected) && (product.nameProduct.concat(product.descriptionProduct)).toLowerCase().includes(inpfilter.toLocaleLowerCase())
+            return  product.categories.some(cat => cat.name === categorySelected) && (product.name.concat(product.description)).toLowerCase().includes(inpfilter.toLocaleLowerCase())
         })
     }
     const handleCleanFilters = () => {
