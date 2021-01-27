@@ -10,7 +10,7 @@ server.use(bodyParser.json());
 // Routes
   // GET: /users
 server.get('/', (req,res,next ) => {
-    Users.findAll()
+    User.findAll()
         .then(users => {
                 res.status(200).json(users)
             })
