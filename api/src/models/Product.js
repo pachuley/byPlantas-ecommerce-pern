@@ -6,28 +6,28 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   const Product = sequelize.define('product', {
-    nameProduct: {
+
+    name: {
       type: DataTypes.TEXT,
       allowNull: false,
       unique:true
-
     },
-    descriptionProduct: {
+    description: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    priceProduct: {
+    price: {
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    stockProduct: {
+    stock: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    urlProduct: {
+    imgs: {
       type: DataTypes.TEXT,
       // validate:{
-      //   isUrl:true
+      // isUrl:true
       // }
     },
   });
