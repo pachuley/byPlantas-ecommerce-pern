@@ -86,7 +86,6 @@ server.get("/category/:nombreCat", function (req, res, next) {
       if (categories === null) {
         return;
       } else {
-        console.log("cat ", categories.id);
         return Product.findAll({
           include: [
             {
