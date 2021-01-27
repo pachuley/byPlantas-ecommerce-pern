@@ -19,5 +19,22 @@ server.put('/:id', (req,res,next) => {
 })
 
 
+server.post('/:userId/cart', (req, res) => {
+
+   Order.findOne({ 
+           where: { 
+               userId: req.params.idUser, 
+               status: "cart" 
+            } 
+        })
+        .then((r) => {
+            r.addProduct({ 
+                productId: req.body.productId,
+                userId: req.params.idUser,
+                quantity: req.body.quantity,
+                price: req.body.price
+             })
+         })
+     })
 
 module.exports = server
