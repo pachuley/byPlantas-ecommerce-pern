@@ -18,12 +18,12 @@ server.get("/search", (req, res, next) => {
     where: {
       [Op.or]: [
         {
-          nameProduct: {
+          name: {
             [Op.iLike]: `%${product}%`,
           },
         },
         {
-          descriptionProduct: {
+          description: {
             [Op.iLike]: `%${product}%`,
           },
         },
@@ -42,11 +42,11 @@ server.post('/', (req, res) =>{
   console.log(req.body)
 	const addProduct = req.body;
 	Product.create({
-		nameProduct: addProduct.nameProduct,
-		descriptionProduct: addProduct.descriptionProduct,
-		priceProduct: addProduct.priceProduct,
-		stockProduct: addProduct.stockProduct,
-		urlProduct: addProduct.imgProduct,
+		name: addProduct.name,
+		description: addProduct.description,
+		price: addProduct.price,
+		stock: addProduct.stock,
+		imgs: addProduct.imgProduct, // Que es imgProduct?
 	})
 	.then(response=>res.status(201).send(response));
 })
@@ -123,11 +123,11 @@ server.get("/category/:nombreCat", function (req, res, next) {
 server.post("/", (req, res) => {
   const addProduct = req.body;
   Product.create({
-    nameProduct: addProduct.nameProduct,
-    descriptionProduct: addProduct.descriptionProduct,
-    priceProduct: addProduct.priceProduct,
-    stockProduct: addProduct.stockProduct,
-    urlProduct: addProduct.urlProduct,
+    name: addProduct.name,
+    description: addProduct.description,
+    price: addProduct.price,
+    stock: addProduct.stock,
+    imgs: addProduct.imgs,
   }).then((response) => res.status(201).send(response));
 });
 server.post("/:idProducto/category/:idCategoria", (req, res) => {
@@ -170,19 +170,19 @@ server.delete("/:idProducto/category/:idCategoria", (req, res) => {
 server.put("/:id", function (req, res, next) {
   console.log(req.body)
   let {
-    nameProduct,
-    descriptionProduct,
-    priceProduct,
-    stockProduct,
-    /* urlProduct, */
+    name,
+    description,
+    price,
+    stock,
+    /* imgs, */
   } = req.body;
   Product.update(
     {
-      nameProduct: nameProduct,
-      descriptionProduct: descriptionProduct,
-      priceProduct: priceProduct,
-      stockProduct: stockProduct,
-      /* urlProduct: urlProduct, */
+      name: name,
+      description: description,
+      price: price,
+      stock: stock,
+      /* imgs: imgs, */
     },
     { returning: true, where: { id: req.params.id } }
   )
