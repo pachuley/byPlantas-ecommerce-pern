@@ -10,6 +10,7 @@ const router = Router();
 router.use('/products', require('./product.js'));
 router.use('/category', require('./category.js'))
 router.use('/user', require('./user.js'))
+router.use('/orders', require('./order.js'))
 
 
 module.exports = router;
