@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { User } = require("../db.js");
+const { User, Order } = require("../db.js");
 const bcrypt = require('bcryptjs');
 
 // Routes
@@ -25,7 +25,12 @@ server.post('/register', async (req, res) => {
         await User.create({
             email: email, 
             encryptedPassword: encryptedPassword
-        });   
+        });
+
+        await Order.create({
+            status: "active"
+        })
+        console.log("cree la orden")
         res.status(201).json('Gracias por registrarse!');
     } catch(e) {
         if(e.parent.code === '23505') {
