@@ -18,7 +18,10 @@ server.post('/register', async (req, res) => {
         if (!email || !password) {
             res.status(400).json(`Por favor introduce tu ${!email ? "email" : 'password'}!`)
         }
-        const encryptedPassword = await bcrypt.hash(password, 10);
+
+        const saltHash = await bcrypt.genSalt(10);
+        const encryptedPassword = await bcrypt.hash(password, saltHash);
+        
         await User.create({
             email: email, 
             encryptedPassword: encryptedPassword
@@ -33,10 +36,40 @@ server.post('/register', async (req, res) => {
     }
 });
 
+server.post('/login', async (req, res) => {
+    try {
+        const {email, password} = req.body;
+        if (!email || !password) {
+            res.status(400).json(`Por favor introduce tu ${!email ? "email" : 'password'}!`)
+        }
+
+        const user = await User.findOne({
+            where: {email: email}
+        });
+
+        if(user) {
+            const validPassword = await bcrypt.compareSync(password, user.encryptedPassword);
+            if(validPassword) {
+                res.status(200).json('Email y contraseña correctos');
+            } else {
+                res.status(400).json('Contraseña equivocada!');
+            }
+        } else {
+            res.status(404).json('Usuario no encontrado');
+        }
+    } catch(e) {
+        console.log(e)
+        res.status(500).json('Something broke!');
+    }
+});
+
+
 server.put('/:id', async (req, res) => {
     try {
         const {email, password} = req.body;
-        const encryptedPassword = await bcrypt.hash(password, 10);
+        const salt = bcrypt.genSalt(10);
+        const encryptedPassword = await bcrypt.hash(password, salt);
+        
         await User.update({
             email: email, 
             encryptedPassword: encryptedPassword

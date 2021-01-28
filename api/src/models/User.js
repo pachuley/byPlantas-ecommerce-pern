@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       },
     },
     encryptedPassword: {
-      type: DataTypes.BLOB,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   });

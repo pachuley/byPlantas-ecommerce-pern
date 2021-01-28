@@ -11,8 +11,8 @@ module.exports = (sequelize) => {
         allowNull: false,
     },
     status: {
-        type: DataTypes.ENUM('cart', 'created', 'processing', 'canceled', 'complete'),
-        defaultValue:"cart",
+        type: DataTypes.ENUM('active', 'processing', 'canceled', 'complete'),
+        defaultValue:"active",
         allowNull: false
       },
   });
