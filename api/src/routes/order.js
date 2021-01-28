@@ -37,24 +37,20 @@ server.post('/:userId/cart', (req, res) => {
          })
      })
 
-// S44 : Crear ruta que retorne todas las ordenes
-// GET /orders
-server.get('/', (req, res, next) => {
-    // Crear ruta que retorne todas las ordenes
-    Order.findAll()
-    .then(result => {
-        res.status(201).json(resutl)
-    })
-    .then(resultStatus => {
-        // Esta ruta puede recibir el query string status y deberá 
-        Order.findAll({ where: { status: req.query.status } })
-        // devolver sólo las ordenes con ese status.
-            .then(resultStatus => { res.status(201).json(orders)})
-            .chat(error => res.send(201).json({message:"We couldn't find your request"}))
-    })
-    .catch(next)
-})
 
-  
+// S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
+// GET /users/:id/orders
+server.get('/:id/orders', (req, res, next) => {
+    Order.findAll({where:{ id: req.params.id }})
+        .then(orders => res.status(201).json(orders))
+        .catch(error => res.send(400).json({message:"We couldn't find your request"}))
+})  
+//S46 : Crear Ruta que retorne una orden en particular.
+//GET /orders/:id
+ server.get('/:id', (req,res,next) => {
+     Order.findByPk({ where: { id: req.params.id} })
+        .then(result => { res.status(201).json(orders)})
+        .catch(next)
+ })
 
 module.exports = server
