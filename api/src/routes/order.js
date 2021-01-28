@@ -37,4 +37,24 @@ server.post('/:userId/cart', (req, res) => {
          })
      })
 
+// S44 : Crear ruta que retorne todas las ordenes
+// GET /orders
+server.get('/', (req, res, next) => {
+    // Crear ruta que retorne todas las ordenes
+    Order.findAll()
+    .then(result => {
+        res.status(201).json(resutl)
+    })
+    .then(resultStatus => {
+        // Esta ruta puede recibir el query string status y deberá 
+        Order.findAll({ where: { status: req.query.status } })
+        // devolver sólo las ordenes con ese status.
+            .then(resultStatus => { res.status(201).json(orders)})
+            .chat(error => res.send(201).json({message:"We couldn't find your request"}))
+    })
+    .catch(next)
+})
+
+  
+
 module.exports = server
