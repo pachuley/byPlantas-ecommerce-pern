@@ -59,5 +59,11 @@ server.get('/:id/orders', (req, res, next) => {
         .then(orders => res.status(201).json(orders))
         .catch(error => res.send(201).json({message:"We couldn't find your request"}))
 })  
-
+//S46 : Crear Ruta que retorne una orden en particular.
+//GET /orders/:id
+ server.get('/:id', (req,res,next) => {
+     Order.findByPk({ where: { id: req.params.id} })
+        .then(result => { res.status(201).json(orders)})
+        .catch(next)
+ })
 module.exports = server;
