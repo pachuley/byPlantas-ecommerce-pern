@@ -19,20 +19,14 @@ function App() {
       <NavBar />
       <div className="masterSwitch">
         <Switch>
-          <Route path="/" exact render={() => <Home />} />
-          <Route path="/products" exact render={() => <CatalogContainer />} />
-          <Route
-            exact
-            path="/products/:id"
-            render={({ match }) => <ProductDetail match={match} />}
-          />
-          <Route path="/addProduct" exact render={() => <FormProduct />} />
-          <Route path="/addCategory" exact render={() => <FormCategory />} />
-          <Route path="/productslist">
-            <ProductList />
-          </Route>
-          <Route path="/admins" exact render={() => <Admins />} />
-          <Route path="/addUser" exact render={() => <FormUser />} />
+          <Route path='/' exact render={() => <Home />}/>
+          <Route path="/products" exact render={() => <CatalogContainer/>}/>
+          <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
+          <Route path='/addProduct' exact render={() => <FormProduct/>}/>
+          <Route path='/addCategory' exact render={() => <FormCategory/>}/>
+          <Route path='/productslist'><ProductList /></Route>
+          <Route path='/admins' exact render={() => <Admins/>}/>
+          <Route path='/addUser' exact render={() => <FormUser/>}/>
           <Route path="/admin" exact render={() => <OrderTable />} />
         </Switch>
       </div>

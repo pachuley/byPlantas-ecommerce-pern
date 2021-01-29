@@ -20,24 +20,25 @@ module.exports = (sequelize) => {
       }
     },
 
-    price: {
+     price: {
       type: DataTypes.DECIMAL,
-      allowNull: false,
-    },
+      
+    }, 
+    
     quantity: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      
       },
     discount: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      
       },
     total: {
       type: DataTypes.DECIMAL,
-      allowNull: false,
+      
         //como inicial debe llevar false
       },
-      
+
 
 
 
