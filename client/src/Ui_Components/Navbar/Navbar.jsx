@@ -30,7 +30,7 @@ export default function NavBar() {
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/addUser" >Usuario</NavLink>
                         </li>
                         <li className={`${styles.liMargin}`}>
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admin" >Admin</NavLink>
+                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
                         </li>
                     </ul>
                 </div>
