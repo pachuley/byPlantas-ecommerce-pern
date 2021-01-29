@@ -10,6 +10,7 @@ import Footer from './Ui_Components/Footer/Footer';
 import Home from './Components/Home/Home'
 import ProductList from './Components/ProductList/ProductsList'
 import FormUser from './Components/FormUser/FormUser';
+import Admins from './Components/Admins/Admins'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path='/addProduct' exact render={() => <FormProduct/>}/>
           <Route path='/addCategory' exact render={() => <FormCategory/>}/>
           <Route path='/productslist'><ProductList /></Route>
+          <Route path='/admins' exact render={() => <Admins/>}/>
           <Route path='/addUser' exact render={() => <FormUser/>}/>
         </Switch>
       </div>
