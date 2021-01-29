@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react';
 import style from './home.module.css'
 import {Link} from 'react-router-dom'
-import OrderTable from '../OrderTable'
 
 const Home = () => {
     return ( 
@@ -15,9 +14,6 @@ const Home = () => {
                             <Link to="/products" className="btn btn-secondary">
                                 Ir a Catálogo
                             </Link>
-                        </div>
-                        <div className="col-3">
-                            <OrderTable></OrderTable>
                         </div>
                     </div>
                 </div>
