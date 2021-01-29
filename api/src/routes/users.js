@@ -40,6 +40,7 @@ server.post('/register', async (req,res) => {
                 })
         })
     })
+    .catch(e => console.log(e))
 })
  
 

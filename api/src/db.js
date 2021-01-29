@@ -47,7 +47,6 @@ Order.belongsToMany(Product, {through: { model: Orderline }, foreignKey: 'orderI
 
 //Order.belongsToMany(Product, { through: { model: Orderline }, foreignKey: 'orderId' });
 
-Orderline.belongsTo(User);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

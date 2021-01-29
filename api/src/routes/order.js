@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Order, User, Orderline } = require("../db.js");
+const { Order, User, Orderline, Product } = require("../db.js");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
@@ -19,35 +19,33 @@ server.put('/:id', (req,res,next) => {
 })
 
 
+server.post('/:userId/cart', async (req, res) => {
+    try {
+        let product = await Product.findOne({where: {id: req.body.productId}})
+        let order =  await Order.findOne({where: {userId: req.params.userId, status:"active"}})
 
-server.post('/:userId/cart', (req, res) => {
-    console.log(req.body);
-    const currentItem ={ 
-        productId: req.body.productId,
-        userId: req.params.idUser,
-        quantity: req.body.quantity,
-        price: req.body.price,
-        total: (req.body.quantity * req.body.price)
+        await order.addProduct(product)
+
+        let orderline = await Orderline.findOne({where:{orderId: order.id}})
+        
+        await orderline.update({
+            price: req.body.price,
+            quantity: req.body.quantity,
+            discount: req.body.discount,
+            total: req.body.total
+        })
+
+/*         console.log(orderline)
+        console.log(Object.keys(orderline.__proto__))
+        console.log(Object.keys(order.__proto__))
+        console.log(Object.keys(product.__proto__)) */
+        res.status(201).json(order)
+        
+    } catch (error) {
+        console.log(error)
     }
-    Order.findOne({ 
-           where: { 
-               userId: req.params.idUser, 
-               status: "active"
-            } 
-        })
-        .then((order) => {
-            order.addProduct({ 
-                productId: req.body.productId,
-                userId: req.params.idUser,
-                quantity: req.body.quantity,
-                price: req.body.price,
-                total: (req.body.quantity * req.body.price)
-             })
-             .then(Orderline => res.status(201).json({message: "Item was added to Order"}))
-             .catch(error => {
-                 res.status(400).json({message: "Internal error"})
-             })
-        })
+
+
     })
 
      
@@ -73,10 +71,6 @@ server.put('/:userId/cart', (req, res) => {
         })
 })
 
-
-
-    
-    
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
 // GET /users/:id/orders
 server.get('/:id/orders', (req, res, next) => {
@@ -92,33 +86,6 @@ server.get('/:id/orders', (req, res, next) => {
         .catch(next)
  })
 
-/*  server.post('/', (req, res) => {
-     console.log(req.body)
-     Order.create({
-        userId: req.body.userId
-     })
-     .then(order => {
-        Orderline.create({
-            price: req.body.price,
-            quantity: req.body.quantity,
-            discount: req.body.discount,
-            total: req.body.total,
-            userId: order.userId,
-            orderId: order.id,
-            productId: 1
-        })
-        .then(orderline => {
-            console.log(orderline)
-            order.setOrderlines(orderline)
-               .then(result => {
-                   console.log(result, 'aca')
-                   res.json(order)
-               })
-        })
-         res.json(order)
-     })
-     .catch(e => console.log(e))
- }) */
 
 module.exports = server
 
