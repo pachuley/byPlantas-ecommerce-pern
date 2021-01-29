@@ -1,6 +1,8 @@
 const server = require("express").Router();
-const { User } = require("../db.js");
+const { User, Order, Product, Orderline } = require("../db.js");
 const bcrypt = require('bcryptjs');
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 // Routes
   // GET: /users
@@ -28,11 +30,11 @@ server.post('/register', async (req, res) => {
         });   
         res.status(201).json('Gracias por registrarse!');
     } catch(e) {
-        if(e.parent.code === '23505') {
+        /* if(e.parent.code === '23505') {
             res.status(409).json('Un usuario con ese email ya existe');
         } else {
             res.status(500).json('Algo está mal');
-        }
+        } */
     }
 });
 
@@ -85,5 +87,26 @@ server.put('/:id', async (req, res) => {
     }
 });
 
+
+server.get('/:userId/cart', (req,res)=>{
+    Order.findAll({
+        attributes:['id','userId','status'],
+        where:{
+            [Op.and]: [
+                { userId: req.params.userId },
+                { status: 'active' }
+              ]
+        },
+         include: [
+            {
+                model: Product
+            },
+        ]
+    })
+    .then(orders => {
+        res.json(orders)
+    })
+    .catch(e => console.log(e))
+})
 
 module.exports = server;

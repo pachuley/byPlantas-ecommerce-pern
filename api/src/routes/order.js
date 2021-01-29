@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Order, User } = require("../db.js");
+const { Order, User, Orderline } = require("../db.js");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
@@ -27,13 +27,14 @@ server.post('/:userId/cart', (req, res) => {
                status: "cart" 
             } 
         })
-        .then((r) => {
-            r.addProduct({ 
+        .then((order) => {
+            order.addProduct({ 
                 productId: req.body.productId,
                 userId: req.params.idUser,
                 quantity: req.body.quantity,
                 price: req.body.price
              })
+             res.status(201).json(order)
          })
      })
 
@@ -53,4 +54,33 @@ server.get('/:id/orders', (req, res, next) => {
         .catch(next)
  })
 
+/*  server.post('/', (req, res) => {
+     console.log(req.body)
+     Order.create({
+        userId: req.body.userId
+     })
+     .then(order => {
+        Orderline.create({
+            price: req.body.price,
+            quantity: req.body.quantity,
+            discount: req.body.discount,
+            total: req.body.total,
+            userId: order.userId,
+            orderId: order.id,
+            productId: 1
+        })
+        .then(orderline => {
+            console.log(orderline)
+            order.setOrderlines(orderline)
+               .then(result => {
+                   console.log(result, 'aca')
+                   res.json(order)
+               })
+        })
+         res.json(order)
+     })
+     .catch(e => console.log(e))
+ }) */
+
 module.exports = server
+
