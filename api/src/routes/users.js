@@ -35,14 +35,18 @@ server.post('/register', async (req,res) => {
         .then(order => {
             user.addOrder(order)
                 .then(result =>{
-                    console.log(result)
                     res.json(user)
                 })
         })
     })
-    .catch(e => console.log(e))
-})
- 
+    .catch(e => {
+        if(e.parent.code === '23505') {
+            res.status(409).json('Un usuario con ese email ya existe');
+        } else {
+            res.status(500).json('Algo está mal');
+        }
+    })
+});
 
 server.post('/login', async (req, res) => {
     try {
@@ -94,34 +98,43 @@ server.put('/:id', async (req, res) => {
 });
 
 
-server.post('/:userId/cart', (req, res) => {
-    Order.create({ 
-           where: { 
-               userId: req.params.userId, 
-               status: "active"
-            } 
-        })
-        .then((order) => {
-            console.log(order)
-            Orderline.create({
+server.post('/:userId/cart', async (req, res) => {
+        try {
+            let product = await Product.findOne({where: {id: req.body.productId}})
+            let order =  await Order.findOne({where: {userId: req.params.userId, status:"active"}})
+    
+            await order.addProduct(product)
+    
+            let orderline = await Orderline.findOne(
+                {
+                    where:{
+                        [Op.and]: [
+                            { orderId: order.id },
+                            { productId: product.id}
+                        ]
+                    }
+                }
+            )
+            
+            await orderline.update({
                 price: req.body.price,
-                discount: req.body.discount,
                 quantity: req.body.quantity,
-                total: req.body.price * req.body.quantity,
-                userId: req.params.userId,
-                orderId: order.id,
-                productId: req.body.productId
+                discount: req.body.discount,
+                total: parseInt(req.body.quantity) * parseFloat(req.body.price),
             })
-            .then(orderline => { 
-                order.addOrderlines(orderline)
-                .then((result) => res.json(order))
-            })
-            .catch(error => {
-                console.log(error);
-             })
-         })
-     })
-
+    
+    /*         console.log(orderline)
+            console.log(Object.keys(orderline.__proto__))
+            console.log(Object.keys(order.__proto__))
+            console.log(Object.keys(product.__proto__)) */
+            res.status(201).json(order)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    
+    
+        })
      
 //vaciar carrito
 server.delete('/:userId/cart', (req, res) => {
