@@ -30,6 +30,7 @@ function App() {
           <Route path="/productslist">
             <ProductList />
           </Route>
+          <Route path="/admins" exact render={() => <Admins />} />
           <Route path="/addUser" exact render={() => <FormUser />} />
           <Route path="/admin" exact render={() => <OrderTable />} />
         </Switch>
