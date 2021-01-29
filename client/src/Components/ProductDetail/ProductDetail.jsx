@@ -16,6 +16,10 @@ const ProductDetail = ({match}) =>{
             })
         }
         console.log(product)
+
+        const handleAddtocart = () => {
+            axios.post(`${REACT_APP_BACKEND_URL}/users/1/cart/${match.params.id}`)
+        }
     return(
         <div className={`mt-5 px-5`}>
            <div className="row py-5">
@@ -27,7 +31,7 @@ const ProductDetail = ({match}) =>{
                     <hr/>
                     <p>{product.description}</p>
                     <hr/>
-                    <button className="btn btn-outline-success" onClick={()=> alert("New feature available soon")}>Agregar al Carrito</button>
+                    <button className="btn btn-outline-success" onClick={handleAddtocart}>Agregar al Carrito</button>
                </div>
            </div>
         </div>

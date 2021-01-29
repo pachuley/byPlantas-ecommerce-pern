@@ -1,4 +1,9 @@
 import {combineReducers} from 'redux'
 
+const initialState = {guestId: 1, logged:false}
 
-export default combineReducers({})
+function firstReducer(state = initialState, action){
+    return state;
+}
+
+export default combineReducers({firstReducer})

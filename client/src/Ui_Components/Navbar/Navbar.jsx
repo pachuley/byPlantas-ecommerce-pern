@@ -32,6 +32,9 @@ export default function NavBar() {
                         <li className={`${styles.liMargin}`}>
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admin" >Admin</NavLink>
                         </li>
+                        <li className={`${styles.liMargin}`}>
+                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                        </li>
                     </ul>
                 </div>
             </nav>

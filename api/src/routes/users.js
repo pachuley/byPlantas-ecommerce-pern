@@ -97,6 +97,24 @@ server.put('/:id', async (req, res) => {
     }
 });
 
+server.post('/:userId/cart/:prodId', (req,res)=>{
+    var prod;
+    Order.findOne({ 
+        where:{ [Op.and]: [
+            { userId: req.params.userId },
+            { status: 'active' }
+          ]}
+    })
+    .then(order=>{
+        Product.findByPk(parseInt(req.params.prodId))
+        .then(resp=>{
+            prod = resp
+            order.addProduct(prod)
+            res.json('todo bien')
+        })
+        
+    })
+})
 
 server.post('/:userId/cart', (req, res) => {
     Order.create({ 

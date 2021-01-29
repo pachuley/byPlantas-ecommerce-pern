@@ -12,6 +12,7 @@ import ProductList from "./Components/ProductList/ProductsList";
 import FormUser from "./Components/FormUser/FormUser";
 import Admins from "./Components/Admins/Admins";
 import OrderTable from "./Components/OrderTable/OrderTable";
+import Cart from "./Components/Cart/Cart";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/admins' exact render={() => <Admins/>}/>
           <Route path='/addUser' exact render={() => <FormUser/>}/>
           <Route path="/admin" exact render={() => <OrderTable />} />
+          <Route path="/cart" exact render={() => <Cart />} />
         </Switch>
       </div>
       <Footer />
