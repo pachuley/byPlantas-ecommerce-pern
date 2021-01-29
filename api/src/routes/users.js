@@ -93,29 +93,29 @@ server.put('/:id', async (req, res) => {
     }
 });
 
+
 server.post('/:userId/cart', (req, res) => {
-    Order.findOne({ 
+    Order.create({ 
            where: { 
                userId: req.params.userId, 
                status: "active"
             } 
         })
-
         .then((order) => {
             console.log(order)
-            // Orderline.create({
-                // price: req.body.price,
-                // discount: req.body.discount,
-                // quantity: req.body.quantity,
-                // total: req.body.price * req.body.quantity,
-                // userId: req.params.userId,
-                // orderId: order.id,
-                // productId: req.body.productId
-            // })
-            // .then(orderline => { 
-            //     order.addOrderlines(orderline)
-            //     .then((result) => res.json(order))
-            // })
+            Orderline.create({
+                price: req.body.price,
+                discount: req.body.discount,
+                quantity: req.body.quantity,
+                total: req.body.price * req.body.quantity,
+                userId: req.params.userId,
+                orderId: order.id,
+                productId: req.body.productId
+            })
+            .then(orderline => { 
+                order.addOrderlines(orderline)
+                .then((result) => res.json(order))
+            })
             .catch(error => {
                 console.log(error);
              })
@@ -159,6 +159,53 @@ server.post('/:userId/cart', (req, res) => {
     
     
         })
+     
+//vaciar carrito
+server.delete('/:userId/cart', (req, res) => {
+    Order.findOne({ where: { userId: req.params.userId, status: "active" } })
+        .then((orders) => {
+            Orderline.destroy(
+            {
+             where:{orderId: orderId } 
+            })
+        
+           .then(
+            res.status(200).json({ message: "El carrito fue vaciado" })
+                )
+        })
+        .catch(function (err) {
+            res.status(400).json({ message: "No se pudo vaciar el carrito.", error: err })
+        })
+})
+
+server.put('/:userId/cart', (req, res ) =>{
+let order
+ Order.findOne({where: {userId: req.params.userId, status:"active"}})
+ .then(r =>{
+    order = r.id
+
+ })
+ .catch(error =>{
+     console.log
+ }) 
+ Orderline.uptade({where : {orderId : order}})
+       .then(value => {
+           console.log('linea 152', value)
+           let ord = value[0]
+           let prod = value[1]
+           Orderline.update({
+               quantity: req.body.quantity,
+               }),
+                { where: {orderID: ord.orderId, productId: prod.productId}}
+        })
+        .then(value =>{
+            res.status(201).json(order, product)
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+})
+
 
 server.get('/:userId/cart', (req,res)=>{
     Order.findAll({

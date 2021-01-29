@@ -18,31 +18,40 @@ server.put('/:id', (req,res,next) => {
       .catch(next);
 })
 
-     
-//vaciar carrito
-server.put('/:userId/cart', (req, res) => {
-    Order.findOne({ where: { userId: req.params.userId, status: "active" } })
-        .then((orders) => {
-            Orderline.update({
-                price:"",
-                quantity:"",
-                discount:"",
-                total:""
-            }, {
-             where:{id: orderId } 
-            })
+<<<<<<< HEAD
+=======
+
+server.post('/:userId/cart', async (req, res) => {
+    try {
+        let product = await Product.findOne({where: {id: req.body.productId}})
+        let order =  await Order.findOne({where: {userId: req.params.userId, status:"active"}})
+
+        let orderline = await Orderline.findOne({where:{orderId: order.id}})
         
-           .then(
-            res.status(200).json({ message: "El carrito fue vaciado" })
-                )
+        await orderline.update({
+            price: req.body.price,
+            quantity: req.body.quantity,
+            discount: req.body.discount,
+            total: req.body.total
         })
-        .catch(function (err) {
-            res.status(400).json({ message: "No se pudo vaciar el carrito.", error: err })
-        })
-})
+
+/*         console.log(orderline)
+        console.log(Object.keys(orderline.__proto__))
+        console.log(Object.keys(order.__proto__))
+        console.log(Object.keys(product.__proto__)) */
+        res.status(201).json(order)
+        
+    } catch (error) {
+        console.log(error)
+    }
+
+
+    })
+
+>>>>>>> ba6b247dc7120e6c56feecee4cd73c98c50dfb34
+     
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
-// GET /users/:id/orders
 server.get('/:id/orders', (req, res, next) => {
     Order.findAll({where:{ id: req.params.id }})
         .then(orders => res.status(201).json(orders))
