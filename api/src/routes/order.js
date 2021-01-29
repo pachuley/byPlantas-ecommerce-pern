@@ -19,12 +19,20 @@ server.put('/:id', (req,res,next) => {
 })
 
 
-server.post('/:userId/cart', (req, res) => {
 
-   Order.findOne({ 
+server.post('/:userId/cart', (req, res) => {
+    console.log(req.body);
+    const currentItem ={ 
+        productId: req.body.productId,
+        userId: req.params.idUser,
+        quantity: req.body.quantity,
+        price: req.body.price,
+        total: (req.body.quantity * req.body.price)
+    }
+    Order.findOne({ 
            where: { 
                userId: req.params.idUser, 
-               status: "cart" 
+               status: "active"
             } 
         })
         .then((order) => {

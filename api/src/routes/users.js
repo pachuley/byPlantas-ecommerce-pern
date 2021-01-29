@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
+
 // Routes
   // GET: /users
 server.get('/', (req,res,next ) => {
@@ -92,6 +93,34 @@ server.put('/:id', async (req, res) => {
     }
 });
 
+server.post('/:userId/cart', (req, res) => {
+    Order.findOne({ 
+           where: { 
+               userId: req.params.userId, 
+               status: "active"
+            } 
+        })
+
+        .then((order) => {
+            console.log(order)
+            // Orderline.create({
+                // price: req.body.price,
+                // discount: req.body.discount,
+                // quantity: req.body.quantity,
+                // total: req.body.price * req.body.quantity,
+                // userId: req.params.userId,
+                // orderId: order.id,
+                // productId: req.body.productId
+            // })
+            // .then(orderline => { 
+            //     order.addOrderlines(orderline)
+            //     .then((result) => res.json(order))
+            // })
+            .catch(error => {
+                console.log(error);
+             })
+         })
+     })
 
 server.get('/:userId/cart', (req,res)=>{
     Order.findAll({
