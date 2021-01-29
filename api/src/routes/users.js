@@ -151,19 +151,10 @@ let order
  .catch(error =>{
      console.log
  }) 
- Orderline.uptade({where : {orderId : order}})
-       .then(value => {
-           console.log('linea 152', value)
-           let ord = value[0]
-           let prod = value[1]
-           Orderline.update({
-               quantity: req.body.quantity,
-               }),
-                { where: {orderID: ord.orderId, productId: prod.productId}}
-        })
-        .then(value =>{
-            res.status(201).json(order, product)
-        })
+ Orderline.uptade({quantity : req.body.quantity}, {where : {orderId : order , productId: req.body.productId}})
+       .then(r => {
+        res.status(201).json({mesagge: 'producto actualizado'})
+       })
         .catch(err =>{
             console.log(err)
         })
