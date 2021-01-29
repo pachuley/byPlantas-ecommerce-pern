@@ -10,6 +10,7 @@ import Footer from "./Ui_Components/Footer/Footer";
 import Home from "./Components/Home/Home";
 import ProductList from "./Components/ProductList/ProductsList";
 import FormUser from "./Components/FormUser/FormUser";
+import Admins from "./Components/Admins/Admins";
 import OrderTable from "./Components/OrderTable/OrderTable";
 
 function App() {
