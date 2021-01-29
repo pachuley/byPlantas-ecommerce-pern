@@ -27,7 +27,12 @@ server.post('/register', async (req, res) => {
         await User.create({
             email: email, 
             encryptedPassword: encryptedPassword
-        });   
+        });
+
+        await Order.create({
+            status: "active"
+        })
+        console.log("cree la orden")
         res.status(201).json('Gracias por registrarse!');
     } catch(e) {
         /* if(e.parent.code === '23505') {
