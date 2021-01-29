@@ -93,10 +93,7 @@ server.put('/:id', async (req, res) => {
     }
 });
 
-<<<<<<< HEAD
 
-module.exports = server;
-=======
 server.post('/:userId/cart', (req, res) => {
     Order.findOne({ 
            where: { 
@@ -148,4 +145,3 @@ server.get('/:userId/cart', (req,res)=>{
 })
 
 module.exports = server;
->>>>>>> b162b0013ab8f934896ad14c2bfb42c3e626e43a
