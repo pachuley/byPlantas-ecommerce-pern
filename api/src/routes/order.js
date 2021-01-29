@@ -1,5 +1,5 @@
 const server = require("express").Router();
-const { Order, User } = require("../db.js");
+const { Order, User, Orderline } = require("../db.js");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
@@ -19,16 +19,24 @@ server.put('/:id', (req,res,next) => {
 })
 
 
-server.post('/:userId/cart', (req, res) => {
 
-   Order.findOne({ 
+server.post('/:userId/cart', (req, res) => {
+    console.log(req.body);
+    const currentItem ={ 
+        productId: req.body.productId,
+        userId: req.params.idUser,
+        quantity: req.body.quantity,
+        price: req.body.price,
+        total: (req.body.quantity * req.body.price)
+    }
+    Order.findOne({ 
            where: { 
                userId: req.params.idUser, 
-               status: "cart" 
+               status: "active"
             } 
         })
-        .then((r) => {
-           r.addProduct({ 
+        .then((order) => {
+            order.addProduct({ 
                 productId: req.body.productId,
                 userId: req.params.idUser,
                 quantity: req.body.quantity,
@@ -67,5 +75,50 @@ server.put('/:userId/cart', (req, res) => {
 
 
 
+    
+    
+// S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
+// GET /users/:id/orders
+server.get('/:id/orders', (req, res, next) => {
+    Order.findAll({where:{ id: req.params.id }})
+        .then(orders => res.status(201).json(orders))
+        .catch(error => res.send(400).json({message:"We couldn't find your request"}))
+})  
+//S46 : Crear Ruta que retorne una orden en particular.
+//GET /orders/:id
+ server.get('/:id', (req,res,next) => {
+     Order.findByPk({ where: { id: req.params.id} })
+        .then(result => { res.status(201).json(orders)})
+        .catch(next)
+ })
 
-module.exports = server;
+/*  server.post('/', (req, res) => {
+     console.log(req.body)
+     Order.create({
+        userId: req.body.userId
+     })
+     .then(order => {
+        Orderline.create({
+            price: req.body.price,
+            quantity: req.body.quantity,
+            discount: req.body.discount,
+            total: req.body.total,
+            userId: order.userId,
+            orderId: order.id,
+            productId: 1
+        })
+        .then(orderline => {
+            console.log(orderline)
+            order.setOrderlines(orderline)
+               .then(result => {
+                   console.log(result, 'aca')
+                   res.json(order)
+               })
+        })
+         res.json(order)
+     })
+     .catch(e => console.log(e))
+ }) */
+
+module.exports = server
+

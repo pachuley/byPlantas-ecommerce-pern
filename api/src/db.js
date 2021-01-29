@@ -38,10 +38,15 @@ const { Product, Category, User, Order, Orderline} = sequelize.models;
 
 Product.belongsToMany(Category, {through: 'CategoriesXProducts'});
 Category.belongsToMany(Product, {through: 'CategoriesXProducts'});
+
 User.hasMany(Order);
 Order.belongsTo(User);
-Product.belongsToMany(Order, {through: Orderline});
-Order.belongsToMany(Product, {through: Orderline});
+
+Product.belongsToMany(Order, {through: { model: Orderline }, foreignKey: 'productId' });
+Order.belongsToMany(Product, {through: { model: Orderline }, foreignKey: 'orderId' });
+
+//Order.belongsToMany(Product, { through: { model: Orderline }, foreignKey: 'orderId' });
+
 Orderline.belongsTo(User);
 
 module.exports = {
