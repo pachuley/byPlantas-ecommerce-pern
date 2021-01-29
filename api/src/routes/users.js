@@ -14,35 +14,35 @@ server.get('/', (req,res,next ) => {
             })
         .catch(next)
 });
- 
-server.post('/register', async (req, res) => {
-    try {
-        const {email, password} = req.body;
-        if (!email || !password) {
-            res.status(400).json(`Por favor introduce tu ${!email ? "email" : 'password'}!`)
-        }
 
-        const saltHash = await bcrypt.genSalt(10);
-        const encryptedPassword = await bcrypt.hash(password, saltHash);
-        
-        await User.create({
-            email: email, 
-            encryptedPassword: encryptedPassword
-        });
+server.post('/register', async (req,res) => {
+    let {email, password} = req.body
+    const saltHash = await bcrypt.genSalt(10);
+    const encryptedPassword = await bcrypt.hash(password, saltHash);
 
-        await Order.create({
-            status: "active"
-        })
-        console.log("cree la orden")
-        res.status(201).json('Gracias por registrarse!');
-    } catch(e) {
-        /* if(e.parent.code === '23505') {
-            res.status(409).json('Un usuario con ese email ya existe');
-        } else {
-            res.status(500).json('Algo está mal');
-        } */
+    if (!email || !password) {
+        res.status(400).json(`Por favor introduce tu ${!email ? "email" : 'password'}!`)
     }
-});
+
+    User.create({
+        email,
+        encryptedPassword
+    })
+    .then(user => {
+        Order.create({
+            userId: user.id
+        })
+        .then(order => {
+            user.addOrder(order)
+                .then(result =>{
+                    console.log(result)
+                    res.json(user)
+                })
+        })
+    })
+    .catch(e => console.log(e))
+})
+ 
 
 server.post('/login', async (req, res) => {
     try {
