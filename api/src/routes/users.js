@@ -35,14 +35,18 @@ server.post('/register', async (req,res) => {
         .then(order => {
             user.addOrder(order)
                 .then(result =>{
-                    console.log(result)
                     res.json(user)
                 })
         })
     })
-    .catch(e => console.log(e))
-})
- 
+    .catch(e => {
+        if(e.parent.code === '23505') {
+            res.status(409).json('Un usuario con ese email ya existe');
+        } else {
+            res.status(500).json('Algo está mal');
+        }
+    })
+});
 
 server.post('/login', async (req, res) => {
     try {
