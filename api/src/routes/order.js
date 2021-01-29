@@ -24,8 +24,6 @@ server.post('/:userId/cart', async (req, res) => {
         let product = await Product.findOne({where: {id: req.body.productId}})
         let order =  await Order.findOne({where: {userId: req.params.userId, status:"active"}})
 
-        await order.addProduct(product)
-
         let orderline = await Orderline.findOne({where:{orderId: order.id}})
         
         await orderline.update({
@@ -49,30 +47,8 @@ server.post('/:userId/cart', async (req, res) => {
     })
 
      
-//vaciar carrito
-server.put('/:userId/cart', (req, res) => {
-    Order.findOne({ where: { userId: req.params.userId, status: "active" } })
-        .then((orders) => {
-            Orderline.update({
-                price:"",
-                quantity:"",
-                discount:"",
-                total:""
-            }, {
-             where:{id: orderId } 
-            })
-        
-           .then(
-            res.status(200).json({ message: "El carrito fue vaciado" })
-                )
-        })
-        .catch(function (err) {
-            res.status(400).json({ message: "No se pudo vaciar el carrito.", error: err })
-        })
-})
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
-// GET /users/:id/orders
 server.get('/:id/orders', (req, res, next) => {
     Order.findAll({where:{ id: req.params.id }})
         .then(orders => res.status(201).json(orders))
