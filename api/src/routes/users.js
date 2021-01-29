@@ -95,7 +95,7 @@ server.put('/:id', async (req, res) => {
 
 
 server.post('/:userId/cart', (req, res) => {
-    Order.Create({ 
+    Order.create({ 
            where: { 
                userId: req.params.userId, 
                status: "active"
@@ -124,16 +124,12 @@ server.post('/:userId/cart', (req, res) => {
 
      
 //vaciar carrito
-server.put('/:userId/cart', (req, res) => {
+server.delete('/:userId/cart', (req, res) => {
     Order.findOne({ where: { userId: req.params.userId, status: "active" } })
         .then((orders) => {
-            Orderline.update({
-                price:"",
-                quantity:"",
-                discount:"",
-                total:""
-            }, {
-             where:{id: orderId } 
+            Orderline.destroy(
+            {
+             where:{orderId: orderId } 
             })
         
            .then(
@@ -146,9 +142,18 @@ server.put('/:userId/cart', (req, res) => {
 })
 
 server.put('/:userId/cart', (req, res ) =>{
-let order =  Order.findOne({where: {userId: req.params.userId, status:"active"}})
-let product = Product.findByPk(req.params.productId)
+let order
+ Order.findOne({where: {userId: req.params.userId, status:"active"}})
+ .then(r =>{
+    order = r.id
+
+ })
+ .catch(error =>{
+     console.log
+ }) 
+ Orderline.uptade({where : {orderId : order}})
        .then(value => {
+           console.log('linea 152', value)
            let ord = value[0]
            let prod = value[1]
            Orderline.update({
