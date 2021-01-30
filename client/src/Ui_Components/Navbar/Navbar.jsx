@@ -29,7 +29,7 @@ export default function NavBar() {
                         <li className={`${styles.liMargin}`}>
                         { admin === "true" ?
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
-                            : <p>Hola</p>
+                            : ""
                         }
                         </li> 
                         
