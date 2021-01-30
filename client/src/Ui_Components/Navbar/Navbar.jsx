@@ -30,6 +30,7 @@ export default function NavBar() {
                         { admin === "true" ?
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
                             : ""
+                            
                         }
                         </li> 
                         
