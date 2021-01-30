@@ -62,6 +62,12 @@ server.post('/login', async (req, res) => {
         if(user) {
             const validPassword = await bcrypt.compareSync(password, user.encryptedPassword);
             if(validPassword) {
+                const findOrder = await Order.findOrCreate({
+                    where: {
+                       id: user.id,
+                       status: 'active'
+                    }
+                })
                 res.status(200).json('Email y contraseña correctos');
             } else {
                 res.status(400).json('Contraseña equivocada!');
