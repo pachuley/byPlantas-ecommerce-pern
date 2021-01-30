@@ -98,35 +98,7 @@ server.put('/:id', async (req, res) => {
 });
 
 
-server.post('/:userId/cart', (req, res) => {
-    Order.create({ 
-           where: { 
-               userId: req.params.userId, 
-               status: "active"
-            } 
-        })
-        .then((order) => {
-            console.log(order)
-            Orderline.create({
-                price: req.body.price,
-                discount: req.body.discount,
-                quantity: req.body.quantity,
-                total: req.body.price * req.body.quantity,
-                userId: req.params.userId,
-                orderId: order.id,
-                productId: req.body.productId
-            })
-            .then(orderline => { 
-                order.addOrderlines(orderline)
-                .then((result) => res.json(order))
-            })
-            .catch(error => {
-                console.log(error);
-             })
-         })
-     })
-
-     server.post('/:userId/cart', async (req, res) => {
+server.post('/:userId/cart', async (req, res) => {
         try {
             let product = await Product.findOne({where: {id: req.body.productId}})
             let order =  await Order.findOne({where: {userId: req.params.userId, status:"active"}})
@@ -192,19 +164,10 @@ let order
  .catch(error =>{
      console.log
  }) 
- Orderline.uptade({where : {orderId : order}})
-       .then(value => {
-           console.log('linea 152', value)
-           let ord = value[0]
-           let prod = value[1]
-           Orderline.update({
-               quantity: req.body.quantity,
-               }),
-                { where: {orderID: ord.orderId, productId: prod.productId}}
-        })
-        .then(value =>{
-            res.status(201).json(order, product)
-        })
+ Orderline.uptade({quantity : req.body.quantity}, {where : {orderId : order , productId: req.body.productId}})
+       .then(r => {
+        res.status(201).json({mesagge: 'producto actualizado'})
+       })
         .catch(err =>{
             console.log(err)
         })
