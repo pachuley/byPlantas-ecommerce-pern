@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 const {REACT_APP_BACKEND_URL} = process.env;
 
-export default function FormUser (){
+export default function FormLogin (){
     const [user, setUser] = useState({email: '', password: ''})
     const [valid, setValid] = useState(false)
 
@@ -11,13 +11,6 @@ export default function FormUser (){
             ...user,
             [e.target.name]:e.target.value
         })
-    }
-    const handleRepeat = e => {
-        if(e.target.value === user.password){
-            setValid(true)
-        }else{
-            setValid(false)
-        }
     }
 
     const emailPattern = new RegExp(/[A-Za-z0-9_.]+\@\w+\.\w\w+/, 'i'); //valida que tenga un '@' seguido de un string seguido de '.' seguido por lo menos 2 caracteres
@@ -29,11 +22,11 @@ export default function FormUser (){
             alert('Email Invalido')
         }else if(!passwordPattern.test(user.password)){
             alert('Contraseña Invalida')
-        }else if(!valid){
-            alert('Las Contraseñas deben coincidir')
         }else{
-            axios.post(`${REACT_APP_BACKEND_URL}/users/register`, user)
-            .then(resp=>{console.log(resp)})
+            axios.post(`${REACT_APP_BACKEND_URL}/users/login`, user)
+            .then(resp=>{console.log(resp)
+                user.email === "admin@admin.com" ? localStorage.setItem('admin', 'true') : localStorage.setItem('admin', 'false')
+            })
             .catch(err=>{console.log(err)})
         }
         
@@ -42,8 +35,8 @@ export default function FormUser (){
     return (
         <div className='container col-md-6 justify-content-center'>
             <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={handleSubmit}>
-                <h4 className={`text-center pb-4`}>Registra tus datos!</h4>
-                <label htmlFor='inputEmailUser' className='form-label'>Ingresa un Email</label>
+                <h4 className={`text-center pb-4`}>Ingresa a tu cuenta!</h4>
+                <label htmlFor='inputEmailUser' className='form-label'>Escribe tu Email</label>
                 <input 
                     id='inputEmailUser' 
                     name='email' 
@@ -53,7 +46,7 @@ export default function FormUser (){
                     value={user.email} 
                     onChange={handleChange} 
                     required/>
-                <label htmlFor='inputUserPassword' className='form-label'>Ingresa una Contraseña</label>
+                <label htmlFor='inputUserPassword' className='form-label'>Escribe tu Contraseña</label>
                 <input 
                     id='inputUserPassword' 
                     name='password' 
@@ -63,16 +56,7 @@ export default function FormUser (){
                     value={user.password} 
                     onChange={handleChange} 
                     required/>
-                <label htmlFor='inputUserPassword2' className='form-label'>Reingresa la Contraseña</label>
-                <input 
-                    id='inputUserPassword2' 
-                    name='password2' 
-                    className='form-control' 
-                    type='password' 
-                    placeholder='Password...' 
-                    onChange={handleRepeat} 
-                    required/>
-                <button className='btn btn-primary mt-2 mb-3 justify-content-center my-auto' type='submit'>Registrate</button>
+                <button className='btn btn-primary mt-2 mb-3 my-auto' type='submit'>Ingresa</button>
             </form>
         </div>
     )
