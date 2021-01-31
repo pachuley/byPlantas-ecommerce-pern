@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import styles from './formuser.module.css'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 export default function FormUser (){
@@ -42,7 +43,7 @@ export default function FormUser (){
     return (
         <div className='container col-md-6 justify-content-center'>
             <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={handleSubmit}>
-                <h4 className={`text-center pb-4`}>Registra tus datos!</h4>
+                <h4 className={`${styles.titles}`}>Registra tus datos!</h4>
                 <label htmlFor='inputEmailUser' className='form-label'>Ingresa un Email</label>
                 <input 
                     id='inputEmailUser' 
@@ -72,7 +73,7 @@ export default function FormUser (){
                     placeholder='Password...' 
                     onChange={handleRepeat} 
                     required/>
-                <button className='btn btn-primary mt-2 mb-3 justify-content-center my-auto' type='submit'>Registrate</button>
+                <button className={`btn mt-2 mb-3 my-auto ${styles.btnByPlantas}`} type='submit'>Registrate</button>
             </form>
         </div>
     )

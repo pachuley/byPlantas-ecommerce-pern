@@ -16,7 +16,7 @@ const Home = () => {
                             <p>Tu tienda para productos ecofriendly y sustentables!</p>
                             <div className="row">
                                 <div className="col-3">
-                                    <Link to="/products" className={`btn ${style.btnByPlantas}`}>
+                                    <Link to="/products" className={`btn ${styles.btnByPlantas}`}>
                                         Nuestros Productos!
                                     </Link>
                                 </div>
@@ -26,51 +26,63 @@ const Home = () => {
                 </section>
                 <section>
                     <div className={`d-flex flex-column ${styles.filosofia}`}>
-                        <h1 className={`${styles.filosofiah1}`}>Nuestra filosofia</h1>
+                        <h1 className={`${styles.titles}`}>Nuestra filosofia</h1>
                         <p className={`${styles.filosofiaP}`}>Vender productos producidos de manera sustentable bajo la ideología de cuidar el medioambiente sin dejar de lado la calidad que el público espera de las mejores marcas!</p>
                     </div>
                 </section>
                 <section>
+
                     <div id="carruselOfertas" class="carousel slide" data-bs-ride="carousel">
+                        <h1 className={`${styles.titles}`}>Ofertas</h1>
                         <div className="carousel-inner">
-                            <div className="carousel-item active">  
-                                <img src={foto1} class="d-block w-80"/>
+                            <div className={`carousel-item active`}>  
+                                <img src={foto1} class="d-block w-85"/>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>First slide label</h5>
+                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                </div>
                             </div>
-                            <div className="carousel-item">
-                                <img src={foto2} class="d-block w-80"/>
+                            <div className={`carousel-item active`}>
+                                <img src={foto2} class="d-block w-85"/>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>First slide label</h5>
+                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                </div>
                             </div>
-                            <div className="carousel-item">
-                                <img src={foto3} class="d-block w-80"/>
+                            <div className={`carousel-item active`}>
+                                <img src={foto3} class="d-block w-85"/>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>First slide label</h5>
+                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                </div>
                             </div>
                         </div>
                         <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
                             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span className="visually-hidden">Previous</span>
+                            <span className="visually-hidden">Anterior</span>
                         </a>
                         <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
                             <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span className="visually-hidden">Next</span>
+                            <span className="visually-hidden">Posterior</span>
                         </a>
                     </div>
                 </section>
                 <section>
-                    <form className={`container`}>
-                    <h1 className={`${styles.filosofiah1}`}>Contáctanos!</h1>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1"></input>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1"></input>
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    <div className={`${styles.contacts}`}>
+                        <form>
+                            <h1 className={`${styles.titles}`}>Contáctanos!</h1>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                                <div id="emailHelp" class="form-text">Nunca compartiremos tu email con otras personas</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contenido" class="form-label">Mensaje</label>
+                                <textarea rows="5" class="form-control" id="exampleInputPassword1"></textarea>
+                            </div>
+                            <button type="submit" className={`btn ${styles.btnByPlantas}`}>Enviar</button>
+                        </form>
+                    </div>
                 </section>
             </div>
         </Fragment>
