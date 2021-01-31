@@ -2,6 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './navbar.module.css'
 export default function NavBar() {
+    //invoco al Localstorage para levantar si el admin es true o no.
+    let admin = localStorage.getItem('admin')
+    console.log(admin)
+    //
     return (
         <header id="header" className={`fixed-top bg-dark ${styles.headerText}`}>
             <nav className={`navbar navbar-expand-lg`} >
@@ -18,23 +22,22 @@ export default function NavBar() {
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/products" >Catálogo</NavLink>
                         </li>
                         <li className={`${styles.liMargin}`}>
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/addProduct" >Producto</NavLink>
-                        </li>
-                        <li className={`${styles.liMargin}`}>
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/addCategory" >Categorias</NavLink>
-                        </li>
-                        <li className={`${styles.liMargin}`}>
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/productslist" >Inventario</NavLink>
-                        </li>
-                        <li className={`${styles.liMargin}`}>
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/addUser" >Usuario</NavLink>
                         </li>
+                        <div>
+                        
                         <li className={`${styles.liMargin}`}>
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admin" >Admin</NavLink>
+                        { admin === "true" ?
+                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
+                            : ""
+                            
+                        }
                         </li>
                         <li className={`${styles.liMargin}`}>
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
                         </li>
+                        
+                        </div>
                     </ul>
                 </div>
             </nav>

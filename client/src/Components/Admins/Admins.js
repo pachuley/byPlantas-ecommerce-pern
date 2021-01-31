@@ -9,11 +9,17 @@ const Admins = (props) => {
 
   
     return (
-        <div className="container">
-          <div className="d-flex justify-content-end pb-2">
-            <Link to='/addProduct' className="btn btn-sm btn-success mr-2">Link 1 ADMIN</Link>
-            <Link to='/addCategory' className="btn btn-sm btn-success">LInk 2 admins</Link>
+
+
+      
+        <div className="d-flex flex-row bd-highlight mb-3">
+          <div className="p-2 bd-highlight">
+            <Link to='/admin' className="btn btn-sm btn-success mr-3">ADMIN - Listar y modificar ORDENES</Link>
           </div>
+          <div className="p-2 bd-highlight">
+          <Link to='/productslist' className="btn btn-sm btn-success">ADMIN - Inventario de Productos y Categorias</Link>
+          </div>
+          
         </div>
        
                             

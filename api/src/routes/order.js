@@ -18,8 +18,6 @@ server.put('/:id', (req,res,next) => {
       .catch(next);
 })
 
-<<<<<<< HEAD
-=======
 
 server.post('/:userId/cart', async (req, res) => {
     try {
@@ -48,7 +46,6 @@ server.post('/:userId/cart', async (req, res) => {
 
     })
 
->>>>>>> ba6b247dc7120e6c56feecee4cd73c98c50dfb34
      
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
