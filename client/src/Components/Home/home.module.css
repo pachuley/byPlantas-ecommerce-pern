@@ -50,3 +50,9 @@
     color: #a17e30;
     font-weight: 500;
 }
+
+.carruselOfertas {
+    align-content: center;
+    margin: auto;
+    width: auto;
+}
