@@ -16,7 +16,7 @@ const Home = () => {
                             <p>Tu tienda para productos ecofriendly y sustentables!</p>
                             <div className="row">
                                 <div className="col-3">
-                                    <Link to="/products" className={`btn ${styles.btnByPlantas}`}>
+                                    <Link to="/products" className={`btn btnByPlantas`}>
                                         Nuestros Productos!
                                     </Link>
                                 </div>
@@ -80,7 +80,7 @@ const Home = () => {
                                 <label for="contenido" class="form-label">Mensaje</label>
                                 <textarea rows="5" class="form-control" id="exampleInputPassword1"></textarea>
                             </div>
-                            <button type="submit" className={`btn ${styles.btnByPlantas}`}>Enviar</button>
+                            <button type="submit" className={`btn btnByPlantas`}>Enviar</button>
                         </form>
                     </div>
                 </section>

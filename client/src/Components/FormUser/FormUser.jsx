@@ -73,7 +73,7 @@ export default function FormUser (){
                     placeholder='Password...' 
                     onChange={handleRepeat} 
                     required/>
-                <button className={`btn mt-2 mb-3 my-auto ${styles.btnByPlantas}`} type='submit'>Registrate</button>
+                <button className={`btn btnByPlantas mt-2 mb-3 my-auto`} type='submit'>Registrate</button>
             </form>
         </div>
     )

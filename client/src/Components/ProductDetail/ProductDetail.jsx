@@ -27,7 +27,7 @@ const ProductDetail = ({match}) =>{
                     <hr/>
                     <p>{product.description}</p>
                     <hr/>
-                    <button className="btn btn-outline-success" onClick={()=> alert("New feature available soon")}>Agregar al Carrito</button>
+                    <button className="btn btnByPlantas" onClick={()=> alert("New feature available soon")}>Agregar al Carrito</button>
                </div>
            </div>
         </div>
