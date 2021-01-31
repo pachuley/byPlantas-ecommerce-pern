@@ -12,9 +12,10 @@ const Home = () => {
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis sequi eum, sapiente dolore, veritatis deleniti, voluptate eligendi quisquam soluta ad tempora in at nihil ut deserunt exercitationem? Iste, nobis asperiores.</p>
                     <div className="row">
                         <div className="col-3">
-                            <Link to="/products" className="btn btn-secondary">
+                            <Link to="/products" className={`btn ${style.btnByPlantas}`}>
                                 Ir a Catálogo
                             </Link>
+
                         </div>
                     </div>
                 </div>
