@@ -1,33 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './orderTable.module.css';
+import axios from 'axios'
 import Order from '../Order/Order'
-// import axios from 'axios';
+
+const {REACT_APP_BACKEND_URL} = process.env;
 
 
 
-export default function OrderTable() {
-    const orders = [
-        {idUser:1,
-            idOrder:1,
-            status:'cart',
-            total:100,
-            date:'02/04/11'},
-        {idUser:1,
-            idOrder:2,
-            status:'cart',
-            total:100,
-            date:'02/04/11'},
-        {idUser:1,
-            idOrder:3,
-            status:'cart',
-            total:100,
-            date:'02/04/11'},
-        {idUser:1,
-            idOrder:4,
-            status:'cart',
-            total:100,
-            date:'02/04/11'}        
-        ]
+
+export default function OrderTable({match}) {
+    
+
+    const [orders, setOrders] = useState({})
+        useEffect(()=>{
+            getOrders()
+        }, [])
+        const getOrders = () => {
+            axios.get(`${REACT_APP_BACKEND_URL}/order/orders`)
+            .then(res => {
+                console.log(res.data)
+                setOrders(res.data[0])
+            })
+        }
+        console.log("orders " + orders)
     return (
         <div className="container tabla">
             <div className="col-md-10 panel-right row tabla" style={{ paddingTop: '25px' }}>
@@ -44,12 +39,12 @@ export default function OrderTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map(order=> <Order 
+                        {/* {orders.map(order=> <Order 
                         idUser={order.idUser}
                         idOrder={order.idOrder}
                         status={order.status}
                         total={order.total}
-                        date={order.date} />)}
+                        date={order.date} />)} */}
                     </tbody>
                 </table>
             </div>
