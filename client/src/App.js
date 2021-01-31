@@ -14,12 +14,15 @@ import Admins from "./Components/Admins/Admins";
 import OrderTable from "./Components/OrderTable/OrderTable";
 import Cart from "./Components/Cart/Cart";
 
+
 function App() {
   return (
     <>
+    
       <NavBar />
       <div className="masterSwitch">
         <Switch>
+         
           <Route path='/' exact render={() => <Home />}/>
           <Route path="/products" exact render={() => <CatalogContainer/>}/>
           <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>

@@ -1,9 +1,37 @@
+.header {
+    z-index: 997;
+    padding: 26px 0;
+  }
+  
+.headerLogo {
+    font-size: 34px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-left: 4px solid #507b00;
+    color: #f5f5ef;
+    margin-left: 4em;
+  }
+  
+  
+@media (max-width: 992px) {
+    .headerLogo {
+      font-size: 28px;
+    }
+  }
+  
+
 .headerText  {
     text-decoration: none;
 }
 
-.h1Margin {
-    margin-left: 4em;
+.byPlantasNavbar {
+    background-color: #a17e30;
+    height: 5em;
 }
 
 .ulMargin {
@@ -17,16 +45,36 @@
 
 .link{
     margin-left: 2rem;
-    color: white;
+    color: #f5f5ef;
     text-decoration: none;
+    font-weight: 500;
 }
 .link:hover{
     margin-left: 2rem;
-    color: lightgrey;
+    color:  #507b00;
 }
 .alink{
-    color: #59ba04;
+    color: #507b00;
 }
 .alink:hover{
-    color: #4da103
+    color: #507b00
+}
+
+.alinkLogo{
+    margin-left: 3px;
+    color: #507b00;
+}
+
+.alinkLogo:hover{
+    color: #507b00
+}
+
+.linkLogo{
+    margin-left: 3px;
+    color: #f5f5ef;
+    text-decoration: none;
+    font-weight: 500;
+}
+.linkLogo:hover{
+    color:  #507b00;
 }
