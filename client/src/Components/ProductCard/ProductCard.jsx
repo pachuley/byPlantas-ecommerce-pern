@@ -12,15 +12,16 @@ const ProductCard = ({
 }) =>{
         return(
 
-            <div className="card">
-  <img  src={imgs ? imgs : "https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png"} className="img-thumbnail" />
-  <div className="card-body">
-    <h5 className="card-title">{name}</h5>
-    <p className="card-text"> Stock: {stock}</p>
-    <NavLink to={`/products/${id}`}>
-    <a className="btn btn-primary">Product Details</a>
-    </NavLink>
-  </div>
+            <div className="card mt-3">
+              <img  src={imgs ? imgs : "https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png"} className="img-thumbnail" />
+              <div className="card-body">
+                <h5 className="card-title">{name}</h5>
+                <p className="card-text"> Stock: {stock}</p>
+                <p className="card-text"> Precio: {price}</p>
+                <NavLink to={`/products/${id}`}>
+                  <button className="btn btn-primary">Product Details</button >
+                </NavLink>
+            </div>
 </div>
             
         )
