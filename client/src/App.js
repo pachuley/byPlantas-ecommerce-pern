@@ -13,12 +13,15 @@ import AccountContainer from "./Components/AccountContainer/AccountContainer";
 import Admins from "./Components/Admins/Admins";
 import OrderTable from "./Components/OrderTable/OrderTable";
 
+
 function App() {
   return (
     <>
+    
       <NavBar />
       <div className="masterSwitch">
         <Switch>
+         
           <Route path='/' exact render={() => <Home />}/>
           <Route path="/products" exact render={() => <CatalogContainer/>}/>
           <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
@@ -27,7 +30,7 @@ function App() {
           <Route path='/productslist'><ProductList /></Route>
           <Route path='/admins' exact render={() => <Admins/>}/>
           <Route path='/account' exact render={() => <AccountContainer/>}/>
-          <Route path="/admin" exact render={() => <OrderTable />} />
+          <Route path="/orders" exact render={() => <OrderTable />} />
         </Switch>
       </div>
       <Footer />

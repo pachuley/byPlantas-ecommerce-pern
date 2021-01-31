@@ -56,3 +56,50 @@
     margin: auto;
     width: auto;
 }
+
+.btnByPlantas {
+    background-color: #507b00; /* Green */
+    border: none;
+    color: #f5f5f5;
+    padding: 0,875em 2.25em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 0.75em;
+    font-size: 1em;
+    width:9.375em;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5em;
+} 
+
+.btnByPlantas:hover {
+    background-color: #f5f5ef; /* Green */
+    color: #507b00;
+    padding-right: 25px;
+} 
+  
+.btnByPlantas link {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+  
+.btnByPlantas link:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+  
+.btnByPlantas:hover link {
+    padding-right: 25px;
+}
+  
+.btnbyPlantas:hover link:after {
+    opacity: 1;
+    right: 0;
+}

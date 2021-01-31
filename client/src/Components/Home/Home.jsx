@@ -16,7 +16,7 @@ const Home = () => {
                             <p>Tu tienda para productos ecofriendly y sustentables!</p>
                             <div className="row">
                                 <div className="col-3">
-                                    <Link to="/products" className="btn btn-secondary">
+                                    <Link to="/products" className={`btn ${style.btnByPlantas}`}>
                                         Nuestros Productos!
                                     </Link>
                                 </div>
