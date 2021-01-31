@@ -22,7 +22,7 @@ export default function NavBar() {
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/products" >Catálogo</NavLink>
                         </li>
                         <li className={`${styles.liMargin}`}>
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/addUser" >Usuario</NavLink>
+                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/account" >Cuenta</NavLink>
                         </li>
                         <div>
                         
