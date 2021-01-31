@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import styles from './formlogin.module.css'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 export default function FormLogin (){
@@ -35,7 +36,7 @@ export default function FormLogin (){
     return (
         <div className='container col-md-6 justify-content-center'>
             <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={handleSubmit}>
-                <h4 className={`text-center pb-4`}>Ingresa a tu cuenta!</h4>
+                <h4 className={`${styles.titles}`}>Ingresa a tu cuenta!</h4>
                 <label htmlFor='inputEmailUser' className='form-label'>Escribe tu Email</label>
                 <input 
                     id='inputEmailUser' 
@@ -56,7 +57,7 @@ export default function FormLogin (){
                     value={user.password} 
                     onChange={handleChange} 
                     required/>
-                <button className='btn btn-primary mt-2 mb-3 my-auto' type='submit'>Ingresa</button>
+                <button className={`btn mt-2 mb-3 my-auto ${styles.btnByPlantas}`} type='submit'>Ingresa</button>
             </form>
         </div>
     )
