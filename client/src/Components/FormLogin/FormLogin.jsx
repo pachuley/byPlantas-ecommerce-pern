@@ -24,7 +24,9 @@ export default function FormLogin (){
             alert('Contraseña Invalida')
         }else{
             axios.post(`${REACT_APP_BACKEND_URL}/users/login`, user)
-            .then(resp=>{console.log(resp)})
+            .then(resp=>{console.log(resp)
+                user.email === "admin@admin.com" ? localStorage.setItem('admin', 'true') : localStorage.setItem('admin', 'false')
+            })
             .catch(err=>{console.log(err)})
         }
         

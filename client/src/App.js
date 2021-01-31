@@ -27,7 +27,7 @@ function App() {
           <Route path='/productslist'><ProductList /></Route>
           <Route path='/admins' exact render={() => <Admins/>}/>
           <Route path='/account' exact render={() => <AccountContainer/>}/>
-          <Route path="/admin" exact render={() => <OrderTable />} />
+          <Route path="/orders" exact render={() => <OrderTable />} />
         </Switch>
       </div>
       <Footer />
