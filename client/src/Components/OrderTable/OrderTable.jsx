@@ -24,7 +24,7 @@ export default function OrderTable() {
   return (
     <div className="container tabla">
       <div
-        className="col-md-10 panel-right row tabla"
+        className="col-md-12 panel-right row tabla"
         style={{ paddingTop: "25px" }}
       >
         <div className="col-md-12 col-lg-12">
