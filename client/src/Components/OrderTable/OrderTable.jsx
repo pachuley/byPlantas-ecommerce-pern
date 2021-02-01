@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect,useState}from 'react';
+import {Link} from 'react-router-dom';
 import './orderTable.module.css';
-import axios from 'axios'
-import Order from '../Order/Order'
-
+import axios from 'axios';
+// import axios from 'axios';
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
 
-
-export default function OrderTable({match}) {
+export default function OrderTable() {
+    const [orders, setOrders] = useState([])
     
-
-    const [orders, setOrders] = useState({})
-        useEffect(()=>{
-            getOrders()
-        }, [])
-        const getOrders = () => {
-            axios.get(`${REACT_APP_BACKEND_URL}/order/orders`)
+    useEffect(()=>{
+        console.log('ejecuta');
+        getOrders()
+    },[])
+    const getOrders = async () => {
+        console.log('orders')
+        axios.get(`${REACT_APP_BACKEND_URL}/orders`)
             .then(res => {
-                console.log(res.data)
-                setOrders(res.data[0])
+                setOrders(...orders, res.data)
             })
-        }
-        console.log("orders " + orders)
+    }
+    console.log(orders)
     return (
         <div className="container tabla">
             <div className="col-md-10 panel-right row tabla" style={{ paddingTop: '25px' }}>
@@ -31,20 +30,23 @@ export default function OrderTable({match}) {
                 <table className="table table-hover table-dark thfontsize">
                     <thead>
                         <tr>
-                            <th scope="col">Id Usuario</th>
+                            <th scope="col">Id User</th>
                             <th scope="col">Id Order</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Monto Total</th>
                             <th scope="col">F. Compra</th>
+                            <th scope="col">Detalles</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {orders.map(order=> <Order 
-                        idUser={order.idUser}
-                        idOrder={order.idOrder}
-                        status={order.status}
-                        total={order.total}
-                        date={order.date} />)} */}
+                        {orders.map(order=> 
+                        <tr key={order.id}>
+                            <td>{order.userId}</td>
+                            <td>{order.id}</td>
+                            <td>{order.status}</td>
+                            <td>{order.createdAt}</td>
+                            <td><button className={`btn btn-link`}><Link to={`admin/orders/${order.id}`}>detalle</Link></button></td>
+                        </tr>
+                       )}
                     </tbody>
                 </table>
             </div>
