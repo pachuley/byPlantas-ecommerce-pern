@@ -22,7 +22,7 @@ export default function FormLogin (){
         if(!emailPattern.test(user.email)){
             alert('Email Invalido')
         }else if(!passwordPattern.test(user.password)){
-            alert('Contraseña Invalida')
+            alert(' Contraseña Invalida')
         }else{
             axios.post(`${REACT_APP_BACKEND_URL}/users/login`, user)
             .then(resp=>{console.log(resp)
