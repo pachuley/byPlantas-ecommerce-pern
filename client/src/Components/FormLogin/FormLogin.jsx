@@ -57,7 +57,7 @@ export default function FormLogin (){
                     value={user.password} 
                     onChange={handleChange} 
                     required/>
-                <button className={`btn mt-2 mb-3 my-auto ${styles.btnByPlantas}`} type='submit'>Ingresa</button>
+                <button className={`btn mt-2 mb-3 my-auto btnByPlantas`} type='submit'>Ingresa</button>
             </form>
         </div>
     )
