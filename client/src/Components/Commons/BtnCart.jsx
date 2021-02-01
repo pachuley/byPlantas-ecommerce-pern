@@ -26,7 +26,6 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
     })
 
     
-
     const handleContador = e =>{
         
         if(logged){
@@ -48,6 +47,8 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
 
         logged ? setOrder({...order, imgs: imgs}) : setGuestOrder({...guestOrder})
         logged !== null ? handleAddtocart() : handleAddtoguest() ;
+        setOrder({...order, quantity: 0})
+        setGuestOrder({...guestOrder, quantity: 0})
     }
 
     const handleAddtocart = e =>{
