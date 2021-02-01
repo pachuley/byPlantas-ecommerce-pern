@@ -23,8 +23,15 @@ const ProductDetail = ({match}) =>{
     //     })
     // }
     
-    
 
+    
+    var id = prod.id
+    var stock = prod.stock
+    var name = prod.name
+    var price = prod.price
+    var imgs = prod.imgs
+    
+    
     return(
         <div className={`mt-5 px-5`}>
            <div className="row py-5">
@@ -36,6 +43,8 @@ const ProductDetail = ({match}) =>{
                     <hr/>
                     <p>{prod.description}</p>
                     <hr/>
+
+                    <BtnCart className="btn btnByPlantas" productId={id} stock={stock} name={name} price={price} imgs={imgs} />
                     {/* <div>
                         {<BtnCart productId={parseInt(match.params.id)} stock={prod.stock} name={prod.name} price={prod.price} imgs={prod.imgs} />}
                     </div>                     */}
