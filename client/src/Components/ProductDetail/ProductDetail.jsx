@@ -48,7 +48,7 @@ const ProductDetail = ({match}) =>{
                     <hr/>
                     <p> Stock: {stock}</p>
                     <hr/>
-                    <BtnCart className="btn btnByPlantas" productId={id} stock={stock} name={name} price={price} imgs={imgs} />
+                    <BtnCart className="btn btnByPlantas" productId={match.params.id} stock={stock} name={name} price={price} imgs={imgs} />
                     {/* <div>
                         {<BtnCart productId={parseInt(match.params.id)} stock={prod.stock} name={prod.name} price={prod.price} imgs={prod.imgs} />}
                     </div>                     */}
