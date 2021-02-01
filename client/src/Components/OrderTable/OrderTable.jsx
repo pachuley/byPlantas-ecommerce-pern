@@ -28,7 +28,9 @@ export default function OrderTable() {
         style={{ paddingTop: "25px" }}
       >
         <div className="col-md-12 col-lg-12">
-          <h2 className="text-center">Todas las Ordenes</h2>
+          <h2 className="text-center">
+            <u>Todas las Ordenes</u>
+          </h2>
           <table className="table table-hover table-dark thfontsize">
             <thead>
               <tr>
@@ -48,7 +50,12 @@ export default function OrderTable() {
                   <td>{fecha}</td>
                   <td>
                     <button className={`btn btn-link`}>
-                      <Link to={`admin/orders/${order.id}`}>detalle</Link>
+                      <Link
+                        className={` text-light`}
+                        to={`admin/orders/${order.id}`}
+                      >
+                        detalle
+                      </Link>
                     </button>
                   </td>
                 </tr>
