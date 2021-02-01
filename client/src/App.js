@@ -12,22 +12,32 @@ import ProductList from "./Components/ProductList/ProductsList";
 import FormUser from "./Components/FormUser/FormUser";
 import Admins from "./Components/Admins/Admins";
 import OrderTable from "./Components/OrderTable/OrderTable";
-
+import Order from "./Components/Order/Order";
 function App() {
   return (
     <>
       <NavBar />
       <div className="masterSwitch">
         <Switch>
-          <Route path='/' exact render={() => <Home />}/>
-          <Route path="/products" exact render={() => <CatalogContainer/>}/>
-          <Route exact path='/products/:id' render={({match}) => <ProductDetail match={match}/>}/>
-          <Route path='/addProduct' exact render={() => <FormProduct/>}/>
-          <Route path='/addCategory' exact render={() => <FormCategory/>}/>
-          <Route path='/productslist'><ProductList /></Route>
-          <Route path='/admins' exact render={() => <Admins/>}/>
-          <Route path='/addUser' exact render={() => <FormUser/>}/>
+          <Route path="/" exact render={() => <Home />} />
+          <Route path="/products" exact render={() => <CatalogContainer />} />
+          <Route
+            exact
+            path="/products/:id"
+            render={({ match }) => <ProductDetail match={match} />}
+          />
+          <Route path="/addProduct" exact render={() => <FormProduct />} />
+          <Route path="/addCategory" exact render={() => <FormCategory />} />
+          <Route path="/productslist">
+            <ProductList />
+          </Route>
+          <Route path="/admins" exact render={() => <Admins />} />
+          <Route path="/addUser" exact render={() => <FormUser />} />
           <Route path="/admin" exact render={() => <OrderTable />} />
+          <Route
+            path="/admin/orders/:id"
+            render={({ match }) => <Order match={match} />}
+          />
         </Switch>
       </div>
       <Footer />
