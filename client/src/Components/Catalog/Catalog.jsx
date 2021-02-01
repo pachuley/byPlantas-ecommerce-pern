@@ -11,8 +11,8 @@ const Catalog = ({products}) => {
             <h5 className={`m-0 text-center`}>Productos</h5>
             <hr/>
             <div className="row">
-                {products.map(product=> 
-                <div className="col-4">
+                {products.map((product, index)=> 
+                <div key={index} className="col-4">
                     <ProductCard
                     key={product.id}
                     id = {product.id}
