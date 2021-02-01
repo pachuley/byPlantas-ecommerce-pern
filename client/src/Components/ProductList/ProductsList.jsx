@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import EditProduct from '../EditProduct/EditProduct';
 import {Link} from 'react-router-dom'
+import ProductChangeCategory from '../ProductChangeCategories/ProductChangeCategory';
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
@@ -42,6 +43,7 @@ const ProductsList = (props) => {
                       <th>Descripción</th>
                       <th>Precio</th>
                       <th>Stock</th>
+                      <th>Categorias</th>
                       <th>Editar</th>
                       <th>Eliminar</th>
                  </tr>
@@ -55,6 +57,7 @@ const ProductsList = (props) => {
                                   <td>{p.description}</td>
                                   <td>{p.price}</td>
                                   <td>{p.stock}</td>
+                                  <ProductChangeCategory cat={p.categories}/>
                                   <td>
                                     <EditProduct product={p}/>
                                   </td>

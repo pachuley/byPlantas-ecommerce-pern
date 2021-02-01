@@ -14,7 +14,7 @@ const EditProduct = ({product}) => {
       [e.target.name]:e.target.value
     })
   } 
-
+console.log(prod)
   const handleButtonEdit = (e) => {
     let body = {...prod}
     axios.put(`${REACT_APP_BACKEND_URL}/products/${prod.id}`,body)
@@ -22,6 +22,26 @@ const EditProduct = ({product}) => {
       console.log(res)
       window.location = '/productslist'
     })
+  }
+
+  const [categories, setCategories] = useState([])
+  
+  //este useeffect agarra las categorias y las guarda en el estado categories
+  useEffect(()=>{
+    axios.get(`${REACT_APP_BACKEND_URL}/products/category`)
+    .then(resp=>{setCategories(resp.data)})
+    .catch(err=>{console.log(err)})
+  }, [])
+  
+  const [checks, setChecks] = useState([])
+
+  const handleClick = e => {
+    if(e.target.checked){
+      setChecks([...checks, parseInt(e.target.id)])
+    }else{
+      const newChecks = checks.filter(x=>x!==parseInt(e.target.id))
+      setChecks(newChecks)
+    }
   }
             
   
@@ -79,6 +99,19 @@ const EditProduct = ({product}) => {
                 name='stock'
                 onChange={(e) => handleInpedit(e)}
                 />
+                <div>
+
+            <label>Categorias</label>
+              {categories.map((x,index)=>{
+                return(
+                  <div key={index}>
+                    <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onClick={handleClick}/>
+                    <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
+                  </div>
+                )
+              })}
+          </div> 
+
             </div>
 
             <div className="modal-footer">
