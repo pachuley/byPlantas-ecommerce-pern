@@ -28,7 +28,7 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
     
 
     const handleContador = e =>{
-        console.log(guestOrder)
+        
         if(logged){
             if(e.target.id === 'btnCartPlus'){
                 if(order.quantity < stock){setOrder({...order, quantity: order.quantity + 1})}            
@@ -37,15 +37,15 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
             }
         }else{
             if(e.target.id === 'btnCartPlus'){
-                if(guestOrder.quantity < stock){setGuestOrder({...guestOrder, name: name, price:price, imgs:imgs, quantity: guestOrder.quantity + 1})}            
+                if(guestOrder.quantity < stock){setGuestOrder({...guestOrder, id:productId, name: name, price:price, imgs:imgs, quantity: guestOrder.quantity + 1})}            
             }else{
-                if(guestOrder.quantity > 0){setGuestOrder({...guestOrder, name: name, price:price, imgs:imgs, quantity: guestOrder.quantity - 1})}
+                if(guestOrder.quantity > 0){setGuestOrder({...guestOrder, id:productId, name: name, price:price, imgs:imgs, quantity: guestOrder.quantity - 1})}
             }
         }
     }
 
     const handleClick = e => {
-        console.log(logged)
+
         logged ? setOrder({...order, imgs: imgs}) : setGuestOrder({...guestOrder})
         logged !== null ? handleAddtocart() : handleAddtoguest() ;
     }
