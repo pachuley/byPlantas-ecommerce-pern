@@ -8,7 +8,7 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
     const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
     const [order, setOrder] = useState({
         productId: productId,
-        userId: logged.userId,
+        userId: logged ? logged.userId : 0,
         quantity: 0,
         discount: 0,
         imgs,
