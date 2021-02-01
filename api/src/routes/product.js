@@ -64,7 +64,7 @@ server.post('/:idProducto/category/setCategories',(req,res)=>{
 })
 server.get("/:id", (req, res) => {
   let id = req.params.id;
-  Product.findAll({
+  Product.findOne({
     where: { id: id },
   }).then(function (result) {
     if (result) {

@@ -12,6 +12,7 @@ import ProductList from "./Components/ProductList/ProductsList";
 import AccountContainer from "./Components/AccountContainer/AccountContainer";
 import Admins from "./Components/Admins/Admins";
 import OrderTable from "./Components/OrderTable/OrderTable";
+import Cart from "./Components/Cart/Cart";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path='/productslist'><ProductList /></Route>
           <Route path='/admins' exact render={() => <Admins/>}/>
           <Route path='/account' exact render={() => <AccountContainer/>}/>
+          <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/orders" exact render={() => <OrderTable />} />
         </Switch>
       </div>

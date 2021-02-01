@@ -25,7 +25,10 @@ export default function NavBar() {
                         { admin === "true" ?
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
                             : ""}
-                        </li> 
+                        </li>
+                        <li className={`${styles.liMargin}`}>
+                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                        </li>
                         <div>
                         </div>
                     </ul>

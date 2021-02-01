@@ -34,7 +34,10 @@ export default function FormUser (){
             alert('Las Contraseñas deben coincidir')
         }else{
             axios.post(`${REACT_APP_BACKEND_URL}/users/register`, user)
-            .then(resp=>{console.log(resp)})
+            .then(resp=>{
+                console.log(resp)
+                alert('Registro completado')
+            })
             .catch(err=>{console.log(err)})
         }
         
