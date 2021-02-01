@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import styles from './formuser.module.css'
+import Swal from 'sweetalert2'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 export default function FormUser (){
@@ -25,18 +26,28 @@ export default function FormUser (){
     const passwordPattern = new RegExp(/[A-Za-z0-9_.]{8,}/, 'i'); //valida que tengo por lo menos 8 caracteres
     const handleSubmit = e => {
         e.preventDefault()
-        console.log()
         if(!emailPattern.test(user.email)){
-            alert('Email Invalido')
+            Swal.fire({
+                title: 'Email inválido',
+                icon: 'error'
+            })
         }else if(!passwordPattern.test(user.password)){
-            alert('Contraseña Invalida')
+            Swal.fire({
+                title: 'Contraseña inválida',
+                icon: 'error'
+            })
         }else if(!valid){
-            alert('Las Contraseñas deben coincidir')
+            Swal.fire({
+                title: 'Contraseñas deben coincidir',
+                icon: 'error'
+            })
         }else{
             axios.post(`${REACT_APP_BACKEND_URL}/users/register`, user)
             .then(resp=>{
-                console.log(resp)
-                alert('Registro completado')
+                Swal.fire({
+                    title: 'Se registro correctamente',
+                    icon: 'success'
+                })
             })
             .catch(err=>{console.log(err)})
         }

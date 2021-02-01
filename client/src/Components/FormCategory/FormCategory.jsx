@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styles from './formCategory.module.css';
+import Swal from 'sweetalert2'
 import axios from 'axios';
 const {REACT_APP_BACKEND_URL} = process.env;
 
@@ -16,8 +17,11 @@ export default function FormCategory (){
         e.preventDefault()
         axios.post(`${REACT_APP_BACKEND_URL}/products/category`, category)//variable del .env
         .then(resp=>{
-            alert('Categoria Agregada')
-            console.log(resp)
+            Swal.fire({
+                title: `Se agrego categoria: ${category.name}`,
+                icon: 'success'
+            })
+            setCategory({name: '', description: ''})
         })
         .catch(err=>{console.log(err)})
     }

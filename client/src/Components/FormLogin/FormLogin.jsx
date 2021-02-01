@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import styles from './formlogin.module.css'
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 export default function FormLogin (){
@@ -20,15 +21,25 @@ export default function FormLogin (){
         e.preventDefault()
         console.log()
         if(!emailPattern.test(user.email)){
-            alert('Email Invalido')
+            Swal.fire({
+                title: 'Email inválido',
+                icon: 'error'
+            })
         }else if(!passwordPattern.test(user.password)){
-            alert(' Contraseña Invalida')
+            Swal.fire({
+                title: 'Contraseña inválida',
+                icon: 'error'
+            })
         }else{
             axios.post(`${REACT_APP_BACKEND_URL}/users/login`, user)
             .then(resp=>{console.log(resp)
                 user.email === "admin@admin.com" ? localStorage.setItem('admin', 'true') : localStorage.setItem('admin', 'false')
                 changeLogin(resp.data.userId)
-                alert(resp.data.message)
+                Swal.fire({
+                    title: `${resp.data.message}`,
+                    icon: 'info'
+                  })
+                
                 window.location.reload();
             })
             .catch(err=>{console.log(err)})

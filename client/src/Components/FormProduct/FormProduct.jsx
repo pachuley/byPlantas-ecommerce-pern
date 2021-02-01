@@ -1,5 +1,6 @@
 import React,{useEffect, useState}from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
@@ -47,9 +48,18 @@ const FormProduct = (props) => {
       prodId = res.data.id;
       axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/setCategories`,checks)
       .then(resp=>{
-        alert('Producto Agregado')
-        console.log(resp)
+        Swal.fire({
+          title: `Producto agregado: ${producto.name}`,
+          icon: 'success'
+        })
+        setProducto({
+          name:"",
+          description:"",
+          price:"",
+          stock :""
+        })
       })
+      .catch(e => console.log(e))
     })
     .catch(err => {console.log(err)})
   }
