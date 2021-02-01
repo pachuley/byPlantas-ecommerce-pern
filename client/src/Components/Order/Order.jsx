@@ -29,7 +29,7 @@ export default function Order({match}) {
     return(
         <Fragment>
             <div className="container mt-5">
-            <button className={`btn btn-dark`}><Link className={`text-light`} to={`/admin`}>Atras</Link></button>
+            <button className={`btn btn-dark`}><Link className={`text-light`} to={`/orders`}>Atras</Link></button>
                 <h2 className={`text-center`}>Orden del usuario {order.userId}</h2>
                 <div className="container d-flex mt-5 border">
                     <div className="col-md-4 border border-light">

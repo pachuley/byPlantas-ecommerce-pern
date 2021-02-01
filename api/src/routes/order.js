@@ -84,5 +84,16 @@ server.get("/:id", (req, res, next) => {
     })
     .catch(next);
 });
+//S44
+
+server.get("/orders", (req, res, next) => {
+  Order.findAll()
+    .then((orders) => {
+      res.status(200).json(orders);
+    })
+    .catch(next);
+});
+
+module.exports = server;
 
 module.exports = server;

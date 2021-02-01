@@ -123,7 +123,7 @@ const FormProduct = (props) => {
                 )
               })}
           </div> 
-          <button className='btn btn-primary mt-2 mb-3' type='submit'>Agregar</button>
+          <button className='btn btnByPlantas mt-2 mb-3' type='submit'>Agregar</button>
       </form>
     </div>
   )

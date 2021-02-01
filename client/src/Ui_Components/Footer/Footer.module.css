@@ -1,19 +1,27 @@
 html{
     height: 91.5%;
 }
+
 body{
     position: relative;
     margin: 0;
     padding-bottom: 4rem;
     min-height: 100%;
 }
+
 .divFooter {
     width: 100%;
-    height: 3rem;
+    height: 4em;
     text-align: center;
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
+    background-color: #a17e30;
+    align-content: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+
 }
 .divFooter p {
     margin: 0;
+    font-weight: 500;
 }

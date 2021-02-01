@@ -84,7 +84,7 @@ const EditProduct = ({product}) => {
             <div className="modal-footer">
               <button 
                 type="button" 
-                className="btn btn-warning" 
+                className="btn btnByPlantas" 
                 data-dismiss="modal"
                 onClick={(e)=>{handleButtonEdit(e)}}
                 >

@@ -1,24 +1,17 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import styles from './formuser.module.css'
+import styles from './formlogin.module.css'
+import { connect } from 'react-redux';
 const {REACT_APP_BACKEND_URL} = process.env;
 
-export default function FormUser (){
+export default function FormLogin (){
     const [user, setUser] = useState({email: '', password: ''})
-    const [valid, setValid] = useState(false)
 
     const handleChange = e => {
         setUser({
             ...user,
             [e.target.name]:e.target.value
         })
-    }
-    const handleRepeat = e => {
-        if(e.target.value === user.password){
-            setValid(true)
-        }else{
-            setValid(false)
-        }
     }
 
     const emailPattern = new RegExp(/[A-Za-z0-9_.]+\@\w+\.\w\w+/, 'i'); //valida que tenga un '@' seguido de un string seguido de '.' seguido por lo menos 2 caracteres
@@ -30,26 +23,29 @@ export default function FormUser (){
             alert('Email Invalido')
         }else if(!passwordPattern.test(user.password)){
             alert('Contraseña Invalida')
-        }else if(!valid){
-            alert('Las Contraseñas deben coincidir')
         }else{
-            axios.post(`${REACT_APP_BACKEND_URL}/users/register`, user)
-            .then(resp=>{
-                console.log(resp)
-                alert('Registro completado')
+            axios.post(`${REACT_APP_BACKEND_URL}/users/login`, user)
+            .then(resp=>{console.log(resp)
+                user.email === "admin@admin.com" ? localStorage.setItem('admin', 'true') : localStorage.setItem('admin', 'false')
+                changeLogin(resp.data.userId)
+                alert(resp.data.message)
             })
             .catch(err=>{console.log(err)})
         }
         
     }
+    const changeLogin = (userId) => {
+        const dataLogin = {userId: userId}
+        localStorage.setItem('Login', JSON.stringify(dataLogin))
+    }
 
     return (
         <div className='container col-md-6 justify-content-center'>
             <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={handleSubmit}>
-                <h4 className={`${styles.titles}`}>Registra tus datos!</h4>
-                <label htmlFor='inputEmailUser' className='form-label'>Ingresa un Email</label>
+                <h4 className={`${styles.titles}`}>Ingresa a tu cuenta!</h4>
+                <label htmlFor='inputLoginEmail' className='form-label'>Escribe tu Email</label>
                 <input 
-                    id='inputEmailUser' 
+                    id='inputLoginEmail' 
                     name='email' 
                     className='form-control' 
                     type='email' 
@@ -57,9 +53,9 @@ export default function FormUser (){
                     value={user.email} 
                     onChange={handleChange} 
                     required/>
-                <label htmlFor='inputUserPassword' className='form-label'>Ingresa una Contraseña</label>
+                <label htmlFor='inputLoginPassword' className='form-label'>Escribe tu Contraseña</label>
                 <input 
-                    id='inputUserPassword' 
+                    id='inputLoginPassword' 
                     name='password' 
                     className='form-control' 
                     type='password' 
@@ -67,16 +63,7 @@ export default function FormUser (){
                     value={user.password} 
                     onChange={handleChange} 
                     required/>
-                <label htmlFor='inputUserPassword2' className='form-label'>Reingresa la Contraseña</label>
-                <input 
-                    id='inputUserPassword2' 
-                    name='password2' 
-                    className='form-control' 
-                    type='password' 
-                    placeholder='Password...' 
-                    onChange={handleRepeat} 
-                    required/>
-                <button className={`btn btnByPlantas mt-2 mb-3 my-auto`} type='submit'>Registrate</button>
+                <button className={`btn mt-2 mb-3 my-auto btnByPlantas`} type='submit'>Ingresa</button>
             </form>
         </div>
     )
