@@ -7,6 +7,7 @@ const { REACT_APP_BACKEND_URL } = process.env;
 
 export default function OrderTable() {
   const [orders, setOrders] = useState([]);
+  const [fecha, setFecha] = useState("");
 
   useEffect(() => {
     console.log("ejecuta");
@@ -16,6 +17,7 @@ export default function OrderTable() {
     console.log("orders");
     axios.get(`${REACT_APP_BACKEND_URL}/orders`).then((res) => {
       setOrders(...orders, res.data);
+      setFecha(res.data[0].createdAt.split("T", 1));
     });
   };
   console.log(orders);
@@ -43,7 +45,7 @@ export default function OrderTable() {
                   <td>{order.userId}</td>
                   <td>{order.id}</td>
                   <td>{order.status}</td>
-                  <td>{order.createdAt}</td>
+                  <td>{fecha}</td>
                   <td>
                     <button className={`btn btn-link`}>
                       <Link to={`admin/orders/${order.id}`}>detalle</Link>
