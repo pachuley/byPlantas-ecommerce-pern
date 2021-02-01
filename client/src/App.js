@@ -30,9 +30,6 @@ function App() {
           <Route path='/addCategory' exact render={() => <FormCategory/>}/>
           <Route path='/productslist'><ProductList /></Route>
           <Route path='/admins' exact render={() => <Admins/>}/>
-          <Route path='/addUser' exact render={() => <FormUser/>}/>
-          <Route path="/admin" exact render={() => <OrderTable />} />
-          <Route path="/cart" exact render={() => <Cart />} />
           <Route path='/account' exact render={() => <AccountContainer/>}/>
           <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/orders" exact render={() => <OrderTable />} />

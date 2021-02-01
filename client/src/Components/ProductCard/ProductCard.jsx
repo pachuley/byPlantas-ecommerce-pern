@@ -10,7 +10,7 @@ const ProductCard = ({
     imgs, 
     stock, 
     id
-}) =>{
+}) => (
 
             <div className="card mt-3">
               <img  src={imgs ? imgs : "https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png"} className="img-thumbnail" />
@@ -22,8 +22,8 @@ const ProductCard = ({
                   <button className="btn btn-primary">Product Details</button >
                 </NavLink>
             </div>
-</div>
+          </div>
             
         )
-}
+
 export default ProductCard;
