@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import Swal from 'sweetalert2'
 import React, {Fragment, useState, useEffect} from 'react'
 const {REACT_APP_BACKEND_URL} = process.env;
 
@@ -8,7 +8,6 @@ const EditProduct = ({product}) => {
 
   const [prod, setProduct ] = useState(product)
   const handleInpedit = (e) => {
-    console.log(e.target.value)
     setProduct({
       ...prod,
       [e.target.name]:e.target.value
@@ -19,8 +18,10 @@ const EditProduct = ({product}) => {
     let body = {...prod}
     axios.put(`${REACT_APP_BACKEND_URL}/products/${prod.id}`,body)
     .then(res => {
-      console.log(res)
-      window.location = '/productslist'
+      Swal.fire({
+        title: 'Se edito el producto correctamente',
+        icon: 'success'
+      })
     })
   }
             
