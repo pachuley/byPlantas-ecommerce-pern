@@ -1,10 +1,15 @@
 import {combineReducers} from 'redux'
 import products from './productReducer'
 
-const initialState = {guestId: 1, logged:false}
+const initialState = {userId: 0, logged:false}
 
 function firstReducer(state = initialState, action){
-    return state;
+    switch(action.type){
+        case 'CHANGE_LOGIN': 
+            return {...state, logged:true, userId: action.userId}
+        default:
+            return state
+    }
 }
 
 export default combineReducers({

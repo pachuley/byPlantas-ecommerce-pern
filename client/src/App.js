@@ -34,6 +34,7 @@ function App() {
           <Route path="/admin" exact render={() => <OrderTable />} />
           <Route path="/cart" exact render={() => <Cart />} />
           <Route path='/account' exact render={() => <AccountContainer/>}/>
+          <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/orders" exact render={() => <OrderTable />} />
         </Switch>
       </div>

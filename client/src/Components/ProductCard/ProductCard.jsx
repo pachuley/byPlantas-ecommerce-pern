@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './productCard.module.css'
 import { NavLink } from 'react-router-dom';
+import BtnCart from '../Commons/BtnCart';
 
 const ProductCard = ({ 
     name, 
@@ -10,7 +11,6 @@ const ProductCard = ({
     stock, 
     id
 }) =>{
-        return(
 
             <div className="card mt-3">
               <img  src={imgs ? imgs : "https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png"} className="img-thumbnail" />
