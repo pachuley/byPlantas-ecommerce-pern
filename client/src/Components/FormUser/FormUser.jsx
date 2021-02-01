@@ -36,7 +36,7 @@ export default function FormUser (){
             axios.post(`${REACT_APP_BACKEND_URL}/users/register`, user)
             .then(resp=>{
                 console.log(resp)
-                alert('Registro completado')
+                window.location = "/";
             })
             .catch(err=>{console.log(err)})
         }
