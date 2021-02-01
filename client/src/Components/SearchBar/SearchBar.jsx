@@ -40,7 +40,7 @@ export class SearchBar extends Component {
               className='form-control form-control-sm'
             />
           </div>
-          <button type="submit" className="my-2 btn btn-sm btn-secondary btn-block">BUSCAR</button>
+          <button type="submit" className="my-2 btn btnByPlantas">BUSCAR</button>
         </form>
       </div>
     );
