@@ -20,10 +20,10 @@ server.get("/", (req, res, next) => {
 });
 
 server.put("/:id", (req, res, next) => {
-  let { date, status, id } = req.body;
+  let { status } = req.body;
+  let id = req.params.id;
   Order.update(
     {
-      date,
       status,
     },
     { returning: true, where: { id } }
