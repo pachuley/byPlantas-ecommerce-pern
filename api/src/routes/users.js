@@ -68,7 +68,7 @@ server.post('/login', async (req, res) => {
                        status: 'active'
                     }
                 })
-                res.status(200).json('Email y contraseña correctos');
+                res.status(200).json({message:'Email y contraseña correctos', userId: user.id});
             } else {
                 res.status(400).json('Contraseña equivocada!');
             }
@@ -178,6 +178,18 @@ server.delete('/:userId/cart', (req, res) => {
         })
 })
 
+server.delete('/:userId/cart/:productId', (req,res)=>{
+    var prod;
+    Order.findOne({where: {userId: req.params.userId, status: 'active'}})
+        .then(order=>{
+            Product.findByPk(req.params.productId)
+            .then(prod=>{
+                order.removeProduct(prod)
+                res.send('ok')
+            })
+        })
+})
+
 server.put('/:userId/cart', (req, res ) =>{
 let order
  Order.findOne({where: {userId: req.params.userId, status:"active"}})
@@ -188,7 +200,7 @@ let order
  .catch(error =>{
      console.log
  }) 
- Orderline.uptade({quantity : req.body.quantity}, {where : {orderId : order , productId: req.body.productId}})
+ Orderline.update({quantity : req.body.quantity}, {where : {orderId : order , productId: req.body.productId}})
        .then(r => {
         res.status(201).json({mesagge: 'producto actualizado'})
        })
