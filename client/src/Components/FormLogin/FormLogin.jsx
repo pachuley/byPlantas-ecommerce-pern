@@ -29,6 +29,7 @@ export default function FormLogin (){
                 user.email === "admin@admin.com" ? localStorage.setItem('admin', 'true') : localStorage.setItem('admin', 'false')
                 changeLogin(resp.data.userId)
                 alert(resp.data.message)
+                window.location.reload();
             })
             .catch(err=>{console.log(err)})
         }
