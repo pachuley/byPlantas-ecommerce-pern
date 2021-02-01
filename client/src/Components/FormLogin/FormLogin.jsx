@@ -22,13 +22,14 @@ export default function FormLogin (){
         if(!emailPattern.test(user.email)){
             alert('Email Invalido')
         }else if(!passwordPattern.test(user.password)){
-            alert('Contraseña Invalida')
+            alert(' Contraseña Invalida')
         }else{
             axios.post(`${REACT_APP_BACKEND_URL}/users/login`, user)
             .then(resp=>{console.log(resp)
                 user.email === "admin@admin.com" ? localStorage.setItem('admin', 'true') : localStorage.setItem('admin', 'false')
                 changeLogin(resp.data.userId)
                 alert(resp.data.message)
+                window.location.reload();
             })
             .catch(err=>{console.log(err)})
         }
