@@ -16,7 +16,9 @@ export default function NavBar() {
                 <div className={`collapse ml-auto navbar-collapse`}>
                     <ul className={`navbar-nav ${styles.ulMargin}`}>
                         <li className={`${styles.liMargin}`}>
+                        {admin !== "true" ?
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/products" >Catálogo</NavLink>
+                            : ""}
                         </li>
                         <li className={`${styles.liMargin}`}>
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/account" >Cuenta</NavLink>
@@ -26,8 +28,11 @@ export default function NavBar() {
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
                             : ""}
                         </li>
+                        
                         <li className={`${styles.liMargin}`}>
+                            {admin !== "true" ?
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                            : ""}
                         </li>
                         <div>
                         </div>

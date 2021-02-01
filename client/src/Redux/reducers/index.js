@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux'
+import products from './productReducer'
 
 const initialState = {userId: 0, logged:false}
 
@@ -11,4 +12,7 @@ function firstReducer(state = initialState, action){
     }
 }
 
-export default combineReducers({firstReducer})
+export default combineReducers({
+    firstReducer,
+    products
+})

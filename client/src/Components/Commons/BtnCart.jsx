@@ -14,16 +14,21 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
         imgs,
         price,
     })
+
+    console.log({productId, stock, name, price, imgs})
     const [guestOrder, setGuestOrder] = useState({
         id: productId,
         quantity: 0,
         discount: 0,
-        name,
-        price,
-        imgs,
+        name: name,
+        price: price,
+        imgs:imgs,
     })
 
+    
+
     const handleContador = e =>{
+        
         if(logged){
             if(e.target.id === 'btnCartPlus'){
                 if(order.quantity < stock){setOrder({...order, quantity: order.quantity + 1})}            
@@ -32,16 +37,17 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
             }
         }else{
             if(e.target.id === 'btnCartPlus'){
-                if(guestOrder.quantity < stock){setGuestOrder({...guestOrder, quantity: guestOrder.quantity + 1})}            
+                if(guestOrder.quantity < stock){setGuestOrder({...guestOrder, id:productId, name: name, price:price, imgs:imgs, quantity: guestOrder.quantity + 1})}            
             }else{
-                if(guestOrder.quantity > 0){setGuestOrder({...guestOrder, quantity: guestOrder.quantity - 1})}
+                if(guestOrder.quantity > 0){setGuestOrder({...guestOrder, id:productId, name: name, price:price, imgs:imgs, quantity: guestOrder.quantity - 1})}
             }
         }
     }
 
     const handleClick = e => {
-        logged ? setOrder({...order, imgs: imgs}) : setGuestOrder({...guestOrder, name: name, price: price, imgs: imgs})
-        logged ? handleAddtocart() : handleAddtoguest();
+
+        logged ? setOrder({...order, imgs: imgs}) : setGuestOrder({...guestOrder})
+        logged !== null ? handleAddtocart() : handleAddtoguest() ;
     }
 
     const handleAddtocart = e =>{
@@ -51,8 +57,9 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
             alert('Producto Agregado al Carrito')
         })
     }
-
+//aca esta mal
     const handleAddtoguest = e =>{
+        console.log (localStorage.getItem('Cart'))
         if(!localStorage.getItem('Cart')){
             localStorage.setItem('Cart', JSON.stringify({Products:[]}))
         }
