@@ -74,9 +74,8 @@ const CatalogContainer = (props) => {
             {props.isFetching ? 
                 <Spinner />
                     :
-                    <div className="container-fluid px-5">
+                    <div className="container-fluid px-5 pt-3">
                         <div className="row">
-                            <div className="col-9">
                                 <div className={`col-12 p-2 ${style.border}`}>
                                     <FiltersContainer 
                                         categories={categories}
@@ -94,11 +93,6 @@ const CatalogContainer = (props) => {
                                         products={sortProductos()}
                                     />
                                 </div>
-                            </div>
-                            <div className="col-3">
-                                carrito
-                            </div>
-                            
                         </div>
                     </div>
             }
