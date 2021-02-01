@@ -31,7 +31,7 @@ const ProductDetail = ({match}) =>{
                     <hr/>
                     <p>{product.description}</p>
                     <hr/>
-                    <button className="btn btn-outline-success" onClick={handleAddtocart}>Agregar al Carrito</button>
+                    <button className="btn btnByPlantas" onClick={handleAddtocart}>Agregar al Carrito</button>
                </div>
            </div>
         </div>
