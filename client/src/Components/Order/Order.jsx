@@ -77,7 +77,7 @@ export default function Order({ match }) {
   return (
     <Fragment>
       <div className="container mt-5">
-        <button className={`btn btn-dark`}>
+        <button className={`btn btn-dark mt-4`}>
           <Link className={`text-light`} to={`/orders`}>
             Atras
           </Link>
@@ -91,7 +91,7 @@ export default function Order({ match }) {
           </div>
           <div className="col-md-8  p-3">
             <h3 className={`text-center`}>
-              Status: <span>{order.status}</span>
+              Estado: <span>{order.status}</span>
             </h3>
             <h3 className={`text-center`}>
               Fecha de compra: <span>{fecha}</span> - Hora : <span>{hora}</span>
