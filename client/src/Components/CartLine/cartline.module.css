@@ -5,6 +5,7 @@
     height: 6em;
     display: block;
     padding: 0.5em;
+    margin-top: 1em;
 }
 
 .imgContainer {
@@ -36,4 +37,10 @@
 
 .productDetails span {
     margin-right: 7em;
+}
+
+.btnCloseByPlantas {
+    background: rgb(163, 49, 49);
+    color:#f5f5ef;
+    margin-top: -1em;
 }

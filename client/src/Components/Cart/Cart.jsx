@@ -49,7 +49,7 @@ function Cart (){
                       </div>
                   )) : <h1>El carrito esta vacio</h1>}                
               </div>
-              <div className='text-center mt-5'>
+              <div className='text-center mt-5 container'>
                   <h4>Precio Total</h4>
                   <hr/>
                   <p>Total: ARS$ {total}</p>

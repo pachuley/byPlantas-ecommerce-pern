@@ -43,9 +43,9 @@ function CartLine ({product, imgs, userId}){
                         <span> Total: {logged ? product.price * product.orderline.quantity : product.price * product.quantity} </span>
                     </div>
                 </div>
-                <div>
-                    <button className='btn btn-danger float-right rounded-circle' onClick={()=> handleDelete(product.id)}>X</button>
-                </div>
+            </div>
+            <div>
+                <button className={`btn ${styles.btnCloseByPlantas} float pull-right rounded-circle`} onClick={()=> handleDelete(product.id)}>X</button>
             </div>
         </div>
     )
