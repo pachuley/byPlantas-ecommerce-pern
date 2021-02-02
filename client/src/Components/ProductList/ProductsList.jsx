@@ -32,8 +32,8 @@ const ProductsList = (props) => {
     return (
         <div className="container">
           <div className="d-flex justify-content-end pb-2">
-            <Link to='/addProduct' className="btn btn-sm btn-success mr-2">Agregar Producto</Link>
-            <Link to='/addCategory' className="btn btn-sm btn-success">Agregar Categoría</Link>
+            <Link to='/addProduct' className="btn btnByPlantas mr-2">Agregar Producto</Link>
+            <Link to='/addCategory' className="btn btnByPlantas">Agregar Categoría</Link>
           </div>
             <table className="table table-striped table-bordered table-hover table-condensed">
                 <thead>
