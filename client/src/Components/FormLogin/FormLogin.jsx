@@ -16,6 +16,8 @@ const validate = values => {
     }
     if (!values.password) {
         errors.password = 'Password es requerida';
+    }else if (values.password.length < 5) {
+        errors.password = 'Al menos debe tener 5 caracteres';
       }
   
     return errors;
@@ -66,7 +68,7 @@ export default function FormLogin (){
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
                     />
-                     {formik.errors.email ? <p className="my-2 error">{formik.errors.email}</p> : null}
+                     {formik.errors.email && formik.touched.email ? <p className="my-2 error">{formik.errors.email}</p> : null}
 
                 <label htmlFor='inputLoginPassword' className='form-label'>Escribe tu Contraseña</label>
                 <input 
@@ -79,7 +81,7 @@ export default function FormLogin (){
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                     />
-                    {formik.errors.password ? <p className="my-2 error">{formik.errors.password}</p> : null}
+                    {formik.errors.password && formik.touched.password ? <p className="my-2 error">{formik.errors.password}</p> : null}
                 <button 
                     className={`btn mt-2 mb-3 my-auto btnByPlantas`} 
                     type='submit'

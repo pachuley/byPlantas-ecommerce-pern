@@ -29,8 +29,6 @@ const validate = values => {
   };
 
 export default function FormUser (){
-    const [user, setUser] = useState({email: '', password: ''})
-    const [valid, setValid] = useState(false)
 
     const formik = useFormik({
         initialValues: {
@@ -51,51 +49,6 @@ export default function FormUser (){
     }
       })
 
-    const handleChange = e => {
-        setUser({
-            ...user,
-            [e.target.name]:e.target.value
-        })
-    }
-    const handleRepeat = e => {
-        if(e.target.value === user.password){
-            setValid(true)
-        }else{
-            setValid(false)
-        }
-    }
-
-/*     const emailPattern = new RegExp(/[A-Za-z0-9_.]+\@\w+\.\w\w+/, 'i'); //valida que tenga un '@' seguido de un string seguido de '.' seguido por lo menos 2 caracteres
-    const passwordPattern = new RegExp(/[A-Za-z0-9_.]{8,}/, 'i'); //valida que tengo por lo menos 8 caracteres
-    const handleSubmit = e => {
-        e.preventDefault()
-        if(!emailPattern.test(user.email)){
-            Swal.fire({
-                title: 'Email inválido',
-                icon: 'error'
-            })
-        }else if(!passwordPattern.test(user.password)){
-            Swal.fire({
-                title: 'Contraseña inválida',
-                icon: 'error'
-            })
-        }else if(!valid){
-            Swal.fire({
-                title: 'Contraseñas deben coincidir',
-                icon: 'error'
-            })
-        }else{
-            axios.post(`${REACT_APP_BACKEND_URL}/users/register`, user)
-            .then(resp=>{
-                Swal.fire({
-                    title: 'Se registro correctamente',
-                    icon: 'success'
-                })
-            })
-            .catch(err=>{console.log(err)})
-        }
-        
-    } */
 
     return (
         <div className='container col-md-6 justify-content-center'>
