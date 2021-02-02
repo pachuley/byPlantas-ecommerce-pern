@@ -25,6 +25,7 @@ const EditProduct = ({product}) => {
         title: 'Se edito el producto correctamente',
         icon: 'success'
       })
+      window.location = '/productslist'
     })
   }
 
