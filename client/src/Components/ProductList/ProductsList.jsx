@@ -42,6 +42,7 @@ const ProductsList = (props) => {
                       <th>Descripción</th>
                       <th>Precio</th>
                       <th>Stock</th>
+                      <th>Categorias</th>
                       <th>Editar</th>
                       <th>Eliminar</th>
                  </tr>
@@ -55,6 +56,16 @@ const ProductsList = (props) => {
                                   <td>{p.description}</td>
                                   <td>{p.price}</td>
                                   <td>{p.stock}</td>
+                                  <div>
+              {p.categories.map((x,index)=>{
+                return(
+                  <div key={index}>
+                    <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
+                  </div>
+                )
+              })}
+          </div> 
+                                  
                                   <td>
                                     <EditProduct product={p}/>
                                   </td>
