@@ -103,24 +103,24 @@ server.put('/:id', async (req, res) => {
     }
 });
 
-server.post('/:userId/cart/:prodId', (req,res)=>{
-    var prod;
-    Order.findOne({ 
-        where:{ [Op.and]: [
-            { userId: req.params.userId },
-            { status: 'active' }
-          ]}
-    })
-    .then(order=>{
-        Product.findByPk(parseInt(req.params.prodId))
-        .then(resp=>{
-            prod = resp
-            order.addProduct(prod)
-            res.json('todo bien')
-        })
+// server.post('/:userId/cart/:prodId', (req,res)=>{
+//     var prod;
+//     Order.findOne({ 
+//         where:{ [Op.and]: [
+//             { userId: req.params.userId },
+//             { status: 'active' }
+//           ]}
+//     })
+//     .then(order=>{
+//         Product.findByPk(parseInt(req.params.prodId))
+//         .then(resp=>{
+//             prod = resp
+//             order.addProduct(prod)
+//             res.json('todo bien')
+//         })
         
-    })
-})
+//     })
+// })
 
 server.post('/:userId/cart', async (req, res) => {
         try {
@@ -188,6 +188,30 @@ server.delete('/:userId/cart/:productId', (req,res)=>{
                 res.send('ok')
             })
         })
+})
+
+server.put('/:userId/cart/:productId', (req,res)=>{
+    Order.findOne({ 
+        where:{ [Op.and]: [
+            { userId: req.params.userId },
+            { status: 'active' }
+          ]}
+    })
+    .then(order=>{
+        Orderline.findOne(
+            {where:{
+                    [Op.and]: [
+                        { orderId: order.id },
+                        { productId: req.params.productId}
+                    ]
+            }}
+        )
+        .then(orderline=>{
+            console.log(req.body)
+            orderline.update({quantity: req.body.contador})
+            res.send('ok')
+        })
+    })
 })
 
 server.put('/:userId/cart', (req, res ) =>{
