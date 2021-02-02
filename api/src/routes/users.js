@@ -126,12 +126,11 @@ server.post('/:userId/cart', async (req, res) => {
         try {
             let product = await Product.findOne({where: {id: req.body.productId}})
             let order =  await Order.findOne({where: {userId: req.params.userId, status:"active"}})
-    
+
             await order.addProduct(product)
     
             let orderline = await Orderline.findOne(
-                {
-                    where:{
+                {where:{
                         [Op.and]: [
                             { orderId: order.id },
                             { productId: product.id}
@@ -139,10 +138,10 @@ server.post('/:userId/cart', async (req, res) => {
                     }
                 }
             )
-            
+
             await orderline.update({
                 price: req.body.price,
-                quantity: req.body.quantity,
+                quantity: orderline.quantity ? orderline.quantity + req.body.quantity : req.body.quantity,
                 discount: req.body.discount,
                 total: parseInt(req.body.quantity) * parseFloat(req.body.price),
             })
