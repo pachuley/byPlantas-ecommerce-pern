@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import Pagination from '../Commons/Pagination/Pagination'
 import {paginate} from '../../utils/pagination'
+import styles from './catalog.module.css'
 // levanto los datos de forma local para probar, se debe cambiar
 
 
@@ -14,7 +15,7 @@ const Catalog = ({products}) => {
     return (
         <div className='Catalog'>
             {products.length === 0 ? 
-                <p className="p-2 mb-2 bg-warning text-dark w-50">
+                <p className={`${styles.aviso}`}>
                     No se encontraron productos con esos parámetros
                 </p>
             :

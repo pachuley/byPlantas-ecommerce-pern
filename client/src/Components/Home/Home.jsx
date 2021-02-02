@@ -42,14 +42,14 @@ const Home = () => {
                                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                                 </div>
                             </div>
-                            <div className={`carousel-item active`}>
+                            <div className={`carousel-item`}>
                                 <img src={foto2} class="d-block w-85"/>
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>First slide label</h5>
                                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                                 </div>
                             </div>
-                            <div className={`carousel-item active`}>
+                            <div className={`carousel-item`}>
                                 <img src={foto3} class="d-block w-85"/>
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>First slide label</h5>
@@ -57,11 +57,11 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                        <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                        <a className="carousel-control-prev" data-target="carruselOfertas" role="button" data-bs-slide="prev">
                             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span className="visually-hidden">Anterior</span>
                         </a>
-                        <a className="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                        <a className="carousel-control-next" data-target="carruselOfertas" role="button" data-bs-slide="next">
                             <span className="carousel-control-next-icon" aria-hidden="true"></span>
                             <span className="visually-hidden">Posterior</span>
                         </a>

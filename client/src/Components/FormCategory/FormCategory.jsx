@@ -36,9 +36,8 @@ export default function FormCategory (){
                 title: `Se agrego categoria: ${values.name}`,
                 icon: 'success'
             })
-            values.name=''
-            values.description=''
         })
+        window.location = "/productslist"
         .catch(err=>{console.log(err)})
         }
       })
