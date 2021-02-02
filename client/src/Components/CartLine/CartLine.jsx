@@ -69,6 +69,10 @@ function CartLine ({product, imgs, userId}){
                         src={`${product.imgs ? product.imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} 
                         alt="" className={`${styles.imgCartline}`}
                     />
+                    <div>
+                        <button className={`rounded-circles ${styles.btnContador}`} onClick={handleResta}>-</button>
+                        <button className={`rounded-circles ${styles.btnContador}`} onClick={handleSuma}>+</button>
+                    </div>
                 </div>
                 <div className={`container ${styles.detailsContainer}`}>
                     <div className=''>
@@ -80,10 +84,6 @@ function CartLine ({product, imgs, userId}){
                         <span> Total: {logged ? product.price * product.orderline.quantity : product.price * product.quantity} </span>
                     </div>
                 </div>
-            </div>
-            <div>
-                <button onClick={handleSuma}>+</button>
-                <button onClick={handleResta}>-</button>
             </div>
             <div>
                 <button className={`btn ${styles.btnCloseByPlantas} float pull-right rounded-circle`} onClick={()=> handleDelete(product.id)}>X</button>
