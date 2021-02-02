@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, {Fragment, useState, useEffect} from 'react'
 const {REACT_APP_BACKEND_URL} = process.env;
 
+              //funciones productos
 
 const EditProduct = ({product}) => { 
 
@@ -14,9 +15,11 @@ const EditProduct = ({product}) => {
       [e.target.name]:e.target.value
     })
   } 
-console.log(prod)
+
   const handleButtonEdit = (e) => {
+    handleSubmitCat()
     let body = {...prod}
+    console.log(prod)
     axios.put(`${REACT_APP_BACKEND_URL}/products/${prod.id}`,body)
     .then(res => {
       console.log(res)
@@ -24,7 +27,31 @@ console.log(prod)
     })
   }
 
+
+                  //FUNCIONES CATEGORIAS
+
+  const [category, setCategory] = useState({name: ''})
+
+    const handleChangeCat = e => {
+        setCategory({
+            ...category,
+            [e.target.name]:e.target.value
+        })
+    }
+  
+  //handle SUBMIT (POSTEA) categorias + product
+
+  const handleSubmitCat = e => {
+    axios.post(`${REACT_APP_BACKEND_URL}/products/${prod.id}/category/setCategories`,checks)//variable del .env
+    .then(resp=>{
+        console.log(resp)
+    })
+    .catch(err=>{console.log(err)})
+}
+
   const [categories, setCategories] = useState([])
+
+ 
   
   //este useeffect agarra las categorias y las guarda en el estado categories
   useEffect(()=>{
@@ -32,7 +59,8 @@ console.log(prod)
     .then(resp=>{setCategories(resp.data)})
     .catch(err=>{console.log(err)})
   }, [])
-  
+
+  // levanto los items del check de categorias
   const [checks, setChecks] = useState([])
 
   const handleClick = e => {
@@ -105,7 +133,7 @@ console.log(prod)
               {categories.map((x,index)=>{
                 return(
                   <div key={index}>
-                    <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onClick={handleClick}/>
+                    <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onChange={handleChangeCat} onClick={handleClick}/>
                     <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
                   </div>
                 )
