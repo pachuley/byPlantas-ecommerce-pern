@@ -39,8 +39,7 @@ export default function FormLogin (){
                     title: `${resp.data.message}`,
                     icon: 'info'
                   })
-                
-                window.location.reload();
+            window.location = "/";
             })
             .catch(err=>{console.log(err)})
 

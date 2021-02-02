@@ -54,6 +54,7 @@ const FormProduct = (props) => {
             title: `Producto agregado: ${values.name}`,
             icon: 'success'
           })
+          window.location = "/productslist";
       })
       .catch(e => console.log(e))
     })
@@ -81,7 +82,7 @@ const FormProduct = (props) => {
       setChecks(newChecks)
     }
   }
-console.log(formik.errors,Object.keys(formik.errors).length > 0)
+  
   return (
    
       <div className='container'>

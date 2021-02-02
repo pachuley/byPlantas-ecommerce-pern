@@ -78,10 +78,15 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
 }
 
+.containerByPlantas {
+  margin: 5em;
+}
+
 .error{
   color: red;
   font-size: 0.8rem;
 }
+
 /*code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

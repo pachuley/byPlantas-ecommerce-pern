@@ -1,7 +1,9 @@
 import axios from 'axios'
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
+import styles from './cartline.module.css'
 import Swal from 'sweetalert2'
+
 const {REACT_APP_BACKEND_URL} = process.env;
 
 function CartLine ({product, imgs, userId}){
@@ -60,24 +62,31 @@ function CartLine ({product, imgs, userId}){
 
 
     return (
-        <div className='card container'>
-            <div className='row'>
-                <img 
-                    src={`${product.imgs ? product.imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} 
-                    alt="" className="img-fluid col-5"
-                />
-                <div className='col-6'>
-                    <p className=''>{product.name}</p>
-                    <p className="">ARS$ {logged ? product.price : product.price}</p>
-                    <p className="">Cantidad: {contador}</p>
-                    <button onClick={handleSuma}>+</button>
-                    <button onClick={handleResta}>-</button>
-                    <p>Total: {logged ? product.price * product.orderline.quantity : product.price * product.quantity}</p>
+        <div>
+            <div className={`container ${styles.containerCartline}`}>
+                <div className={`${styles.imgContainer}`}>
+                    <img 
+                        src={`${product.imgs ? product.imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} 
+                        alt="" className={`${styles.imgCartline}`}
+                    />
                 </div>
-                <div className='col-1'>
-                    <button className='btn btn-danger float rounded-circle' onClick={()=> handleDelete(product.id)}>X</button>
+                <div className={`container ${styles.detailsContainer}`}>
+                    <div className=''>
+                        <h6 className={`${styles.productName}`}>{product.name}</h6>
+                    </div>
+                    <div className={`container ${styles.productDetails}`}>
+                        <span className=""> ARS$ {logged ? product.price : product.price} </span>
+                        <span className=""> Cantidad: {contador} </span>
+                        <span> Total: {logged ? product.price * product.orderline.quantity : product.price * product.quantity} </span>
+                    </div>
                 </div>
-                
+            </div>
+            <div>
+                <button onClick={handleSuma}>+</button>
+                <button onClick={handleResta}>-</button>
+            </div>
+            <div>
+                <button className={`btn ${styles.btnCloseByPlantas} float pull-right rounded-circle`} onClick={()=> handleDelete(product.id)}>X</button>
             </div>
         </div>
     )

@@ -13,7 +13,7 @@ export default function NavBar() {
                 <button className={`navbar-toggler`} type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className={`navbar-toggler-icon`}></span>
                 </button>
-                <div className={`collapse ml-auto navbar-collapse`}>
+                <div className={`collapse navbar-collapse`}>
                     <ul className={`navbar-nav ${styles.ulMargin}`}>
                         <li className={`${styles.liMargin}`}>
                         
@@ -24,14 +24,13 @@ export default function NavBar() {
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/account" >Cuenta</NavLink>
                         </li>
                         <li className={`${styles.liMargin}`}>
-                        { admin === "true" ?
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
-                            : ""}
-                        </li>
-                        
-                        <li className={`${styles.liMargin}`}>
                             {admin !== "true" ?
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                            : ""}
+                        </li>
+                        <li className={`${styles.liMargin}`}>
+                        { admin === "true" ?
+                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
                             : ""}
                         </li>
                         <div>

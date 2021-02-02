@@ -44,6 +44,7 @@ export default function FormUser (){
                     title: 'Se registro correctamente',
                     icon: 'success'
                 })
+            window.location = "/";
             })
             .catch(err=>{console.log(err)})
     }

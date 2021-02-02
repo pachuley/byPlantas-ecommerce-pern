@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import style from './catalogContainer.module.css'
+import styles from './catalogContainer.module.css'
 import axios from 'axios'
 import Catalog from '../Catalog/Catalog'
 import FiltersContainer from '../FiltersContainer/FiltersContainer'
@@ -74,9 +74,10 @@ const CatalogContainer = (props) => {
             {props.isFetching ? 
                 <Spinner />
                     :
-                    <div className="container-fluid px-5 pt-3">
-                        <div className="row">
-                                <div className={`col-12 p-2 ${style.border}`}>
+                    <div >
+                        <div className = {`row containerByPlantas`}>
+                                <h2 className={`m-0 text-center p-5`}>Busca en nuestra gran oferta de productos!</h2>
+                                <div className={`col-12 p-2 ${styles.catalogSearchBar}`}>
                                     <FiltersContainer 
                                         categories={categories}
                                         handleCategory={handleCategory}
