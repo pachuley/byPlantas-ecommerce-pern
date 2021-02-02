@@ -26,7 +26,7 @@ const products = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                error: action.payload.error
+                error: action.error
             }
         default:
             return state

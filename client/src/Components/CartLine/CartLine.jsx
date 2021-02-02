@@ -8,6 +8,7 @@ const {REACT_APP_BACKEND_URL} = process.env;
 
 function CartLine ({product, imgs, userId}){
     const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
+    const [contador, setContador] = useState(logged ? product.orderline.quantity : product.quantity)
     
     const handleDelete = (productID) =>{
         if(!logged){
@@ -31,6 +32,34 @@ function CartLine ({product, imgs, userId}){
         })
         }
     }
+    const handleSuma = () => {
+        setContador(contador + 1)
+        logged ? 
+        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${product.id}`, {contador:contador + 1})
+        : handleSumaGuest()
+    }
+    const handleSumaGuest = () => {
+        var dataStorage = JSON.parse(localStorage.getItem('Cart'))
+        let data = dataStorage.Products.map(x=>{
+            if(x.id == product.id){x.quantity = contador + 1}return x
+        })
+        localStorage.setItem('Cart', JSON.stringify({Products: data}))
+    }
+
+    const handleResta = () => {
+        setContador(contador - 1)
+        logged ? 
+        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${product.id}`, {contador:contador - 1})
+        : handleRestaGuest()
+    }
+    const handleRestaGuest = () => {
+        var dataStorage = JSON.parse(localStorage.getItem('Cart'))
+        let data = dataStorage.Products.map(x=>{
+            if(x.id == product.id){x.quantity = contador - 1}return x
+        })
+        localStorage.setItem('Cart', JSON.stringify({Products: data}))
+    }
+
 
     return (
         <div>
@@ -47,10 +76,14 @@ function CartLine ({product, imgs, userId}){
                     </div>
                     <div className={`container ${styles.productDetails}`}>
                         <span className=""> ARS$ {logged ? product.price : product.price} </span>
-                        <span className=""> Cantidad: {logged ? product.orderline.quantity : product.quantity} </span>
+                        <span className=""> Cantidad: {contador} </span>
                         <span> Total: {logged ? product.price * product.orderline.quantity : product.price * product.quantity} </span>
                     </div>
                 </div>
+            </div>
+            <div>
+                <button onClick={handleSuma}>+</button>
+                <button onClick={handleResta}>-</button>
             </div>
             <div>
                 <button className={`btn ${styles.btnCloseByPlantas} float pull-right rounded-circle`} onClick={()=> handleDelete(product.id)}>X</button>
