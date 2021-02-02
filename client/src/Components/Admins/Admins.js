@@ -1,31 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom'
+import styles from './admins.module.css'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
 const Admins = (props) => {
-  
-  
 
-  
-    return (
-
-
-      
-        <div className="d-flex flex-row bd-highlight mb-3">
-          <div className="p-2 bd-highlight">
-            <Link to='/orders' className="btn btnByPlantas">ADMIN - Listar y modificar ORDENES</Link>
+  return (
+      <div>
+        <div className='containerByPlantas'>
+          <h2 className={`m-0 text-center p-5`}>Herramientas de Administrador</h2>
+          <div className={`${styles.adminButtonsContainer} justify-content-center`}> 
+            <div className="col-6">
+              <Link to='/orders' className="btn btnByPlantas">Listar y modificar Ordenes</Link>
+            </div>
+            <div className="col-6">
+              <Link to='/productslist' className="btn btnByPlantas">Inventario de Productos y Categorias</Link>
+            </div>
           </div>
-          <div className="p-2 bd-highlight">
-          <Link to='/productslist' className="btn btnByPlantas">ADMIN - Inventario de Productos y Categorias</Link>
-          </div>
-          
         </div>
-       
-                            
-                
-            
-    )}        
+      </div>     
+  )}        
 
 
 export default Admins;

@@ -43,4 +43,15 @@
     background: rgb(163, 49, 49);
     color:#f5f5ef;
     margin-top: -1em;
+    align-content: center;
+    justify-content: center;
+}
+
+.btnContador {
+    background-color: #507b00;
+    color: #f5f5ef;
+    margin: 0.5em;
+    border: #f5f5ef;
+    border-radius: 2px;
+    width: 2em;
 }

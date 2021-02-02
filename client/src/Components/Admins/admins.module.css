@@ -1,0 +1,8 @@
+.adminButtonsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin: auto;
+    padding-left: 28%;
+    padding-right: 28%
+}
