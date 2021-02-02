@@ -1,15 +1,66 @@
 import React,{useEffect, useState}from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'
+import {useFormik} from 'formik'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
+const validate = values => {
+  const errors = {};
+  if (!values.name) {
+    errors.name = 'Nombre del producto requerido';
+  } else if (values.name.length < 5) {
+    errors.name = 'Al menos debe tener 5 caracteres';
+  }
+
+  if (!values.description) {
+    errors.description = 'Descripción requerida';
+  }
+
+  if (!values.price) {
+    errors.precio = 'Precio requerido';
+  } 
+  if (!values.stock) {
+    errors.precio = 'Stock requerido';
+  }
+  if (!values.imgProduct) {
+    errors.imgProduct = 'Url inválida';
+  } else if (values.name.imgProduct < 5) {
+    errors.imgProduct = 'Al menos debe tener 5 caracteres';
+  }
+
+  return errors;
+};
+
+
 const FormProduct = (props) => {
-  const [producto, setProducto] = useState({
-      name:"",
-      description:"",
-      price:"",
-      stock :""
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      description: '',
+      price: 0,
+      stock: 0,
+      imgProduct: ''
+    },
+    validate,
+    onSubmit: (values)=>{
+      axios.post(`${REACT_APP_BACKEND_URL}/products`, values)
+      .then(res => {
+        let prodId = res.data.id;
+        axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/setCategories`,checks)
+        .then(resp=>{
+          Swal.fire({
+            title: `Producto agregado: ${values.name}`,
+            icon: 'success'
+          })
+      })
+      .catch(e => console.log(e))
+    })
+    .catch(err => {console.log(err)})
+    },
   })
+
   const [categories, setCategories] = useState([])
   const [checks, setChecks] = useState([])
   
@@ -20,11 +71,6 @@ const FormProduct = (props) => {
     .catch(err=>{console.log(err)})
   }, [])
 
-  //este handleinput cambia el valor del estado producto a medida que se escribe en los input del front
-  const handleInputChange = (e) =>{
-    setProducto({...producto,
-      [e.target.name] : e.target.value })
-  }
   //este handleclick agrega los input checkbox que este con la propiedad checked en true al estado checks 
   //y los saca cuando la propiedad checked esta en false
   const handleClick = e => {
@@ -35,82 +81,64 @@ const FormProduct = (props) => {
       setChecks(newChecks)
     }
   }
-
-  //este es el handleSubmit que al usar el boton submit hace un post y agrega el producto a la base de datos,
-  // y si hay inputs checkbox con la propiedad checked en true, hace un post por cada check en el estado checks para agregar las categorias al producto
-  const handleSubmit = (e) =>{
-    e.preventDefault()
-    var prodId;
-    console.log(producto)
-    axios.post(`${REACT_APP_BACKEND_URL}/products`, producto)
-    .then(res => {
-      prodId = res.data.id;
-      axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/setCategories`,checks)
-      .then(resp=>{
-        alert('Producto Agregado')
-        console.log(resp)
-      })
-    })
-    .catch(err => {console.log(err)})
-  }
-
-  // const prueba = e => {
-  //   e.preventDefault()
-  //   axios.post(`${REACT_APP_BACKEND_URL}/products/17/category/setCategories`, checks)
-  //   .then(resp=>{console.log(resp)})
-  // }
-
+console.log(formik.errors,Object.keys(formik.errors).length > 0)
   return (
    
       <div className='container'>
-        <form className="mx-auto w-50 py-3" onSubmit={handleSubmit}>
+        <form className="mx-auto w-50 py-3" onSubmit={formik.handleSubmit}>
             <h2 className={`text-center`}>Agregar Un Producto</h2>
             <div>
-              <label>Nombre</label>
+                <label>Nombre</label>
                 <input 
                   type="text"
                   name="name"
                   className="form-control mb-2"
                   placeholder="Ingrese Producto"
-                  onChange={handleInputChange}
-                  value={producto.name}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.name}
                 />
-              <label>Descripción</label>
+                {formik.errors.name ? <p className="my-2 error">{formik.errors.name}</p> : null}
+                <label>Descripción</label>
                 <input 
                   type="text"
                   name="description"
                   className="form-control mb-2"
                   placeholder="Ingrese Descripción"
-                  onChange={handleInputChange}
-                  value={producto.description}
+                  onChange={formik.handleChange}
+                  value={formik.values.description}
                 />
+                {formik.errors.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
               <label>Precio</label>
                 <input
                   type="number"
                   name="price"
                   className="form-control mb-2"
                   placeholder="Ingrese precio"
-                  onChange={handleInputChange}
-                  value={producto.price}
+                  onChange={formik.handleChange}
+                  value={formik.values.price}
                 />
+                {formik.errors.price ? <p className="my-2 error">{formik.errors.price}</p> : null}
               <label>Stock</label>
                 <input
                   type="number"
                   name="stock"
                   placeholder="Ingrese Stock"
                   className="form-control mb-2"
-                  onChange={handleInputChange}
-                  value={producto.stock}
+                  onChange={formik.handleChange}
+                  value={formik.values.stock}
                 />
+                {formik.errors.stock ? <p className="my-2 error">{formik.errors.stock}</p> : null}
                 <label>Url imagen</label>
                 <input
                   type="text"
                   name="imgProduct"
                   placeholder="Url"
                   className="form-control mb-2"
-                  onChange={handleInputChange}
-                  value={producto.imgs}
+                  onChange={formik.handleChange}
+                  value={formik.values.imgProduct}
                 />
+                {formik.errors.imgProduct ? <p className="my-2 error">{formik.errors.imgProduct}</p> : null}
             </div>
           <div>
             <label>Categorias</label>
@@ -123,7 +151,7 @@ const FormProduct = (props) => {
                 )
               })}
           </div> 
-          <button className='btn btnByPlantas mt-2 mb-3' type='submit'>Agregar</button>
+          <button disabled={Object.keys(formik.errors).length > 0} className='btn btnByPlantas mt-2 mb-3' type='submit'>Agregar</button>
       </form>
     </div>
   )
