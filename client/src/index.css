@@ -82,6 +82,10 @@ h1, h2, h3, h4, h5, h6 {
   margin: 5em;
 }
 
+.error{
+  color: red;
+  font-size: 0.8rem;
+}
 
 /*code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

@@ -1,14 +1,14 @@
 import axios from 'axios';
-
+import Swal from 'sweetalert2'
 import React, {Fragment, useState, useEffect} from 'react'
 const {REACT_APP_BACKEND_URL} = process.env;
 
+              //funciones productos
 
 const EditProduct = ({product}) => { 
 
   const [prod, setProduct ] = useState(product)
   const handleInpedit = (e) => {
-    console.log(e.target.value)
     setProduct({
       ...prod,
       [e.target.name]:e.target.value
@@ -16,12 +16,62 @@ const EditProduct = ({product}) => {
   } 
 
   const handleButtonEdit = (e) => {
+    handleSubmitCat()
     let body = {...prod}
+    console.log(prod)
     axios.put(`${REACT_APP_BACKEND_URL}/products/${prod.id}`,body)
     .then(res => {
-      console.log(res)
+      Swal.fire({
+        title: 'Se edito el producto correctamente',
+        icon: 'success'
+      })
       window.location = '/productslist'
     })
+  }
+
+
+                  //FUNCIONES CATEGORIAS
+
+  const [category, setCategory] = useState({name: ''})
+
+    const handleChangeCat = e => {
+        setCategory({
+            ...category,
+            [e.target.name]:e.target.value
+        })
+    }
+  
+  //handle SUBMIT (POSTEA) categorias + product
+
+  const handleSubmitCat = e => {
+    axios.post(`${REACT_APP_BACKEND_URL}/products/${prod.id}/category/setCategories`,checks)//variable del .env
+    .then(resp=>{
+        console.log(resp)
+    })
+    .catch(err=>{console.log(err)})
+}
+
+  const [categories, setCategories] = useState([])
+
+ 
+  
+  //este useeffect agarra las categorias y las guarda en el estado categories
+  useEffect(()=>{
+    axios.get(`${REACT_APP_BACKEND_URL}/products/category`)
+    .then(resp=>{setCategories(resp.data)})
+    .catch(err=>{console.log(err)})
+  }, [])
+
+  // levanto los items del check de categorias
+  const [checks, setChecks] = useState([])
+
+  const handleClick = e => {
+    if(e.target.checked){
+      setChecks([...checks, parseInt(e.target.id)])
+    }else{
+      const newChecks = checks.filter(x=>x!==parseInt(e.target.id))
+      setChecks(newChecks)
+    }
   }
             
   
@@ -79,6 +129,19 @@ const EditProduct = ({product}) => {
                 name='stock'
                 onChange={(e) => handleInpedit(e)}
                 />
+                <div>
+
+            <label>Categorias</label>
+              {categories.map((x,index)=>{
+                return(
+                  <div key={index}>
+                    <input type='checkbox' className='form-check-input' id={x.id} name={x.name} onChange={handleChangeCat} onClick={handleClick}/>
+                    <label className='form-check-label' htmlFor={x.id}>{x.name}</label>
+                  </div>
+                )
+              })}
+          </div> 
+
             </div>
 
             <div className="modal-footer">
