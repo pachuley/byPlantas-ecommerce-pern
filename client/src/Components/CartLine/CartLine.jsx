@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
+import Swal from 'sweetalert2'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 function CartLine ({product, imgs, userId}){
@@ -12,13 +13,19 @@ function CartLine ({product, imgs, userId}){
           let data = dataStorage.Products.filter(x=>x.id !== productID)
           localStorage.setItem('Cart', JSON.stringify({Products: data}))
           window.location = '/cart'
-          alert('El Producto se elimino del carrito')
+          Swal.fire({
+            title: `El producto se elimino del carrito`,
+            icon: 'info'
+          })
         }else{
           axios.delete(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${productID}`)
           .then(res=>{
             console.log(res);
             window.location = '/cart'
-            alert('El Producto se elimino del carrito')
+            Swal.fire({
+                title: `El producto se elimino del carrito`,
+                icon: 'info'
+              })
         })
         }
     }

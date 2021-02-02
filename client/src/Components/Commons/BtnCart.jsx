@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import style from './BtnCart.module.css'
 import {connect} from 'react-redux'
+import Swal from 'sweetalert2'
 import axios from 'axios'
 const {REACT_APP_BACKEND_URL} = process.env;
 
@@ -54,7 +55,10 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
         //if(order.price){
             axios.post(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`, order)
             .then(resp=>{
-            alert('Producto Agregado al Carrito')
+            Swal.fire({
+                title: `El producto se agrego al carrito`,
+                icon: 'info'
+              })
         })
     }
 //aca esta mal
@@ -70,9 +74,15 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
                 dataStorage.Products.push(guestOrder)
             //}
             localStorage.setItem('Cart', JSON.stringify(dataStorage))
-            alert('Producto Agregado al Carrito')
+            Swal.fire({
+                title: `El producto se agrego al carrito`,
+                icon: 'info'
+              })
         }else{
-            alert('No puedes Agregar 0 Items de un Producto')
+            Swal.fire({
+                title: `No puedes Agregar 0 Items de un Productoo`,
+                icon: 'error'
+              })
         }       
     }
 
