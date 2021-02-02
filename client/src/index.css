@@ -77,6 +77,12 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
   right: 0;
 }
+
+.containerByPlantas {
+  margin: 5em;
+}
+
+
 /*code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

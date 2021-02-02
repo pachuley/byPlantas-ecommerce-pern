@@ -1,0 +1,39 @@
+.containerCartline {
+    width: 100%;
+    border: 2px solid #a17e30;
+    background-color: #fff;
+    height: 6em;
+    display: block;
+    padding: 0.5em;
+}
+
+.imgContainer {
+    margin: 0;
+    width: 15%;
+    float: left;
+}
+
+.imgCartline {
+    max-height: 5em;
+    margin: 0;
+}
+
+.detailsContainer {
+    margin-left: 15%;
+    text-align: left;
+}
+
+.productName {
+    font-weight: 500;
+    font-size: larger;
+    padding-top: 0.2em;
+}
+
+.productDetails {
+    justify-content: space-between;
+    padding-left: 0;
+}
+
+.productDetails span {
+    margin-right: 7em;
+}

@@ -39,20 +39,21 @@ function Cart (){
     
 
     return (
-        <div className='row m-1'>
-            <div className='row col-9'>
-                <p>Carrito</p>
-                <hr/>
-                {cart[0] ? cart.map((product,index)=>(
-                    <div key={index} className='col-4 pb-2' >
-                        <CartLine product={product} />
-                    </div>
-                )) : <h1>El carrito esta vacio</h1>}                
-            </div>
-            <div className='col-3'>
-                <p>summary</p>
-                <hr/>
-                <p>Total: {total}</p>
+        <div>
+            <div className = {`row containerByPlantas`}>
+              <h2 className={`m-0 text-center p-5`}>Aquí están los productos que elegiste</h2>
+              <div className='row text-center'>
+                  {cart[0] ? cart.map((product,index)=>(
+                      <div key={index}>
+                          <CartLine product={product} />
+                      </div>
+                  )) : <h1>El carrito esta vacio</h1>}                
+              </div>
+              <div className='text-center mt-5'>
+                  <h4>Precio Total</h4>
+                  <hr/>
+                  <p>Total: ARS$ {total}</p>
+              </div>
             </div>
         </div>
     )
