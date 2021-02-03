@@ -45,6 +45,12 @@ Order.belongsTo(User);
 Product.belongsToMany(Order, {through: { model: Orderline }, foreignKey: 'productId' });
 Order.belongsToMany(Product, {through: { model: Orderline }, foreignKey: 'orderId' });
 
+Review.belongsTo(User);
+User.hasMany(Product)
+Review.belongsTo(Product);
+Product.hasMany(Review);
+
+
 //Order.belongsToMany(Product, { through: { model: Orderline }, foreignKey: 'orderId' });
 
 

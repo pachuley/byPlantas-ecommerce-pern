@@ -2,6 +2,7 @@ const server = require("express").Router();
 const { Product, Category } = require("../db.js");
 const Sequelize = require("sequelize");
 const { response } = require("../app.js");
+const Review = require("../models/Review.js");
 const Op = Sequelize.Op;
 
 server.use("/category", require("./category.js"));
@@ -190,5 +191,28 @@ server.put("/:id", function (req, res, next) {
     })
     .catch(next);
 });
+
+// S54 : Crear ruta para crear/agregar Review
+// POST /product/:id/review
+server.post('/:id/review', (req, res, next) => {
+  const productId = req.params.id;
+  const { userId, value, comment } = req.body;
+  if(!comment || !value) {
+    return res.send(401).json({ message: "Por favor completar los campos solicitados"});
+  };
+  Review.create({
+    stars,
+    comment,
+    userId,
+    productId
+  })
+  .then(review => res.status(200).json(review))
+  .catch(error => res.send(error))
+
+  })
+
+})
+
+
 
 module.exports = server;
