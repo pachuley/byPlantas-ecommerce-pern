@@ -49,7 +49,11 @@ export default function Rating(props) {
                      : 'fa fa-satr-o'                
                 }></i>
             </span>
-
+            {leyend ? (
+                <span>{leyend}</span>
+            ) : (
+                <span>{numReviews + ' reviews'}</span>
+            )}
         </div>
     )
 }
