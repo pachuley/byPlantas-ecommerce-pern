@@ -78,11 +78,10 @@ const EditProduct = ({product}) => {
  return ( 
    <Fragment>
      
-      <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#id${product.id}`}>
+      <button type="button" className="btn btnByPlantas" data-toggle="modal" data-target={`#id${product.id}`}>
         Edit
       </button>
 
-      
       <div className="modal" id={`id${product.id}`}>
         <div className="modal-dialog">
           <div className="modal-content">

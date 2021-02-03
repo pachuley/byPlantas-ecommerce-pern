@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import CategoriesFilter from '../CategoriesFilters/CategoriesFilters'
 import InputFilter from '../InputFilter/InputFilter'
+import styles from './filterscontainer.module.css'
 
 const FiltersContainer = (
     {categories,handleCategory,categorySelected,handleInputFilter, handleCleanFilters, value, count, sortProducts}) => {
@@ -41,9 +42,8 @@ const FiltersContainer = (
                     />
                 </div>
                     <button 
-                        className="btn btn-danger btn-sm my-2" 
-                        onClick={handleCleanFilters}
-                    >
+                        className={`rounded-circles my-2 ${styles.btnLimpiar}`}
+                        onClick={handleCleanFilters}>
                         Limpiar
                     </button>
             </div>

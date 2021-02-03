@@ -3,6 +3,7 @@ import axios from 'axios';
 import EditProduct from '../EditProduct/EditProduct';
 import {Link} from 'react-router-dom'
 import Swal from 'sweetalert2'
+import styles from './productslist.module.css'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
@@ -41,20 +42,16 @@ const ProductsList = (props) => {
             })
           }
         })
-
-
-        
       }
-
-    
-
   
     return (
         <div className="container">
-          <div className="d-flex justify-content-end pb-2">
-            <Link to='/addProduct' className="btn btnByPlantas mr-2">Agregar Producto</Link>
-            <Link to='/addCategory' className="btn btnByPlantas">Agregar Categoría</Link>
-          </div>
+          <div className='containerByPlantas'>
+            <h2 className={`m-0 text-center p-5`}>Inventario de Productos</h2>
+            <div className="d-flex justify-content-center pb-5">
+              <Link to='/addProduct' className={`text-center btn btnByPlantas ${styles.btnEdit}`}>Agregar Producto</Link>
+              <Link to='/addCategory' className={`text-center btn btnByPlantas ${styles.btnEdit}`}>Agregar Categoría</Link>
+            </div>
             <table className="table table-striped table-bordered table-hover table-condensed">
                 <thead>
                  <tr className="btn-outline-primary">
@@ -85,29 +82,18 @@ const ProductsList = (props) => {
                 )
               })}
           </div> 
-                                  
-                                  <td>
-                                    <EditProduct product={p}/>
-                                  </td>
-                  
-                                  <td><button type="button" className="btn btn-danger" onClick={()=>handleDelete(p.id)}>Eliminar</button></td>
-                                </tr>
-                              )
-                            })
-                          }
-                      
-                    </tbody>
-                      </table>
-                    
-
-      
-      
-     </div>
-       
-       
-                            
-                
-            
+              <td>
+                <EditProduct product={p}/>
+              </td>
+              <td><button type="button" className="btn btn-danger" onClick={()=>handleDelete(p.id)}>Eliminar</button></td>
+              </tr>
+              )
+            })
+          }
+          </tbody>
+          </table>
+        </div>
+      </div>
     )}        
 
 
