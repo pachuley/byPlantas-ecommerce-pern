@@ -60,4 +60,4 @@ const ProductDetail = ({match}) =>{
 }
 
 
-export default ProductDetail;
+export default ProductDetail; 
