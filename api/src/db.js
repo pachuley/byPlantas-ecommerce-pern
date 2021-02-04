@@ -42,8 +42,8 @@ Category.belongsToMany(Product, {through: 'CategoriesXProducts', timestamps: fal
 User.hasMany(Order);
 Order.belongsTo(User);
 
-Product.belongsToMany(Order, {through: { model: Orderline }, foreignKey: 'productId' });
-Order.belongsToMany(Product, {through: { model: Orderline }, foreignKey: 'orderId' });
+Product.belongsToMany(Order, {through: { model: Orderline } });
+Order.belongsToMany(Product, {through: { model: Orderline } });
 
 Review.belongsTo(User);
 User.hasMany(Product)
