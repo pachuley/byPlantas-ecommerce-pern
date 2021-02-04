@@ -46,7 +46,8 @@ Product.belongsToMany(Order, {through: { model: Orderline } });
 Order.belongsToMany(Product, {through: { model: Orderline } });
 
 Review.belongsTo(User);
-User.hasMany(Product)
+User.hasMany(Review);
+
 Review.belongsTo(Product);
 Product.hasMany(Review);
 

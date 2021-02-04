@@ -197,9 +197,9 @@ server.put("/:id", function (req, res, next) {
 server.post('/:id/review', (req, res, next) => {
   // rutas.delete('/:id', VerificarToken, (req, res, next) => {
   const productId = req.params.id;
-  const { userId, value, comment } = req.body;
-  if(!comment || !value) {
-    return res.send(401).json({ message: "Por favor completar los campos solicitados"});
+  const { userId, stars, comment } = req.body;
+  if(!comment || !stars) {
+    return res.send(400).json({ message: "Por favor completar los campos solicitados"});
   };
   Review.create({
     stars,
@@ -217,10 +217,9 @@ server.post('/:id/review', (req, res, next) => {
 server.put('/:id/review/:idReview', (req, res, next) => {
   // server.put('/:id/review/:idReview', VerificarToken, (req, res, next) => {
   const reviewId = req.params.idReview;
-  const productId = req.params.id;
-  const commentary = req.body.comment
+  const comment = req.body.comment
   Review.update(
-    {comment: commentary},
+    {comment: comment},
     {returning: true, where: {id: reviewId}}
   )
     .then(function([rowsUpdate, [updatedReview] ]){
