@@ -10,7 +10,7 @@ import Footer from "./Ui_Components/Footer/Footer";
 import Home from "./Components/Home/Home";
 import ProductList from "./Components/ProductList/ProductsList";
 import AccountContainer from "./Components/AccountContainer/AccountContainer";
-import Admins from "./Components/Admins/Admins";
+import Admins from './Components/Admins/Admins';
 import OrderTable from "./Components/OrderTable/OrderTable";
 import Order from "./Components/Order/Order";
 import Cart from "./Components/Cart/Cart";
@@ -29,7 +29,7 @@ function App() {
           <Route path="/addCategory" exact render={() => <FormCategory />} />
           <Route path="/productslist"><ProductList /></Route>
           <Route path="/admins" exact render={() => <Admins />} />
-          <Route path="/account" exact render={({history,location}) => <AccountContainer history={history} location={location}/>} />
+          <Route path="/login" exact render={({history,location}) => <AccountContainer history={history} location={location}/>} />
           <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/orders" exact render={() => <OrderTable />} />
           <Route path="/admin/orders/:id" render={({ match }) => <Order match={match} />}/>
