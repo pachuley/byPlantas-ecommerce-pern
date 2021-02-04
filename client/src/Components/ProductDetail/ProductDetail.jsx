@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// deberría crear e importar las acciones del create reveiw...ditails product?
 import style from './productDetail.module.css'
 import axios from 'axios'
 import BtnCart from '../Commons/BtnCart';
-import Review from '../Review/Rating';
-import { useSelector } from 'react-redux';
-import User from '../../../../api/src/models/User';
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
@@ -21,36 +16,15 @@ const ProductDetail = ({match}) =>{
         // getProduct()
     },[])
     // const getProduct = () => {
-        //     axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`)
-        //     .then(res => {
-            //         setProduct(res.data[0])
-            //         console.log(res.data[0])
-            //     })
-            // }
-            
-    const productReviewCreate = useSelector((state) => state.productReviewCreate);
-    const {
-        loading: loadingReviewCreate,
-        error: errorReviewCreate,
-        success: successReviewCreate
-    } = productReviewCreate;
+    //     axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`)
+    //     .then(res => {
+    //         setProduct(res.data[0])
+    //         console.log(res.data[0])
+    //     })
+    // }
+    
 
-    const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState('');
-    useEffect(() => {
-        if (successReviewCreate) {
-            window.alert('Tu Opinión Fue Cargada Satisfactoriamente');
-            setRating('');
-            dispatchEvent({ type: PRODUCT_CREATE_REVEW});// hay que ver el productconstant
-        }
-        dispatch(detailsProduct(productId));
-    }, [dispatch, productId, successReviewCreate ]); // verificar el successreviewcreate
-    const submitHandler = (e) => {
-        e.preventDefault();
-        if(comment && rating) {
-            dispatch( createReview(productId, {rating, comment }))
-        }
-    }
+    
     var id = prod.id
     var stock = prod.stock
     var name = prod.name
@@ -67,9 +41,6 @@ const ProductDetail = ({match}) =>{
                <div className="col-8">
                     <h3 className='h3'>{prod.name}</h3>
                     <hr/>
-                    <Review
-                        rating= {produtx}
-                    ></Review>
                     <p>{prod.description}</p>
                     
                     <hr/>
@@ -83,25 +54,10 @@ const ProductDetail = ({match}) =>{
                     </div>                     */}
                     
                </div>
-               <div>
-                    <label htmlFor="comment">Agregá tu comentario</label>
-                    <textarea 
-                        id="comment" 
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)} 
-                    ></textarea>
-               </div>
-               <div>
-                   <label/>
-                   <button
-                        className="primary"
-                        type="submit"
-                   >Enviar</button>
-               </div>
            </div>
         </div>
     )
 }
 
 
-export default ProductDetail;
+export default ProductDetail; 

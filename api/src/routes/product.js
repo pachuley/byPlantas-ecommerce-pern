@@ -1,8 +1,7 @@
 const server = require("express").Router();
-const { Product, Category } = require("../db.js");
+const { Product, Category, Review } = require("../db.js");
 const Sequelize = require("sequelize");
 const { response } = require("../app.js");
-const Review = require("../models/Review.js");
 const Op = Sequelize.Op;
 
 server.use("/category", require("./category.js"));
