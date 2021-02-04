@@ -33,6 +33,7 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM,
       allowNull: true,
       values: ["CLIENT_ROLE", "ADMIN_ROLE", "VENDOR_ROLE"],
+      defaultValue: "CLIENT_ROLE",
     },
     address: {
       type: DataTypes.STRING,

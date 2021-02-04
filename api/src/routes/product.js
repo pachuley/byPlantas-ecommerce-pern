@@ -3,17 +3,20 @@ const { Product, Category } = require("../db.js");
 const Sequelize = require("sequelize");
 const { response } = require("../app.js");
 const Op = Sequelize.Op;
+const { verifyToken, verifyRoleAdmin } = require("../middlewares/authHandler");
 
 server.use("/category", require("./category.js"));
 // ---Rutas GET--- //
+// Ruta que trae todos los productos por categoria
 server.get("/", (req, res, next) => {
   Product.findAll({ include: [Category] })
     .then((products) => res.send(products))
     .catch(next);
 });
+// Ruta que busca un producto matcheando una keyword traida por query
 server.get("/search", (req, res, next) => {
   const product = req.query.query;
-  console.log(product)
+  console.log(product);
   Product.findAll({
     where: {
       [Op.or]: [
@@ -38,30 +41,33 @@ server.get("/search", (req, res, next) => {
     });
 });
 // ---Rutas POST--- //
-server.post('/', (req, res) =>{
-  console.log(req.body)
-	const addProduct = req.body;
-	Product.create({
-		name: addProduct.name,
-		description: addProduct.description,
-		price: addProduct.price,
-		stock: addProduct.stock,
-		imgs: addProduct.imgProduct, // Que es imgProduct?
-	})
-	.then(response=>res.status(201).send(response));
-})
-server.post('/:idProducto/category/setCategories',(req,res)=>{
-	var cat;
-	Category.findAll({where:{id:{[Op.in]:req.body}}})
-	.then(resp=>{
-		cat=resp;
-	})
-	Product.findByPk(req.params.idProducto)
-	.then(resp=>{
-		resp.setCategories(cat)
-		res.send('se deleteo todo')
-	})
-})
+// Ruta que crea un producto
+server.post("/", [verifyToken, verifyRoleAdmin], (req, res) => {
+  console.log(req.body);
+  const addProduct = req.body;
+  Product.create({
+    name: addProduct.name,
+    description: addProduct.description,
+    price: addProduct.price,
+    stock: addProduct.stock,
+    imgs: addProduct.imgProduct, // Que es imgProduct?
+  }).then((response) => res.status(201).send(response));
+});
+server.post(
+  "/:idProducto/category/setCategories",
+  verifyToken,
+  verifyRoleAdmin,
+  (req, res) => {
+    var cat;
+    Category.findAll({ where: { id: { [Op.in]: req.body } } }).then((resp) => {
+      cat = resp;
+    });
+    Product.findByPk(req.params.idProducto).then((resp) => {
+      resp.setCategories(cat);
+      res.send("se deleteo todo");
+    });
+  }
+);
 server.get("/:id", (req, res) => {
   let id = req.params.id;
   Product.findOne({
@@ -97,7 +103,7 @@ server.get("/category/:nombreCat", function (req, res, next) {
             },
           ],
         });
-      } 
+      }
     })
     .then(function (products) {
       if (!products) {
@@ -129,16 +135,20 @@ server.post("/", (req, res) => {
     imgs: addProduct.imgs,
   }).then((response) => res.status(201).send(response));
 });
-server.post("/:idProducto/category/:idCategoria", (req, res) => {
-  var cat;
-  Category.findByPk(req.params.idCategoria).then((resp) => {
-    cat = resp;
-  });
-  Product.findByPk(req.params.idProducto).then((resp) => {
-    resp.addCategory(cat, { through: { selfGranted: false } });
-    res.send("Agregado correctamente");
-  });
-});
+server.post(
+  "/:idProducto/category/:idCategoria",
+  [verifyToken, verifyRoleAdmin],
+  (req, res) => {
+    var cat;
+    Category.findByPk(req.params.idCategoria).then((resp) => {
+      cat = resp;
+    });
+    Product.findByPk(req.params.idProducto).then((resp) => {
+      resp.addCategory(cat, { through: { selfGranted: false } });
+      res.send("Agregado correctamente");
+    });
+  }
+);
 // ---Rutas DELETE--- //
 server.delete("/:id", (req, res) => {
   let id = req.params.id;
@@ -155,19 +165,23 @@ server.delete("/:id", (req, res) => {
   });
 });
 
-server.delete("/:idProducto/category/:idCategoria", (req, res) => {
-  var cat;
-  Category.findByPk(req.params.idCategoria).then((resp) => {
-    cat = resp;
-  });
-  Product.findByPk(req.params.idProducto).then((resp) => {
-    resp.removeCategory(cat, { through: { selfGranted: false } });
-    res.send("Categoria Eliminada satisfactoriamente");
-  });
-});
+server.delete(
+  "/:idProducto/category/:idCategoria",
+  [verifyToken, verifyRoleAdmin],
+  (req, res) => {
+    var cat;
+    Category.findByPk(req.params.idCategoria).then((resp) => {
+      cat = resp;
+    });
+    Product.findByPk(req.params.idProducto).then((resp) => {
+      resp.removeCategory(cat, { through: { selfGranted: false } });
+      res.send("Categoria Eliminada satisfactoriamente");
+    });
+  }
+);
 // ---Rutas PUT--- //
-server.put("/:id", function (req, res, next) {
-  console.log(req.body)
+server.put("/:id", [verifyToken, verifyRoleAdmin], function (req, res, next) {
+  console.log(req.body);
   let {
     name,
     description,

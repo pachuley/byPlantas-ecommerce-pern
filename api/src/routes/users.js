@@ -84,6 +84,9 @@ server.post("/login", async (req, res) => {
           message: "Email y contraseña correctos",
           userId: user.id,
           token: token,
+          name: user.name,
+          email: user.email,
+          role: user.role,
         });
       } else {
         res.status(400).json("Contraseña equivocada!");
