@@ -21,11 +21,11 @@ server.get('/', (req, res, next) => {
     .catch(next);
 });
 
-
+// POST: Crear Usuario
 server.post("/register", async (req, res) => {
-  let { email, password} = req.body;
+  let { email, password, birthdate, firstname, lastname, address} = req.body;
   const saltHash = await bcrypt.genSalt(10);
-  const encryptedPassword = await bcrypt.hash(password, saltHash);
+  const encryptedpassword = await bcrypt.hash(password, saltHash);
 
   if (!email || !password) {
     res
@@ -35,9 +35,15 @@ server.post("/register", async (req, res) => {
 
   User.create({
     email,
-    encryptedPassword
+    encryptedpassword,
+    firstname,
+    lastname,
+    address,
+    birthdate,
+    role: "CLIENT_ROLE"
   })
     .then((user) => {
+      console.log(user)
       Order.create({
         userId: user.id,
       }).then((order) => {
@@ -55,6 +61,7 @@ server.post("/register", async (req, res) => {
     });
 });
 
+//POST: Login usuario
 server.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -69,7 +76,7 @@ server.post("/login", async (req, res) => {
     });
     if (user) {
 
-      const validPassword = await bcrypt.compareSync(password, user.encryptedPassword);
+      const validPassword = await bcrypt.compareSync(password, user.encryptedpassword);
       if (validPassword) {
         const findOrder = await Order.findOrCreate({
           where: {
@@ -96,17 +103,16 @@ server.post("/login", async (req, res) => {
 });
 
 
-
 server.put('/:id', async (req, res) => {
   try {
     const { email, password } = req.body;
     const salt = bcrypt.genSalt(10);
-    const encryptedPassword = await bcrypt.hash(password, salt);
+    const encryptedpassword = await bcrypt.hash(password, salt);
 
     await User.update(
       {
         email: email,
-        encryptedPassword: encryptedPassword,
+        encryptedPassword: encryptedpassword,
       },
       { returning: true, where: { id: req.params.id } }
     );

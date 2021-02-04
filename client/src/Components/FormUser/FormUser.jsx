@@ -9,18 +9,18 @@ const validate = values => {
     const errors = {};
 
     if (!values.email) {
-      errors.email = 'Email es requerido';
+      errors.email = 'Email requerido';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
       errors.email = 'Email inválido';
     }
     if (!values.password) {
-        errors.password = 'Password es requerida';
+        errors.password = 'Contraseña requerida';
     }else if (values.password.length < 5) {
         errors.password = 'Al menos debe tener 5 caracteres';
     }
 
     if(!values.password2){
-        errors.password2 = 'Password es requerida';
+        errors.password2 = 'Contrasela requerida';
     }else if (values.password2 !== values.password) {
         errors.password = 'No coinciden las contraseñas';
     }
@@ -34,7 +34,11 @@ export default function FormUser (){
         initialValues: {
           email: '',
           password: '',
-          password2: ''
+          password2: '',
+          firstname: '',
+          lastname: '',
+          address: '',
+          birthdate: '',
         },
         validate,
         onSubmit: values => {
@@ -47,9 +51,8 @@ export default function FormUser (){
             window.location = "/";
             })
             .catch(err=>{console.log(err)})
-    }
-      })
-
+        }
+    })
 
     return (
         <div className='container col-md-6 justify-content-center'>
@@ -61,7 +64,7 @@ export default function FormUser (){
                     name='email' 
                     className='form-control' 
                     type='email' 
-                    placeholder='Email...' 
+                    placeholder='Email' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
@@ -74,7 +77,7 @@ export default function FormUser (){
                     name='password' 
                     className='form-control' 
                     type='password' 
-                    placeholder='Password' 
+                    placeholder='Contraseña' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
@@ -87,19 +90,70 @@ export default function FormUser (){
                     name='password2' 
                     className='form-control' 
                     type='password' 
-                    placeholder='Password...' 
+                    placeholder='Reingresa la Contraseña' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password2}
                     />
                 {formik.errors.password2 && formik.touched.password2 ? <p className="my-2 error">{formik.errors.password2}</p> : null}
 
+                <label htmlFor='inputFirstName' className='form-label'>Ingresa tu Nombre</label>
+                <input 
+                    id='inputFirstName' 
+                    name='firstname' 
+                    className='form-control' 
+                    type='text' 
+                    placeholder='Nombre' 
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.firstname}
+                    />
+                {formik.errors.firstname && formik.touched.firstname ? <p className="my-2 error">{formik.errors.firstname}</p> : null}
+                
+                <label htmlFor='inputLastName' className='form-label'>Ingresa tu Apellido</label>
+                <input 
+                    id='inputLastName' 
+                    name='lastname' 
+                    className='form-control' 
+                    type='text' 
+                    placeholder='Apellido' 
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.lastname}
+                    />
+                {formik.errors.lastname && formik.touched.lastname ? <p className="my-2 error">{formik.errors.lastname}</p> : null}
+                
+                <label htmlFor='inputAddress' className='form-label'>Ingresa tu Dirección de Envío</label>
+                <input 
+                    id='inputAddress' 
+                    name='address' 
+                    className='form-control' 
+                    type='textarea' 
+                    rows='3'
+                    placeholder='Dirección de Envío' 
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.address}
+                    />
+                {formik.errors.address && formik.touched.address ? <p className="my-2 error">{formik.errors.address}</p> : null}
+                
+                <label htmlFor='inputBirthdate' className='form-label'>Cual fue tu dia de Nacimiento?</label>
+                <input 
+                    id='inputBirthdate' 
+                    name='birthdate' 
+                    className='form-control' 
+                    type='date'
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.birthdate}
+                    />
+                {formik.errors.birthdate && formik.touched.birthdate ? <p className="my-2 error">{formik.errors.birthdate}</p> : null}
+
                 <button 
                     className={`btn btnByPlantas mt-2 mb-3 my-auto`} 
                     type='submit'
                     disabled={Object.keys(formik.errors).length > 0}
-                >
-                        Registrate</button>
+                >Registrate</button>
             </form>
         </div>
     )
