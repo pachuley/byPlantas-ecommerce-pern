@@ -28,3 +28,11 @@ export const login = (email, password) => async dispatch => {
     });
   }
 };
+
+export const logout = () => dispatch => {
+  dispatch({
+    type: USER_LOGIN_LOGOUT
+  })
+  localStorage.removeItem('userInfo');
+  window.location = '/';
+}
