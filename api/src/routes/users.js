@@ -22,7 +22,7 @@ server.get("/", (req, res, next) => {
 });
 
 server.post("/register", async (req, res) => {
-  let { email, password, role } = req.body;
+  let { email, password} = req.body;
   const saltHash = await bcrypt.genSalt(10);
   const encryptedPassword = await bcrypt.hash(password, saltHash);
 
@@ -35,7 +35,7 @@ server.post("/register", async (req, res) => {
   User.create({
     email,
     encryptedPassword,
-    role,
+    // role,
   })
     .then((user) => {
       Order.create({
