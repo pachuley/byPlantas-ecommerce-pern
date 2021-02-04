@@ -1,11 +1,15 @@
-const server = require('express').Router();
-const { User, Order, Product, Orderline } = require('../db.js');
-const bcrypt = require('bcryptjs');
-const Sequelize = require('sequelize');
+const server = require("express").Router();
+const { User, Order, Product, Orderline } = require("../db.js");
+const bcrypt = require("bcryptjs");
+const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
-const { verifyToken, verifyRoleAdmin, verifyRoleVendor } = require('../middlewares/authHandler');
+const {
+  verifyToken,
+  verifyRoleAdmin,
+  verifyRoleVendor,
+} = require("../middlewares/authHandler");
 
 // Routes
 // GET: /users
@@ -17,25 +21,27 @@ server.get('/', (req, res, next) => {
     .catch(next);
 });
 
-server.post('/register', async (req, res) => {
-  let { email, password, role } = req.body;
+
+server.post("/register", async (req, res) => {
+  let { email, password} = req.body;
   const saltHash = await bcrypt.genSalt(10);
   const encryptedPassword = await bcrypt.hash(password, saltHash);
 
   if (!email || !password) {
-    res.status(400).json(`Por favor introduce tu ${!email ? 'email' : 'password'}!`);
+    res
+      .status(400)
+      .json(`Por favor introduce tu ${!email ? "email" : "password"}!`);
   }
 
   User.create({
     email,
-    encryptedPassword,
-    role,
+    encryptedPassword
   })
-    .then(user => {
+    .then((user) => {
       Order.create({
         userId: user.id,
-      }).then(order => {
-        user.addOrder(order).then(result => {
+      }).then((order) => {
+        user.addOrder(order).then((result) => {
           res.json(user);
         });
       });
@@ -49,47 +55,47 @@ server.post('/register', async (req, res) => {
     });
 });
 
-server.post('/login', async (req, res) => {
+server.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400).json(`Por favor introduce tu ${!email ? 'email' : 'password'}!`);
+      res
+        .status(400)
+        .json(`Por favor introduce tu ${!email ? "email" : "password"}!`);
     }
 
     const user = await User.findOne({
       where: { email: email },
     });
     if (user) {
+
       const validPassword = await bcrypt.compareSync(password, user.encryptedPassword);
       if (validPassword) {
         const findOrder = await Order.findOrCreate({
           where: {
-            id: user.id,
+            id: user.id,            
             status: 'active',
           },
         });
         const token = jwt.sign({ user }, SECRET, { expiresIn: 10000000 });
         res.status(200).json({
-          id: user.id,
-          name: user.name,
-          lastname: user.lastname,
-          birthdate: user.birthdate,
-          email: user.email,
-          role: user.role,
-          address: user.address,
-          token
+          message: "Email y contraseña correctos",
+          userId: user.id,
+          token: token,
         });
       } else {
-        res.status(400).json('Contraseña equivocada!');
+        res.status(400).json("Contraseña equivocada!");
       }
     } else {
-      res.status(404).json('Usuario no encontrado');
+      res.status(404).json("Usuario no encontrado");
     }
   } catch (e) {
     console.log(e);
-    res.status(500).json('Something broke!');
+    res.status(500).json("Something broke!");
   }
 });
+
+
 
 server.put('/:id', async (req, res) => {
   try {
@@ -104,12 +110,12 @@ server.put('/:id', async (req, res) => {
       },
       { returning: true, where: { id: req.params.id } }
     );
-    res.status(201).json('Usuario modificado');
+    res.status(201).json("Usuario modificado");
   } catch (e) {
-    if (e.parent.code === '23505') {
-      res.status(409).json('Un usuario con ese email ya existe');
+    if (e.parent.code === "23505") {
+      res.status(409).json("Un usuario con ese email ya existe");
     } else {
-      res.status(500).json('Algo está mal');
+      res.status(500).json("Algo está mal");
     }
   }
 });
@@ -133,6 +139,7 @@ server.put('/:id', async (req, res) => {
 //     })
 // })
 
+
 server.post('/:userId/cart', async (req, res) => {
   try {
     let product = await Product.findOne({ where: { id: req.body.productId } });
@@ -150,7 +157,9 @@ server.post('/:userId/cart', async (req, res) => {
 
     await orderline.update({
       price: req.body.price,
-      quantity: orderline.quantity ? orderline.quantity + req.body.quantity : req.body.quantity,
+      quantity: orderline.quantity
+        ? orderline.quantity + req.body.quantity
+        : req.body.quantity,
       discount: req.body.discount,
       total: parseInt(req.body.quantity) * parseFloat(req.body.price),
     });
@@ -190,10 +199,10 @@ server.delete('/:userId/cart/:productId', (req, res) => {
   });
 });
 
-server.put('/:userId/cart/:productId', (req, res) => {
+server.put("/:userId/cart/:productId", (req, res) => {
   Order.findOne({
-    where: { [Op.and]: [{ userId: req.params.userId }, { status: 'active' }] },
-  }).then(order => {
+    where: { [Op.and]: [{ userId: req.params.userId }, { status: "active" }] },
+  }).then((order) => {
     Orderline.findOne({
       where: {
         [Op.and]: [{ orderId: order.id }, { productId: req.params.productId }],
@@ -206,29 +215,32 @@ server.put('/:userId/cart/:productId', (req, res) => {
   });
 });
 
-server.put('/:userId/cart', (req, res) => {
+server.put("/:userId/cart", (req, res) => {
   let order;
-  Order.findOne({ where: { userId: req.params.userId, status: 'active' } })
-    .then(r => {
+  Order.findOne({ where: { userId: req.params.userId, status: "active" } })
+    .then((r) => {
       order = r.id;
     })
-    .catch(error => {
+    .catch((error) => {
       console.log;
     });
-  Orderline.update({ quantity: req.body.quantity }, { where: { orderId: order, productId: req.body.productId } })
-    .then(r => {
-      res.status(201).json({ mesagge: 'producto actualizado' });
+  Orderline.update(
+    { quantity: req.body.quantity },
+    { where: { orderId: order, productId: req.body.productId } }
+  )
+    .then((r) => {
+      res.status(201).json({ mesagge: "producto actualizado" });
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 });
 
-server.get('/:userId/cart', (req, res) => {
+server.get("/:userId/cart", (req, res) => {
   Order.findAll({
-    attributes: ['id', 'userId', 'status'],
+    attributes: ["id", "userId", "status"],
     where: {
-      [Op.and]: [{ userId: req.params.userId }, { status: 'active' }],
+      [Op.and]: [{ userId: req.params.userId }, { status: "active" }],
     },
     include: [
       {
@@ -236,10 +248,10 @@ server.get('/:userId/cart', (req, res) => {
       },
     ],
   })
-    .then(orders => {
+    .then((orders) => {
       res.json(orders);
     })
-    .catch(e => console.log(e));
+    .catch((e) => console.log(e));
 });
 
 module.exports = server;
