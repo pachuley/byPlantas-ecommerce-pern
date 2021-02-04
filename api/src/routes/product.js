@@ -195,6 +195,7 @@ server.put("/:id", function (req, res, next) {
 // S54 : Crear ruta para crear/agregar Review
 // POST /product/:id/review
 server.post('/:id/review', (req, res, next) => {
+  // rutas.delete('/:id', VerificarToken, (req, res, next) => {
   const productId = req.params.id;
   const { userId, value, comment } = req.body;
   if(!comment || !value) {
@@ -208,11 +209,52 @@ server.post('/:id/review', (req, res, next) => {
   })
   .then(review => res.status(200).json(review))
   .catch(error => res.send(error))
-
-  })
-
 })
 
 
+// S55 : Crear ruta para Modificar Review
+// PUT /product/:id/review/:idReview
+server.put('/:id/review/:idReview', (req, res, next) => {
+  // server.put('/:id/review/:idReview', VerificarToken, (req, res, next) => {
+  const reviewId = req.params.idReview;
+  const productId = req.params.id;
+  const commentary = req.body.comment
+  Review.update(
+    {comment: commentary},
+    {returning: true, where: {id: reviewId}}
+  )
+    .then(function([rowsUpdate, [updatedReview] ]){
+      res.json(updatedReview)
+    })
+    .catch(next)
+})
+
+// S56 : Crear Ruta para eliminar Review
+// DELETE /product/:id/review/:idReview
+server.delete('/:id/review/:idReview', (req, res, next) => {
+  // rutas.delete('/:id', VerificarToken, (req, res, next) => { 
+  let reviewId = req.params.idReview
+  Review.destroy({where: { id: reviewId }})
+  .then(result => {
+    res.status(200).json({ mensaje: "El producto ha sido eliminado correctamente", data: result })
+  })
+  .catch(next) 
+})
+
+
+// S57 : Crear Ruta para obtener todas las reviews de un producto.
+/* GET /product/:id/review/
+Podés tener esta ruta, o directamente obtener todas las reviews en la ruta de GET product. */
+server.get('/:id/review', (req, res, next) => {
+  const productId = req.params.id
+  Review.findAll({where: {productId: productId}})
+  .then(result => {
+    if(!result) {
+      return res.status(401).json({message: "No se encontraron reviews para este producto"});
+    }
+    res.status(200).json(result)
+  })
+  .catch(next)
+})
 
 module.exports = server;
