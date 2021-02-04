@@ -34,7 +34,10 @@ function App() {
             <ProductList />
           </Route>
           <Route path="/admins" exact render={() => <Admins />} />
-          <Route path="/account" exact render={() => <AccountContainer />} />
+          <Route 
+            path="/account" 
+            exact 
+            render={({history,location}) => <AccountContainer history={history} location={location}/>} />
           <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/orders" exact render={() => <OrderTable />} />
           <Route
