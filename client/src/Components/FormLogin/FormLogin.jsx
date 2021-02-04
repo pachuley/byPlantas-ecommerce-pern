@@ -1,94 +1,128 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './formlogin.module.css'
+import styles from './formlogin.module.css';
+import Swal from 'sweetalert2';
+import { useFormik } from 'formik';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2'
-import {useFormik} from 'formik'
-const {REACT_APP_BACKEND_URL} = process.env;
+import { login } from '../../Redux/actions/userActions';
+import { Link } from 'react-router-dom';
+import Spinner from '../Spinner/Spinner'
+const { REACT_APP_BACKEND_URL } = process.env;
 
 const validate = values => {
-    const errors = {};
+  const errors = {};
 
-    if (!values.email) {
-      errors.email = 'Email es requerido';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      errors.email = 'Email inválido';
+  if (!values.email) {
+    errors.email = 'Email es requerido';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Email inválido';
+  }
+  if (!values.password) {
+    errors.password = 'Password es requerida';
+  } else if (values.password.length < 5) {
+    errors.password = 'Al menos debe tener 5 caracteres';
+  }
+
+  return errors;
+};
+
+const FormLogin = ({ location, history, ...props }) => {
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate,
+    onSubmit: values => {
+      /* axios
+        .post(`${REACT_APP_BACKEND_URL}/users/login`, values)
+        .then(resp => {
+          values.email === 'admin@admin.com'
+            ? localStorage.setItem('admin', 'true')
+            : localStorage.setItem('admin', 'false');
+          changeLogin(resp.data.userId);
+          Swal.fire({
+            title: `${resp.data.message}`,
+            icon: 'info',
+          });
+          window.location = '/';
+        })
+        .catch(err => {
+          console.log(err);
+        }); */
+      props.dispatch(login(values.email, values.password));
+    },
+  });
+
+  const redirect = location.search ? location.search.split('=')[1] : '/';
+  const { userLogin, isFetching, error } = props.userLogin;
+  useEffect(() => {
+    if (userLogin.userInfo) {
+      history.push(redirect);
     }
-    if (!values.password) {
-        errors.password = 'Password es requerida';
-    }else if (values.password.length < 5) {
-        errors.password = 'Al menos debe tener 5 caracteres';
-      }
-  
-    return errors;
+  }, [history, userLogin.userInfo, redirect]);
+
+  const changeLogin = userId => {
+    const dataLogin = { userId: userId };
+    localStorage.setItem('Login', JSON.stringify(dataLogin));
   };
 
-export default function FormLogin (){
-    const formik = useFormik({
-        initialValues: {
-          email: '',
-          password: '',
-        },
-        validate,
-        onSubmit: values => {
-            axios.post(`${REACT_APP_BACKEND_URL}/users/login`, values)
-            .then(resp=>{
-                values.email === "admin@admin.com" ? localStorage.setItem('admin', 'true') : localStorage.setItem('admin', 'false')
-                changeLogin(resp.data.userId)
-                Swal.fire({
-                    title: `${resp.data.message}`,
-                    icon: 'info'
-                  })
-            window.location = "/";
-            })
-            .catch(err=>{console.log(err)})
-
-    }
-      })
-
-
-    const changeLogin = (userId) => {
-        const dataLogin = {userId: userId}
-        localStorage.setItem('Login', JSON.stringify(dataLogin))
-    }
-
-    return (
-        <div className='container col-md-6 justify-content-center'>
-            <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
-                <h4 className={`${styles.titles}`}>Ingresa a tu cuenta!</h4>
-                <label htmlFor='inputLoginEmail' className='form-label'>Escribe tu Email</label>
-                <input 
-                    id='inputLoginEmail' 
-                    name='email' 
-                    className='form-control' 
-                    type='email' 
-                    placeholder='Email...' 
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.email}
-                    />
-                     {formik.errors.email && formik.touched.email ? <p className="my-2 error">{formik.errors.email}</p> : null}
-
-                <label htmlFor='inputLoginPassword' className='form-label'>Escribe tu Contraseña</label>
-                <input 
-                    id='inputLoginPassword' 
-                    name='password' 
-                    className='form-control' 
-                    type='password' 
-                    placeholder='Password' 
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.password}
-                    />
-                    {formik.errors.password && formik.touched.password ? <p className="my-2 error">{formik.errors.password}</p> : null}
-                <button 
-                    className={`btn mt-2 mb-3 my-auto btnByPlantas`} 
-                    type='submit'
-                    disabled={Object.keys(formik.errors).length > 0}
-                    >
-                        Ingresa
-                </button>
-            </form>
+  return (
+    <div className='container col-md-6 justify-content-center'>
+      {error && (
+        <div className='alert alert-primary' role='alert'>
+          {error}
         </div>
-    )
-}
+      )}
+      {isFetching && <Spinner/>}
+      <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
+        <h4 className={`${styles.titles}`}>Ingresa a tu cuenta!</h4>
+        <label htmlFor='inputLoginEmail' className='form-label'>
+          Escribe tu Email
+        </label>
+        <input
+          id='inputLoginEmail'
+          name='email'
+          className='form-control'
+          type='email'
+          placeholder='Email...'
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.email}
+        />
+        {formik.errors.email && formik.touched.email ? <p className='my-2 error'>{formik.errors.email}</p> : null}
+
+        <label htmlFor='inputLoginPassword' className='form-label'>
+          Escribe tu Contraseña
+        </label>
+        <input
+          id='inputLoginPassword'
+          name='password'
+          className='form-control'
+          type='password'
+          placeholder='Password'
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.password}
+        />
+        {formik.errors.password && formik.touched.password ? (
+          <p className='my-2 error'>{formik.errors.password}</p>
+        ) : null}
+        <button
+          className={`btn mt-2 mb-3 my-auto btnByPlantas`}
+          type='submit'
+          disabled={Object.keys(formik.errors).length > 0}>
+          Ingresa
+        </button>
+      </form>
+    </div>
+  );
+};
+
+const mapStateToProps = state => {
+  return {
+    userLogin: state.userLogin,
+  };
+};
+
+export default connect(mapStateToProps)(FormLogin);
