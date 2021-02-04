@@ -20,7 +20,7 @@ server.get("/", [verifyToken, verifyRoleAdmin], (req, res, next) => {
     });
 });
 
-server.put("/:id", [verifyToken, verifyRoleAdmin], (req, res, next) => {
+server.put("/:id", [verifyToken], (req, res, next) => {
   let { status } = req.body;
   let id = req.params.id;
   Order.update(
@@ -35,7 +35,7 @@ server.put("/:id", [verifyToken, verifyRoleAdmin], (req, res, next) => {
     .catch(next);
 });
 
-server.post("/:userId/cart", verifyToken, async (req, res) => {
+server.post("/:userId/cart", async (req, res) => {
   try {
     let product = await Product.findOne({ where: { id: req.body.productId } });
     let order = await Order.findOne({
@@ -78,7 +78,7 @@ server.get("/:id/orders", verifyToken, (req, res, next) => {
 });
 //S46 : Crear Ruta que retorne una orden en particular.
 //GET /orders/:id
-server.get("/:id", verifyToken, (req, res, next) => {
+server.get("/:id", (req, res, next) => {
   Order.findByPk({ where: { id: req.params.id } })
     .then((orders) => {
       res.status(201).json(orders);
