@@ -48,7 +48,10 @@ const ProductDetail = ({match}) =>{
                </div>
            </div>
            <div className="row">
-               <ReviewContainer reviews={review}/>
+               <ReviewContainer 
+                    reviews={review}
+                    match={match}
+                />
            </div>
         </div>
     )

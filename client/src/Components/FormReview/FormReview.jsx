@@ -1,5 +1,9 @@
 import React from 'react'
 import {useFormik} from 'formik'
+import {connect} from 'react-redux'
+import axios from 'axios'
+import Swal from 'sweetalert2'
+const {REACT_APP_BACKEND_URL} = process.env;
 
 const validate = values => {
     const errors = {};
@@ -20,7 +24,14 @@ const validate = values => {
     return errors;
   };
 
-const FormReview = () => {
+const FormReview = ({idProd, ...props}) => {
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
     const formik = useFormik({
         initialValues: {
           title: '',
@@ -28,7 +39,19 @@ const FormReview = () => {
           stars: '5',
         },
         validate,
-        onSubmit: (values)=>{console.log(values)}
+        onSubmit: (values)=>{
+          let body = {
+            ...values,
+          }
+          console.log(body)
+          axios.post(`${REACT_APP_BACKEND_URL}/products/${idProd}/review`, body, config)
+            .then(res => {
+              Swal.fire({
+                title: 'Reseña agregada correctamente',
+              })
+            })
+            window.location= `/products/${idProd}`
+        }
     })
 
     return (
@@ -79,4 +102,10 @@ const FormReview = () => {
     )
 }
 
-export default FormReview;
+const mapStateToProps = (state) => {
+  return {
+      userLogin: state.userLogin.userLogin,
+  }
+  
+}
+export default connect(mapStateToProps)(FormReview)
