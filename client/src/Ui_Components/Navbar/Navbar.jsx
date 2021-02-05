@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './navbar.module.css'
+import Logout from '../Logout/Logout'
+
 export default function NavBar() {
     //invoco al Localstorage para levantar si el admin es true o no.
     let admin = localStorage.getItem('admin')
@@ -33,8 +35,11 @@ export default function NavBar() {
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
                             : ""}
                         </li>
-                        <div>
-                        </div>
+                        <li className={`${styles.liMargin}`}>
+                        { admin === "true" ?
+                            <Logout />
+                            : ""}
+                        </li>
                     </ul>
                 </div>
             </nav>
