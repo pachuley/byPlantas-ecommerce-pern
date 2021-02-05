@@ -3,6 +3,7 @@ import styles from './formCategory.module.css';
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import {useFormik} from 'formik'
+import { connect } from 'react-redux';
 const {REACT_APP_BACKEND_URL} = process.env;
 
 const validate = values => {
@@ -21,7 +22,17 @@ const validate = values => {
     return errors;
   };
 
-export default function FormCategory (){
+const FormCategory = (props)=>{
+
+    //Levanto los datos del local para poder enviar con la variante config todos los datos del token
+    //con la variante config, por eso la paso como parametro en config (el header)
+    let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
     
     const formik = useFormik({
         initialValues: {
@@ -30,7 +41,7 @@ export default function FormCategory (){
         },
         validate,
         onSubmit: values => {
-            axios.post(`${REACT_APP_BACKEND_URL}/products/category`, values)//variable del .env
+            axios.post(`${REACT_APP_BACKEND_URL}/products/category`, values, config)//variable del .env
         .then(resp=>{
             Swal.fire({
                 title: `Se agrego categoria: ${values.name}`,
@@ -82,3 +93,12 @@ export default function FormCategory (){
         </div>
     )
 }
+
+
+const mapStateToProps = state => {
+    return {
+      userLogin: state.userLogin,
+    };
+  };
+  
+  export default connect(mapStateToProps)(FormCategory);
