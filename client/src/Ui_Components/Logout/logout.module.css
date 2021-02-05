@@ -1,0 +1,22 @@
+.link{
+    margin-left: 2rem;
+    color: #f5f5ef;
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    background-color: #a17e30;
+    cursor: pointer;
+    
+}
+.link:hover{
+    margin-left: 2rem;
+    color:  #507b00;
+}
+.alink{
+    color: #507b00;
+    border: none;
+    
+}
+.alink:hover{
+    color: #507b00
+}
