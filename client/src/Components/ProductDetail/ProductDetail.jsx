@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import style from './productDetail.module.css'
+/* import style from './productDetail.module.css' */
 import axios from 'axios'
 import BtnCart from '../Commons/BtnCart';
 import ReviewContainer from '../ReviewContainer/ReviewContainer'
+import Spinner from '../Spinner/Spinner'
+import {connect} from 'react-redux'
+import {fetchReviews} from '../../Redux/actions/reviewActions'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
-const ProductDetail = ({match}) =>{
+const ProductDetail = ({match, ...props}) =>{
     const [prod, setProd] = useState({})
-    const [review, setReviews] = useState([])
     
     useEffect(()=>{
         axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`)
         .then(res => {
             setProd(res.data)
         })
-        getReviews()
+        props.dispatch(fetchReviews(match.params.id))
     },[])
-
-    const getReviews = () => {
-        axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}/review`)
-        .then(res => {
-            setReviews(res.data.result)
-            console.log(res.data)
-        })
-    }
 
     let {stock, name, price, imgs, description} = prod
     return(
@@ -48,14 +42,23 @@ const ProductDetail = ({match}) =>{
                </div>
            </div>
            <div className="row">
-               <ReviewContainer 
-                    reviews={review}
-                    match={match}
-                />
+               {props.isFetching ? <Spinner /> :
+                   <ReviewContainer 
+                        reviews={props.reviews}
+                        match={match}
+                    />
+
+               }
            </div>
         </div>
     )
 }
 
-
-export default ProductDetail; 
+const mapStateToProps = (state) => {
+    return {
+        reviews: state.reviews.reviews,
+        isFetching: state.reviews.isFetching
+    }
+    
+}
+export default connect(mapStateToProps)(ProductDetail)
