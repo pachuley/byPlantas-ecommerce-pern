@@ -7,6 +7,15 @@ const {REACT_APP_BACKEND_URL} = process.env;
 
 const EditProduct = ({product}) => { 
 
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
+
+
   const [prod, setProduct ] = useState(product)
   const handleInpedit = (e) => {
     setProduct({
@@ -19,7 +28,7 @@ const EditProduct = ({product}) => {
     handleSubmitCat()
     let body = {...prod}
     console.log(prod)
-    axios.put(`${REACT_APP_BACKEND_URL}/products/${prod.id}`,body)
+    axios.put(`${REACT_APP_BACKEND_URL}/products/${prod.id}`,body, config)
     .then(res => {
       Swal.fire({
         title: 'Se edito el producto correctamente',
@@ -44,7 +53,7 @@ const EditProduct = ({product}) => {
   //handle SUBMIT (POSTEA) categorias + product
 
   const handleSubmitCat = e => {
-    axios.post(`${REACT_APP_BACKEND_URL}/products/${prod.id}/category/setCategories`,checks)//variable del .env
+    axios.post(`${REACT_APP_BACKEND_URL}/products/${prod.id}/category/setCategories`,checks, config)//variable del .env
     .then(resp=>{
         console.log(resp)
     })
@@ -57,7 +66,7 @@ const EditProduct = ({product}) => {
   
   //este useeffect agarra las categorias y las guarda en el estado categories
   useEffect(()=>{
-    axios.get(`${REACT_APP_BACKEND_URL}/products/category`)
+    axios.get(`${REACT_APP_BACKEND_URL}/products/category`, config)
     .then(resp=>{setCategories(resp.data)})
     .catch(err=>{console.log(err)})
   }, [])

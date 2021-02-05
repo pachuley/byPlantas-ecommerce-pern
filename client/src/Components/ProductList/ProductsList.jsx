@@ -15,8 +15,16 @@ const ProductsList = (props) => {
     getProducts()
    },[])
 
+   let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
+
     const getProducts = () => {
-      axios.get(`${REACT_APP_BACKEND_URL}/products`)
+      axios.get(`${REACT_APP_BACKEND_URL}/products`, config)
             .then(res => {
               setProducts(res.data)
       })
@@ -32,7 +40,7 @@ const ProductsList = (props) => {
           confirmButtonText: 'Si, eliminar!'
         }).then((result) => {
           if (result.isConfirmed) {
-            axios.delete(`${REACT_APP_BACKEND_URL}/products/${id}`)
+            axios.delete(`${REACT_APP_BACKEND_URL}/products/${id}`, config)
             .then(res =>{
                 setProducts(products.filter(p => p.id !== id))
             })
