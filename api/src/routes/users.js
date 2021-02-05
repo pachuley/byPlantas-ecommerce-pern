@@ -9,7 +9,7 @@ const { verifyToken, verifyRoleAdmin } = require("../middlewares/authHandler");
 
 // Routes
 // GET: /users
-server.get("/", verifyToken, verifyRoleAdmin, (req, res, next) => {
+server.get("/",verifyToken, verifyRoleAdmin, (req, res, next) => {
   User.findAll()
     .then((users) => {
       res.status(200).json(users);
@@ -74,7 +74,7 @@ server.post("/login", async (req, res) => {
     if (user) {
       const validPassword = await bcrypt.compareSync(
         password,
-        user.encryptedPassword
+        user.encryptedpassword
       );
       if (validPassword) {
         const findOrder = await Order.findOrCreate({

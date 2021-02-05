@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect} from 'react';
 import styles from './formlogin.module.css';
-import Swal from 'sweetalert2';
 import { useFormik } from 'formik';
 import { connect } from 'react-redux';
 import { login } from '../../Redux/actions/userActions';
-import { Link } from 'react-router-dom';
 import Spinner from '../Spinner/Spinner'
-const { REACT_APP_BACKEND_URL } = process.env;
 
 const validate = values => {
   const errors = {};
@@ -34,22 +30,6 @@ const FormLogin = ({ location, history, ...props }) => {
     },
     validate,
     onSubmit: values => {
-      /* axios
-        .post(`${REACT_APP_BACKEND_URL}/users/login`, values)
-        .then(resp => {
-          values.email === 'admin@admin.com'
-            ? localStorage.setItem('admin', 'true')
-            : localStorage.setItem('admin', 'false');
-          changeLogin(resp.data.userId);
-          Swal.fire({
-            title: `${resp.data.message}`,
-            icon: 'info',
-          });
-          window.location = '/';
-        })
-        .catch(err => {
-          console.log(err);
-        }); */
       props.dispatch(login(values.email, values.password));
     },
   });
@@ -61,11 +41,6 @@ const FormLogin = ({ location, history, ...props }) => {
       history.push(redirect);
     }
   }, [history, userLogin.userInfo, redirect]);
-
-  const changeLogin = userId => {
-    const dataLogin = { userId: userId };
-    localStorage.setItem('Login', JSON.stringify(dataLogin));
-  };
 
   return (
     <div className='container col-md-6 justify-content-center'>
