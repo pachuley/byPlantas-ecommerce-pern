@@ -2,8 +2,9 @@ const server = require("express").Router();
 const { Order, User, Orderline, Product } = require("../db.js");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const { verifyToken, verifyRoleAdmin } = require("../middlewares/authHandler");
 
-server.get("/", (req, res, next) => {
+server.get("/", [verifyToken, verifyRoleAdmin], (req, res, next) => {
   Order.findAll({
     include: [
       {
@@ -19,7 +20,7 @@ server.get("/", (req, res, next) => {
     });
 });
 
-server.put("/:id", (req, res, next) => {
+server.put("/:id", [verifyToken], (req, res, next) => {
   let { status } = req.body;
   let id = req.params.id;
   Order.update(
@@ -61,7 +62,7 @@ server.post("/:userId/cart", async (req, res) => {
 });
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
-server.get("/:id/orders", (req, res, next) => {
+server.get("/:id/orders", verifyToken, (req, res, next) => {
   Order.findAll({
     where: { id: req.params.id },
     include: [
@@ -79,14 +80,14 @@ server.get("/:id/orders", (req, res, next) => {
 //GET /orders/:id
 server.get("/:id", (req, res, next) => {
   Order.findByPk({ where: { id: req.params.id } })
-    .then((result) => {
+    .then((orders) => {
       res.status(201).json(orders);
     })
     .catch(next);
 });
 //S44
 
-server.get("/orders", (req, res, next) => {
+server.get("/orders", [verifyToken, verifyRoleAdmin], (req, res, next) => {
   Order.findAll()
     .then((orders) => {
       res.status(200).json(orders);
