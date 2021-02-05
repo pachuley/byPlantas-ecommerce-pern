@@ -207,9 +207,9 @@ server.put("/:id", [verifyToken, verifyRoleAdmin], function (req, res, next) {
 
 // S54 : Crear ruta para crear/agregar Review
 // POST /product/:id/review
-server.post('/:id/review',verifyToken ,(req, res, next) => {
-  const user = req.user
-  const productId = req.params.id;
+server.post('/:id/review' ,verifyToken,(req, res, next) => {
+  const user = req.user.user
+  const productId = parseInt(req.params.id);
   const { userId, title, stars, comment } = req.body;
   if(!comment || !stars) {
     return res.send(400).json({ message: "Por favor completar los campos solicitados"});
@@ -217,9 +217,9 @@ server.post('/:id/review',verifyToken ,(req, res, next) => {
   Review.create({
     stars,
     comment,
-    userId:user.id,
     title,
     productId,
+    userId: user.id
   })
     .then(review =>
       res.status(200).json({
