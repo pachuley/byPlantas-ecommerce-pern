@@ -7,14 +7,16 @@ const {verifyToken, verifyRoleAdmin} = require('../middlewares/authHandler')
 
 server.use("/category", require("./category.js"));
 // ---Rutas GET--- //
+// Ruta que trae todos los productos por categoria
 server.get("/", (req, res, next) => {
   Product.findAll({ include: [Category] })
     .then((products) => res.send(products))
     .catch(next);
 });
+// Ruta que busca un producto matcheando una keyword traida por query
 server.get("/search", (req, res, next) => {
   const product = req.query.query;
-  console.log(product)
+  console.log(product);
   Product.findAll({
     where: {
       [Op.or]: [
@@ -39,30 +41,33 @@ server.get("/search", (req, res, next) => {
     });
 });
 // ---Rutas POST--- //
-server.post('/', (req, res) =>{
-  console.log(req.body)
-	const addProduct = req.body;
-	Product.create({
-		name: addProduct.name,
-		description: addProduct.description,
-		price: addProduct.price,
-		stock: addProduct.stock,
-		imgs: addProduct.imgProduct, // Que es imgProduct?
-	})
-	.then(response=>res.status(201).send(response));
-})
-server.post('/:idProducto/category/setCategories',(req,res)=>{
-	var cat;
-	Category.findAll({where:{id:{[Op.in]:req.body}}})
-	.then(resp=>{
-		cat=resp;
-	})
-	Product.findByPk(req.params.idProducto)
-	.then(resp=>{
-		resp.setCategories(cat)
-		res.send('se deleteo todo')
-	})
-})
+// Ruta que crea un producto
+server.post("/", [verifyToken, verifyRoleAdmin], (req, res) => {
+  console.log(req.body);
+  const addProduct = req.body;
+  Product.create({
+    name: addProduct.name,
+    description: addProduct.description,
+    price: addProduct.price,
+    stock: addProduct.stock,
+    imgs: addProduct.imgProduct, // Que es imgProduct?
+  }).then((response) => res.status(201).send(response));
+});
+server.post(
+  "/:idProducto/category/setCategories",
+  verifyToken,
+  verifyRoleAdmin,
+  (req, res) => {
+    var cat;
+    Category.findAll({ where: { id: { [Op.in]: req.body } } }).then((resp) => {
+      cat = resp;
+    });
+    Product.findByPk(req.params.idProducto).then((resp) => {
+      resp.setCategories(cat);
+      res.send("se deleteo todo");
+    });
+  }
+);
 server.get("/:id", (req, res) => {
   let id = req.params.id;
   Product.findOne({
@@ -98,7 +103,7 @@ server.get("/category/:nombreCat", function (req, res, next) {
             },
           ],
         });
-      } 
+      }
     })
     .then(function (products) {
       if (!products) {
@@ -130,18 +135,22 @@ server.post("/", (req, res) => {
     imgs: addProduct.imgs,
   }).then((response) => res.status(201).send(response));
 });
-server.post("/:idProducto/category/:idCategoria", (req, res) => {
-  var cat;
-  Category.findByPk(req.params.idCategoria).then((resp) => {
-    cat = resp;
-  });
-  Product.findByPk(req.params.idProducto).then((resp) => {
-    resp.addCategory(cat, { through: { selfGranted: false } });
-    res.send("Agregado correctamente");
-  });
-});
+server.post(
+  "/:idProducto/category/:idCategoria",
+  [verifyToken, verifyRoleAdmin],
+  (req, res) => {
+    var cat;
+    Category.findByPk(req.params.idCategoria).then((resp) => {
+      cat = resp;
+    });
+    Product.findByPk(req.params.idProducto).then((resp) => {
+      resp.addCategory(cat, { through: { selfGranted: false } });
+      res.send("Agregado correctamente");
+    });
+  }
+);
 // ---Rutas DELETE--- //
-server.delete("/:id", (req, res) => {
+server.delete("/:id", [verifyToken, verifyRoleAdmin], (req, res) => {
   let id = req.params.id;
   Product.destroy({
     where: { id: id },
@@ -156,19 +165,23 @@ server.delete("/:id", (req, res) => {
   });
 });
 
-server.delete("/:idProducto/category/:idCategoria", (req, res) => {
-  var cat;
-  Category.findByPk(req.params.idCategoria).then((resp) => {
-    cat = resp;
-  });
-  Product.findByPk(req.params.idProducto).then((resp) => {
-    resp.removeCategory(cat, { through: { selfGranted: false } });
-    res.send("Categoria Eliminada satisfactoriamente");
-  });
-});
+server.delete(
+  "/:idProducto/category/:idCategoria",
+  [verifyToken, verifyRoleAdmin],
+  (req, res) => {
+    var cat;
+    Category.findByPk(req.params.idCategoria).then((resp) => {
+      cat = resp;
+    });
+    Product.findByPk(req.params.idProducto).then((resp) => {
+      resp.removeCategory(cat, { through: { selfGranted: false } });
+      res.send("Categoria Eliminada satisfactoriamente");
+    });
+  }
+);
 // ---Rutas PUT--- //
-server.put("/:id", function (req, res, next) {
-  console.log(req.body)
+server.put("/:id", [verifyToken, verifyRoleAdmin], function (req, res, next) {
+  console.log(req.body);
   let {
     name,
     description,
@@ -220,32 +233,34 @@ server.post('/:id/review',verifyToken ,(req, res, next) => {
 
 // S55 : Crear ruta para Modificar Review
 // PUT /product/:id/review/:idReview
-server.put('/:id/review/:idReview', (req, res, next) => {
+server.put("/:id/review/:idReview", [verifyToken], (req, res, next) => {
   // server.put('/:id/review/:idReview', VerificarToken, (req, res, next) => {
   const reviewId = req.params.idReview;
-  const comment = req.body.comment
+  const comment = req.body.comment;
   Review.update(
-    {comment: comment},
-    {returning: true, where: {id: reviewId}}
+    { comment: comment },
+    { returning: true, where: { id: reviewId } }
   )
-    .then(function([rowsUpdate, [updatedReview] ]){
-      res.json(updatedReview)
+    .then(function ([rowsUpdate, [updatedReview]]) {
+      res.json(updatedReview);
     })
-    .catch(next)
-})
+    .catch(next);
+});
 
 // S56 : Crear Ruta para eliminar Review
 // DELETE /product/:id/review/:idReview
-server.delete('/:id/review/:idReview', (req, res, next) => {
-  // rutas.delete('/:id', VerificarToken, (req, res, next) => { 
-  let reviewId = req.params.idReview
-  Review.destroy({where: { id: reviewId }})
-  .then(result => {
-    res.status(200).json({ mensaje: "El producto ha sido eliminado correctamente", data: result })
-  })
-  .catch(next) 
-})
-
+server.delete("/:id/review/:idReview", [verifyToken], (req, res, next) => {
+  // rutas.delete('/:id', VerificarToken, (req, res, next) => {
+  let reviewId = req.params.idReview;
+  Review.destroy({ where: { id: reviewId } })
+    .then((result) => {
+      res.status(200).json({
+        mensaje: "El producto ha sido eliminado correctamente",
+        data: result,
+      });
+    })
+    .catch(next);
+});
 
 // S57 : Crear Ruta para obtener todas las reviews de un producto.
 /* GET /product/:id/review/

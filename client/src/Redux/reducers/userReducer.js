@@ -30,7 +30,9 @@ const userLoginReducer = (state = initialState, action) => {
         error: action.error
       };
     case USER_LOGIN_LOGOUT:
-      return {};
+      return {
+        ...state,
+        userLogin: {userInfo: null}};
     default:
       return state;
   }

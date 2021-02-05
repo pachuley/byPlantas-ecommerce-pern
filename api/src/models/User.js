@@ -5,7 +5,19 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   const User = sequelize.define("user", {
-    name: {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    encryptedpassword: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    firstname: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -17,26 +29,15 @@ module.exports = (sequelize) => {
       type: DataTypes.DATE,
       allowNull: true,
     },
-    email: {
+    address: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
-    },
-    encryptedPassword: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     role: {
       type: DataTypes.ENUM,
       allowNull: true,
       values: ["CLIENT_ROLE", "ADMIN_ROLE", "VENDOR_ROLE"],
-    },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      defaultValue: "CLIENT_ROLE",
     },
   });
 };
