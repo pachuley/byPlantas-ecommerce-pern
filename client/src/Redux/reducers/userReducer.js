@@ -20,6 +20,7 @@ const userLoginReducer = (state = initialState, action) => {
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
+        userLogin: action.payload,
         isFetching: false,
       };
     case USER_LOGIN_FAIL:
