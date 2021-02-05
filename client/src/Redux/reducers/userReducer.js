@@ -1,7 +1,7 @@
 import { USER_LOGIN_FAIL, USER_LOGIN_LOGOUT, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from '../types';
 
 const userInfoStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
-console.log('acaaa',userInfoStorage)
+
 const initialState = {
     userLogin: {userInfo:userInfoStorage},
     isFetching: false,
