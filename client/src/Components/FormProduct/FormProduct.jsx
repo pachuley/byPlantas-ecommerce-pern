@@ -36,6 +36,8 @@ const validate = values => {
 
 const FormProduct = (props) => {
 
+  //Levanto los datos del local para poder enviar con la variante config todos los datos del token
+    //con la variante config, por eso la paso como parametro en config (el header)
   let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
   let config = {
     headers: {
@@ -44,7 +46,6 @@ const FormProduct = (props) => {
     },
   };
 
-  console.log(props)
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -94,11 +95,6 @@ const FormProduct = (props) => {
     }
   }
 
-
-  // useEffect para traer los props del redux
-
-  const { userLogin, isFetching, error } = props.userLogin;
-  
   
   return (
    
