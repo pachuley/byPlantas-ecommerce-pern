@@ -2,7 +2,5 @@
     display: flex;
     justify-content: space-between;
     align-content: center;
-    margin: auto;
-    padding-left: 28%;
-    padding-right: 28%
+    margin: 2em auto;
 }

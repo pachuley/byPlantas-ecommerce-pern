@@ -21,7 +21,7 @@ export default function NavBar() {
                             
                         </li>
                         <li className={`${styles.liMargin}`}>
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/account" >Cuenta</NavLink>
+                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/login" >LogIn</NavLink>
                         </li>
                         <li className={`${styles.liMargin}`}>
                             {admin !== "true" ?

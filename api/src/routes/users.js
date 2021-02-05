@@ -17,10 +17,12 @@ server.get("/", verifyToken, verifyRoleAdmin, (req, res, next) => {
     .catch(next);
 });
 
+
+// POST: Crear Usuario
 server.post("/register", async (req, res) => {
-  let { email, password } = req.body;
+  let { email, password, birthdate, firstname, lastname, address} = req.body;
   const saltHash = await bcrypt.genSalt(10);
-  const encryptedPassword = await bcrypt.hash(password, saltHash);
+  const encryptedpassword = await bcrypt.hash(password, saltHash);
 
   if (!email || !password) {
     res
@@ -30,9 +32,15 @@ server.post("/register", async (req, res) => {
 
   User.create({
     email,
-    encryptedPassword,
+    encryptedpassword,
+    firstname,
+    lastname,
+    address,
+    birthdate,
+    role: "CLIENT_ROLE"
   })
     .then((user) => {
+      console.log(user)
       Order.create({
         userId: user.id,
       }).then((order) => {
@@ -50,6 +58,7 @@ server.post("/register", async (req, res) => {
     });
 });
 
+//POST: Login usuario
 server.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -99,12 +108,12 @@ server.put("/:id", verifyToken, async (req, res) => {
   try {
     const { email, password } = req.body;
     const salt = bcrypt.genSalt(10);
-    const encryptedPassword = await bcrypt.hash(password, salt);
+    const encryptedpassword = await bcrypt.hash(password, salt);
 
     await User.update(
       {
         email: email,
-        encryptedPassword: encryptedPassword,
+        encryptedPassword: encryptedpassword,
       },
       { returning: true, where: { id: req.params.id } }
     );
