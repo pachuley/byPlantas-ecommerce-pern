@@ -1,8 +1,9 @@
 const server = require("express").Router();
-const { Product, Category, Review } = require("../db.js");
+const { Product, Category, Review, User } = require("../db.js");
 const Sequelize = require("sequelize");
 const { response } = require("../app.js");
 const Op = Sequelize.Op;
+const {verifyToken, verifyRoleAdmin} = require('../middlewares/authHandler')
 
 server.use("/category", require("./category.js"));
 // ---Rutas GET--- //
@@ -193,21 +194,27 @@ server.put("/:id", function (req, res, next) {
 
 // S54 : Crear ruta para crear/agregar Review
 // POST /product/:id/review
-server.post('/:id/review', (req, res, next) => {
-  // rutas.delete('/:id', VerificarToken, (req, res, next) => {
+server.post('/:id/review',verifyToken ,(req, res, next) => {
+  const user = req.user
   const productId = req.params.id;
-  const { userId, stars, comment } = req.body;
+  const { userId, title, stars, comment } = req.body;
   if(!comment || !stars) {
     return res.send(400).json({ message: "Por favor completar los campos solicitados"});
   };
   Review.create({
     stars,
     comment,
-    userId,
-    productId
+    userId:user.id,
+    title,
+    productId,
   })
-  .then(review => res.status(200).json(review))
-  .catch(error => res.send(error))
+    .then(review =>
+      res.status(200).json({
+        review,
+        user,
+      })
+    )
+    .catch(error => res.send(error));
 })
 
 
@@ -245,12 +252,24 @@ server.delete('/:id/review/:idReview', (req, res, next) => {
 Podés tener esta ruta, o directamente obtener todas las reviews en la ruta de GET product. */
 server.get('/:id/review', (req, res, next) => {
   const productId = req.params.id
-  Review.findAll({where: {productId: productId}})
+  Review.findAll(
+    {
+      where: {productId: productId},
+      include: [
+        {
+          model: User,
+        },
+      ]
+    }
+  )
   .then(result => {
     if(!result) {
       return res.status(401).json({message: "No se encontraron reviews para este producto"});
     }
-    res.status(200).json(result)
+    res.status(200).json({
+      ok:true,
+      result
+    })
   })
   .catch(next)
 })
