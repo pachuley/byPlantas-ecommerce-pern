@@ -1,0 +1,54 @@
+.containerByPlantasCarousel{
+    display: block;
+    width: 50%;
+    height: 15em;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding-top: 2.5%;
+    padding-bottom: 1%;
+    text-align: center;
+    background-position: 0;
+    background-color: rgba(0, 0, 0, 0.32);
+    color: #f5f5ef;
+}
+.carouselSlide1{
+    display: block;
+    width: 100%;
+    max-height: 30em;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    background-image: url("https://res.cloudinary.com/pachuley/image/upload/v1612482434/2_zijcle.png");
+    background-size: cover;
+    align-content: center;
+    background-position: 0;
+    justify-content: center;
+}
+
+.carouselSlide2{
+    display: block;
+    width: 100%;
+    max-height: 30em;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    background-image: url("https://res.cloudinary.com/pachuley/image/upload/v1612482446/1_jfgx4x.png");
+    background-size: cover;
+    align-content: center;
+    background-position: 0;
+    justify-content: center;
+}
+
+.carouselSlide3{
+    display: block;
+    width: 100%;
+    max-height: 30em;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    background-image: url("https://res.cloudinary.com/pachuley/image/upload/v1612482469/3_xlt66x.png");
+    background-size: cover;
+    align-content: center;
+    background-position: 0;
+    justify-content: center;
+}
