@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 
 const ReviewContainer = ({ reviews, match }) => {
   const [open, setOpen] = useState(false)
-  const handleClick = (event) => {
+  const handleClick = () => {
     setOpen(!open)
   }
   let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
@@ -30,8 +30,7 @@ const ReviewContainer = ({ reviews, match }) => {
             title={review.title}
             comment={review.comment}
             stars={review.stars}
-            /* name={review.user.name}
-            lastname={review.user.lastname} */
+            name={review.user.firstname}
         />
       ))}
     </>
