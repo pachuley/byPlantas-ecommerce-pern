@@ -17,12 +17,9 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
-const {
-  PORT_API
-} = process.env;
-
+const server = require("./src/app.js");
+const { conn } = require("./src/db.js");
+const { PORT_API } = process.env;
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
