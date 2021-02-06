@@ -2,6 +2,7 @@ import React,{useEffect, useState}from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import {useFormik} from 'formik'
+import { connect } from 'react-redux';
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
@@ -35,6 +36,16 @@ const validate = values => {
 
 const FormProduct = (props) => {
 
+  //Levanto los datos del local para poder enviar con la variante config todos los datos del token
+    //con la variante config, por eso la paso como parametro en config (el header)
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -45,10 +56,11 @@ const FormProduct = (props) => {
     },
     validate,
     onSubmit: (values)=>{
-      axios.post(`${REACT_APP_BACKEND_URL}/products`, values)
+      
+      axios.post(`${REACT_APP_BACKEND_URL}/products`, values, config)
       .then(res => {
         let prodId = res.data.id;
-        axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/setCategories`,checks)
+        axios.post(`${REACT_APP_BACKEND_URL}/products/${prodId}/category/setCategories`,checks, config)
         .then(resp=>{
           Swal.fire({
             title: `Producto agregado: ${values.name}`,
@@ -82,6 +94,7 @@ const FormProduct = (props) => {
       setChecks(newChecks)
     }
   }
+
   
   return (
    
@@ -158,5 +171,10 @@ const FormProduct = (props) => {
   )
 }
 
+const mapStateToProps = state => {
+  return {
+    userLogin: state.userLogin,
+  };
+};
 
-export default FormProduct
+export default connect(mapStateToProps)(FormProduct);
