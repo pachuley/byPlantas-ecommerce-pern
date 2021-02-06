@@ -49,7 +49,7 @@ const FormLogin = ({ location, ...props }) => {
       history.push('/');
     } 
   }, [history, userLogin]);  
-
+  
   return (
     <div className='container col-md-6 justify-content-center'>
       {error && (
@@ -58,6 +58,11 @@ const FormLogin = ({ location, ...props }) => {
         </div>
       )}
       {isFetching && <Spinner/>}
+      {props.history.location.state?.message && 
+        <div className="alert alert-primary" role="alert">
+          {props.history.location.state.message}
+        </div>
+      }
       <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
         <h4 className={`${styles.titles}`}>Ingresa a tu cuenta!</h4>
         <label htmlFor='inputLoginEmail' className='form-label'>
