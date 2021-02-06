@@ -2,26 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./orderTable.module.css";
 import axios from "axios";
+import {Redirect} from 'react-router-dom'
+import { useSelector} from 'react-redux'
 // import axios from 'axios';
 const { REACT_APP_BACKEND_URL } = process.env;
 
 export default function OrderTable() {
   const [orders, setOrders] = useState([]);
   const [fecha, setFecha] = useState("");
+  const userLogin = useSelector(state => state.userLogin)
 
   useEffect(() => {
-    console.log("ejecuta");
     getOrders();
   }, []);
   const getOrders = async () => {
-    console.log("orders");
     axios.get(`${REACT_APP_BACKEND_URL}/orders`).then((res) => {
       setOrders(...orders, res.data);
       setFecha(res.data[0].createdAt.split("T", 1));
     });
   };
-  console.log(orders);
+  let isAuth = userLogin.userLogin && userLogin.userLogin?.role === 'ADMIN_ROLE'
   return (
+    isAuth ? 
     <div className="container tabla">
       <div
         className="col-md-12 panel-right row tabla"
@@ -65,5 +67,12 @@ export default function OrderTable() {
         </div>
       </div>
     </div>
+    :
+    <Redirect to={{
+      pathname: '/login',
+      state: {
+        message: 'Debes estar logueado y ser ADMIN.'
+      }
+    }}/>
   );
 }

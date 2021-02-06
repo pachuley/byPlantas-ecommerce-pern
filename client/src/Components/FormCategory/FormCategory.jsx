@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import styles from './formCategory.module.css';
+/* import styles from './formCategory.module.css'; */
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import {useFormik} from 'formik'
 import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 const validate = values => {
@@ -53,7 +54,10 @@ const FormCategory = (props)=>{
         }
       })
 
+    let isAuth = props.userLogin.userLogin && props.userLogin.userLogin?.role === 'ADMIN_ROLE'
+
     return(
+      isAuth ?
         <div className='container'>
             <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
                 <h2 className={`text-center`}>Agregar Una Categoría</h2>
@@ -91,6 +95,13 @@ const FormCategory = (props)=>{
                     </button>
             </form>
         </div>
+        :
+        <Redirect to={{
+          pathname: '/login',
+          state: {
+            message: 'Debes estar logueado y ser ADMIN para crear Categorías'
+          }
+        }}/>
     )
 }
 

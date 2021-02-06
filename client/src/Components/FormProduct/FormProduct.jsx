@@ -175,7 +175,7 @@ const FormProduct = (props) => {
     <Redirect to={{
       pathname: '/login',
       state: {
-        message: 'Debes estar logueado y ser ADMIN para crear productos'
+        message: 'Debes estar logueado y ser ADMIN para crear Productos'
       }
     }}/>
   )

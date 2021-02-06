@@ -2,7 +2,8 @@ import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import CartLine from "../CartLine/CartLine";
-import { connect } from "react-redux";
+import {Redirect} from 'react-router-dom'
+import { useSelector} from 'react-redux'
 const { REACT_APP_BACKEND_URL } = process.env;
 
 export default function Order({ match }) {
@@ -15,6 +16,7 @@ export default function Order({ match }) {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState(order.status);
+  const userLogin = useSelector(state => state.userLogin)
 
   useEffect(() => {
     getOrder();
@@ -74,7 +76,11 @@ export default function Order({ match }) {
         window.location = `/admin/orders/${order.id}`;
       });
   };
+
+  let isAuth = userLogin.userLogin && userLogin.userLogin?.role === 'ADMIN_ROLE'
   return (
+    isAuth ? 
+
     <Fragment>
       <div className="container mt-5">
         <button className={`btn btn-dark mt-4`}>
@@ -177,5 +183,12 @@ export default function Order({ match }) {
         </div>
       </div>
     </Fragment>
+    :   
+    <Redirect to={{
+      pathname: '/login',
+      state: {
+        message: 'Debes estar logueado y ser ADMIN.'
+      }
+    }}/>
   );
 }
