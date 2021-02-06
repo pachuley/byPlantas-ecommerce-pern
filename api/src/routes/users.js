@@ -85,12 +85,13 @@ server.post("/login", async (req, res) => {
         });
         const token = jwt.sign({ user }, SECRET, { expiresIn: 10000000 });
         res.status(200).json({
-          message: "Email y contraseña correctos",
-          userId: user.id,
-          token: token,
-          name: user.name,
-          email: user.email,
+          firstname: user.firstname,
+          lastname: user.lastname,
           role: user.role,
+          email: user.email,
+          birthdate: user.birthdate,
+          address: user.address,
+          token
         });
       } else {
         res.status(400).json("Contraseña equivocada!");
