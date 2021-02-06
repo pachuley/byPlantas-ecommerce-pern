@@ -2,16 +2,10 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './navbar.module.css'
 import Logout from '../Logout/Logout'
-import { useDispatch, useSelector} from 'react-redux'
-import {logout} from '../../Redux/actions/userActions'
-
+import { useSelector} from 'react-redux'
 
 const NavBar = () => {
-    //invoco al Localstorage para levantar si el admin es true o no.
-    let admin = localStorage.getItem('admin')
-    //
     const userLogin = useSelector(state => state.userLogin)
-    const dispatch = useDispatch()
     
     return (
         <header id="header" className={`fixed-top ${styles.header, styles.headerText}`}>
@@ -27,23 +21,23 @@ const NavBar = () => {
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/products" >Catálogo</NavLink>
                             
                         </li>
-                        <li className={`${styles.liMargin}`}>
-                            {admin !== "true" ?
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                            {userLogin.userLogin === null || userLogin.userLogin.role !== "ADMIN_ROLE" ?
+                                <li className={`${styles.liMargin}`}>
+                                    <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                                </li>
                             : ""}
-                        </li>
+                        { userLogin.userLogin && userLogin.userLogin.role === "ADMIN_ROLE" ?
+                            <li className={`${styles.liMargin}`}>
+                                <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
+                            </li>
+                            : ""}
                         <li className={`${styles.liMargin}`}>
-                            {userLogin.userLogin ? (
+                            {userLogin.userLogin ? 
+                            (
                                 <Logout />
                             ) : 
-                            
                                 <NavLink className={styles.link} activeClassName={styles.alink} exact to="/login" >LogIn</NavLink>
                             }
-                        </li>
-                        <li className={`${styles.liMargin}`}>
-                        { admin === "true" ?
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
-                            : ""}
                         </li>
                     </ul>
                 </div>
