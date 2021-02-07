@@ -76,17 +76,25 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
     }
 //aca esta mal
     const handleAddtoguest = e =>{
-        console.log (localStorage.getItem('Cart'))
+
         if(!localStorage.getItem('Cart')){
             localStorage.setItem('Cart', JSON.stringify({Products:[]}))
         }
         if(guestOrder.quantity > 0){
             let dataStorage = JSON.parse(localStorage.getItem('Cart'))
-            dataStorage.Products = dataStorage.Products.filter(x=>x.id !== guestOrder.id)            
-            //if(guestOrder.name){
-                dataStorage.Products.push(guestOrder)
-            //}
-            localStorage.setItem('Cart', JSON.stringify(dataStorage))
+            let newData = dataStorage.Products.filter(x=>x.id === guestOrder.id)            
+           
+           console.log(newData.length > 0)
+            var quant = newData.length > 0 ? newData[0].quantity : 0
+            var price = newData.length > 0 ? newData[0].price : 0
+
+            let sentData = dataStorage.Products.filter(x=>x.id !== guestOrder.id)    
+            
+            
+                sentData.push({...guestOrder, quantity:guestOrder.quantity + quant  })
+                console.log(guestOrder)
+           
+            localStorage.setItem('Cart', JSON.stringify({Products: sentData}))
             Swal.fire({
                 title: `El producto se agrego al carrito`,
                 icon: 'info'
