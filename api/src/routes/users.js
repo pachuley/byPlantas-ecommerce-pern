@@ -17,6 +17,24 @@ server.get("/",verifyToken, verifyRoleAdmin, (req, res, next) => {
     .catch(next);
 });
 
+//post promote convierte el user a admin
+server.post('/auth/promote/:id',[verifyToken] ,async (req,res) => {
+  let idUser = req.params.id
+  const user = await User.findByPk(idUser)
+  if(!user){
+    res.status(400).json({
+      ok:false
+    })
+  }
+  user.role='ADMIN_ROLE'
+  await user.save();
+  res.status(200).json({
+    ok:true,
+    message:'Se cambio el role a ADMIN',
+    user,
+    userCreator: req.user
+  })
+})
 
 // POST: Crear Usuario
 server.post("/register", async (req, res) => {
