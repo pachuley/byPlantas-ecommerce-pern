@@ -11,9 +11,10 @@ const ReviewContainer = ({ reviews, match }) => {
   }
   let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
   return (
-    <>
-      <div>
-        <div className={`${styles.titlereviews } d-flex justify-content-center`}>Reviews</div>
+    <div className={`containerByPlantas m-0`}>
+      <h4 className={`${styles.titlereviews } d-flex justify-content-center`}>Reseñas</h4>
+      <div className={`containerByPlantas m-3`}>
+        {open && <FormReview idProd={match.params.id}/>}
         {
           userLocalstorage &&
           <button 
@@ -24,16 +25,17 @@ const ReviewContainer = ({ reviews, match }) => {
             </button>
         }
       </div>
-      {open && <FormReview idProd={match.params.id}/>}
-      {reviews.map(review => (
-        <ReviewCard
-            title={review.title}
-            comment={review.comment}
-            stars={review.stars}
-            name={review.user.firstname}
-        />
-      ))}
-    </>
+      <div className={`${styles.containercards}`}>
+        {reviews.map(review => (
+          <ReviewCard
+              title={review.title}
+              comment={review.comment}
+              stars={review.stars}
+              name={review.user.firstname}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 

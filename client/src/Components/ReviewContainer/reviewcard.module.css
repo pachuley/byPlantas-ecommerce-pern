@@ -1,31 +1,84 @@
+.containercards{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5em;
+    justify-content: center;
+    padding: 3em;
+}
+
 .cardreview{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 9rem;
-    color: #5D6D7E;
+    min-width: 23%;
+    max-width: 23%;
+    height: 25em;
+    color: #a17e30;
     font-size: 0.6rem;
     margin: 0.5rem;
-    padding-top: 0.2rem;
+    margin-bottom: 1em;
     background-color: #fff;
+    border: 0.5px solid #f5f5ef;
+    border-radius: 0.5em;
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 1em;
 }
 
 .cardreview:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.titlecontainer{
+    background-color: #507b00;
+    width: 100%;
+    min-height: 3em;
+    padding: 1em;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
 }
 
 .cardtitle{
     font-style: italic;
     font-size: 0.9rem;
+    color: #f5f5ef;
+    font-size: 1.5em;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+.cardbody{
+    font-size: 0.9rem;
+    background-color: #fff;
+    width: 100%;
+    height: 10em;
+    color: #507b00;
+    margin-top: 0;
+    padding: 0;
+    padding-top: 1em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    font-size: 1.5em;
+    overflow: auto;
 }
 
 .namecard{
-    font-size: 0.2rem;
+    font-style: italic;
+    font-size: 0.7em;
+    font-weight: 600;
 }
 
 .titlereviews{
     border-bottom: 1px solid #E5E8E8;
     border-top: 1px solid #E5E8E8;
     padding: 0.5rem;
-    color: #5D6D7E;
+    color: #a17e30;
     font-weight: bold;
+}
+
+.ratingicon {
+    size: 1em;
 }

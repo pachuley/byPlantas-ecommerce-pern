@@ -25,14 +25,9 @@ export default function OrderTable() {
   return (
     isAuth ? 
     <div className="container tabla">
-      <div
-        className="col-md-12 panel-right row tabla"
-        style={{ paddingTop: "25px" }}
-      >
+      <div className="col-md-12 panel-right row tabla">
         <div className="col-md-12 col-lg-12">
-          <h2 className="text-center">
-            <u>Todas las Ordenes</u>
-          </h2>
+          <h2 className={`m-0 text-center p-5`}>Accede a tu cuenta o registrate como Nuevo Usuario!</h2>
           <table className="table table-hover table-dark thfontsize">
             <thead>
               <tr>
