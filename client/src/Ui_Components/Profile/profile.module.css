@@ -1,0 +1,19 @@
+.profile{
+    width: 40%;
+    border: 1px solid #507b00;
+    border-radius: 5px;
+    margin: 6rem auto;
+    padding: 1rem;
+}
+.photocontainer{
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid grey;
+    border-radius: 50%;
+    padding: 1rem;
+    margin: 1rem auto;
+}
+
+.photo{
+    width: 100%;
+}

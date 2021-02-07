@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../Redux/actions/userActions';
 import { useHistory } from "react-router"
+import {Link} from 'react-router-dom'
 /* import styles from './logout.module.css'; */
 
 const Logout = () => {
@@ -25,8 +26,11 @@ const Logout = () => {
         {userLogin.userLogin.firstname}
       </button>
       <div className='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+        <button className='dropdown-item'>
+          <Link to='/profile'>Profile</Link>
+        </button>
         <button className='dropdown-item' onClick={handleLogout}>
-          Logout
+          <Link>Logout</Link>
         </button>
       </div>
     </div>
