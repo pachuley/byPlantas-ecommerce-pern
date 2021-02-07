@@ -3,6 +3,7 @@ import style from './BtnCart.module.css'
 import {connect} from 'react-redux'
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import { useSelector} from 'react-redux'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 export default function BtnCart ({productId, stock, name, price, imgs}){
@@ -17,11 +18,13 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
       },
     };
 
-
-    const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
+//invocamos para saber si estamos loggeados desde redux
+const userLogin = useSelector(state => state.userLogin)
+var logged =  userLogin.userLogin
+    console.log(logged)
     const [order, setOrder] = useState({
         productId: productId,
-        userId: logged ? logged.userId : 0,
+        userId: logged ? logged.id : 0,
         quantity: 0,
         discount: 0,
         imgs,
@@ -66,7 +69,7 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
 
     const handleAddtocart = e =>{
         //if(order.price){
-            axios.post(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`, order, config)
+            axios.post(`${REACT_APP_BACKEND_URL}/users/${logged.id}/cart`, order, config)
             .then(resp=>{
             Swal.fire({
                 title: `El producto se agrego al carrito`,
@@ -76,17 +79,25 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
     }
 //aca esta mal
     const handleAddtoguest = e =>{
-        console.log (localStorage.getItem('Cart'))
+
         if(!localStorage.getItem('Cart')){
             localStorage.setItem('Cart', JSON.stringify({Products:[]}))
         }
         if(guestOrder.quantity > 0){
             let dataStorage = JSON.parse(localStorage.getItem('Cart'))
-            dataStorage.Products = dataStorage.Products.filter(x=>x.id !== guestOrder.id)            
-            //if(guestOrder.name){
-                dataStorage.Products.push(guestOrder)
-            //}
-            localStorage.setItem('Cart', JSON.stringify(dataStorage))
+            let newData = dataStorage.Products.filter(x=>x.id === guestOrder.id)            
+           
+           console.log(newData.length > 0)
+            var quant = newData.length > 0 ? newData[0].quantity : 0
+            var price = newData.length > 0 ? newData[0].price : 0
+
+            let sentData = dataStorage.Products.filter(x=>x.id !== guestOrder.id)    
+            
+            
+                sentData.push({...guestOrder, quantity:guestOrder.quantity + quant  })
+                console.log(guestOrder)
+           
+            localStorage.setItem('Cart', JSON.stringify({Products: sentData}))
             Swal.fire({
                 title: `El producto se agrego al carrito`,
                 icon: 'info'

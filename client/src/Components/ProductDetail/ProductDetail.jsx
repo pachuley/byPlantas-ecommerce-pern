@@ -37,7 +37,7 @@ const ProductDetail = ({match, ...props}) =>{
                     <hr/>
                     <p> Stock: {stock}</p>
                     <hr/>
-                    <BtnCart className="btn btnByPlantas" productId={match.params.id} stock={stock} name={name} price={price} imgs={imgs} />
+                    <BtnCart className="btn btnByPlantas" productId={parseInt(match.params.id)} stock={stock} name={name} price={price} imgs={imgs} />
                     
                </div>
            </div>

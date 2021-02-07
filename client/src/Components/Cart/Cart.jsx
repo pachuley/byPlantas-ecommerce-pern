@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import {Redirect} from 'react-router-dom'
 import CartLine from '../CartLine/CartLine'
+import { useSelector } from 'react-redux'
 const {REACT_APP_BACKEND_URL} = process.env;
+
 
 function Cart (){
 
@@ -17,8 +19,10 @@ function Cart (){
       },
     };
 
-
-    const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
+    //invocamos para saber si estamos loggeados desde redux
+  const userLogin = useSelector(state => state.userLogin)
+  var logged =  userLogin.userLogin
+  
     const [cart, setCart] = useState([])
     const [total, setTotal] = useState(0)
 
@@ -40,7 +44,7 @@ function Cart (){
     }, [])
 
     const buscarProducts = () => {
-      axios.get(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`, config)
+      axios.get(`${REACT_APP_BACKEND_URL}/users/${logged.id}/cart`, config)
         .then(resp=>{
           console.log(resp)
           setCart(resp.data[0].products)

@@ -7,7 +7,11 @@ const {REACT_APP_BACKEND_URL} = process.env;
 
 
 const Admins = (props) => {
+  //invocamos para saber si estamos loggeados desde redux
   const userLogin = useSelector(state => state.userLogin)
+  var logged =  userLogin.userLogin
+
+  
   let isAuth = userLogin.userLogin && userLogin.userLogin?.role === 'ADMIN_ROLE'
   return (
     isAuth ? 

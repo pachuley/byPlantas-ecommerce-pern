@@ -7,17 +7,20 @@ import { useSelector} from 'react-redux'
 const { REACT_APP_BACKEND_URL } = process.env;
 
 export default function Order({ match }) {
+
+  //invocamos para saber si estamos loggeados desde redux
+  
+  
+
   const [order, setOrder] = useState({});
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
-  const [logged, setlogged] = useState(
-    JSON.parse(localStorage.getItem("Login"))
-  );
+  
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState(order.status);
   const userLogin = useSelector(state => state.userLogin)
-
+  var logged =  userLogin.userLogin
   useEffect(() => {
     getOrder();
   }, [status]);
