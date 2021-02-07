@@ -13,6 +13,7 @@ function Cart (){
 
     // verificar si hay un usuario logueado y si no usar el carrito como guest, corroborarlo en el store
     useEffect(()=>{
+  
       if(!logged){
         if(!localStorage.getItem('Cart')){
           localStorage.setItem('Cart', JSON.stringify({Products:[]}))
@@ -30,6 +31,7 @@ function Cart (){
     const buscarProducts = () => {
       axios.get(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`)
         .then(resp=>{
+          console.log(resp)
           setCart(resp.data[0].products)
           var subtotal = 0;
           resp.data[0].products.forEach(x=>{subtotal = subtotal + parseFloat(x.price * x.orderline.quantity)})

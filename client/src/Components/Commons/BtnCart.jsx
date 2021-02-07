@@ -6,6 +6,18 @@ import axios from 'axios'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 export default function BtnCart ({productId, stock, name, price, imgs}){
+
+//Levanto los datos del local para poder enviar con la variante config todos los datos del token
+    //con la variante config, por eso la paso como parametro en config (el header)
+    let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+    let config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': userLocalstorage !== null ? userLocalstorage.token : null
+      },
+    };
+
+
     const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
     const [order, setOrder] = useState({
         productId: productId,
@@ -45,7 +57,7 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
     }
 
     const handleClick = e => {
-
+        
         logged ? setOrder({...order, imgs: imgs}) : setGuestOrder({...guestOrder})
         logged !== null ? handleAddtocart() : handleAddtoguest() ;
         setOrder({...order, quantity: 0})
@@ -54,7 +66,7 @@ export default function BtnCart ({productId, stock, name, price, imgs}){
 
     const handleAddtocart = e =>{
         //if(order.price){
-            axios.post(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`, order)
+            axios.post(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`, order, config)
             .then(resp=>{
             Swal.fire({
                 title: `El producto se agrego al carrito`,
