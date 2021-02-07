@@ -7,6 +7,15 @@ import Swal from 'sweetalert2'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 function CartLine ({product, imgs, userId}){
+    let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+    let config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': userLocalstorage !== null ? userLocalstorage.token : null
+      },
+    };
+
+
     const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
     const [contador, setContador] = useState(logged ? product.orderline.quantity : product.quantity)
     
@@ -21,7 +30,7 @@ function CartLine ({product, imgs, userId}){
             icon: 'info'
           })
         }else{
-          axios.delete(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${productID}`)
+          axios.delete(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${productID}`, config)
           .then(res=>{
             console.log(res);
             window.location = '/cart'
@@ -35,7 +44,7 @@ function CartLine ({product, imgs, userId}){
     const handleSuma = () => {
         setContador(contador + 1)
         logged ? 
-        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${product.id}`, {contador:contador + 1})
+        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${product.id}`, {contador:contador + 1}, config)
         : handleSumaGuest()
     }
     const handleSumaGuest = () => {
@@ -49,7 +58,7 @@ function CartLine ({product, imgs, userId}){
     const handleResta = () => {
         setContador(contador - 1)
         logged ? 
-        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${product.id}`, {contador:contador - 1})
+        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${product.id}`, {contador:contador - 1}, config)
         : handleRestaGuest()
     }
     const handleRestaGuest = () => {
@@ -81,7 +90,8 @@ function CartLine ({product, imgs, userId}){
                     <div className={`container ${styles.productDetails}`}>
                         <span className=""> ARS$ {logged ? product.price : product.price} </span>
                         <span className=""> Cantidad: {contador} </span>
-                        <span> Total: {logged ? product.price * product.orderline.quantity : product.price * product.quantity} </span>
+                        <span> Total: {logged ? product.price * contador : product.price * product.quantity} </span>
+                        {/* product.price * product.orderline.quantity */}
                     </div>
                 </div>
             </div>

@@ -6,6 +6,18 @@ import CartLine from '../CartLine/CartLine'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 function Cart (){
+
+  //Levanto los datos del local para poder enviar con la variante config todos los datos del token
+    //con la variante config, por eso la paso como parametro en config (el header)
+    let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+    let config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'token': userLocalstorage !== null ? userLocalstorage.token : null
+      },
+    };
+
+
     const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
     const [cart, setCart] = useState([])
     const [total, setTotal] = useState(0)
@@ -28,16 +40,23 @@ function Cart (){
     }, [])
 
     const buscarProducts = () => {
-      axios.get(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`)
+      axios.get(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`, config)
         .then(resp=>{
+          console.log(resp)
           setCart(resp.data[0].products)
           var subtotal = 0;
-          resp.data[0].products.forEach(x=>{subtotal = subtotal + parseFloat(x.price * x.orderline.quantity)})
-          setTotal(parseFloat(subtotal))
+          
+          resp.data[0].products.forEach(x=>
+            x.orderline.total !== undefined || x !== undefined?
+            subtotal = subtotal + parseFloat(x.orderline.total)
+            :
+            subtotal = 0)
+          parseFloat(subtotal)
+          setTotal(subtotal)
         })
     }
     
-
+console.log(cart)
     return (
         <div>
             <div className = {`row containerByPlantas`}>
