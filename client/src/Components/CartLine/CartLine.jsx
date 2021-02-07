@@ -18,7 +18,8 @@ function CartLine ({product, imgs, userId}){
 
     const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
     const [contador, setContador] = useState(logged ? product.orderline.quantity : product.quantity)
-    
+    const [totalGuest, setTotalGuest] = useState(logged ? product.orderline.quantity : product.price * product.quantity)
+
     const handleDelete = (productID) =>{
         if(!logged){
           let dataStorage = JSON.parse(localStorage.getItem('Cart'))
@@ -52,6 +53,8 @@ function CartLine ({product, imgs, userId}){
         let data = dataStorage.Products.map(x=>{
             if(x.id == product.id){x.quantity = contador + 1}return x
         })
+        
+        setTotalGuest(product.price * contador)
         localStorage.setItem('Cart', JSON.stringify({Products: data}))
     }
 
@@ -64,8 +67,13 @@ function CartLine ({product, imgs, userId}){
     const handleRestaGuest = () => {
         var dataStorage = JSON.parse(localStorage.getItem('Cart'))
         let data = dataStorage.Products.map(x=>{
-            if(x.id == product.id){x.quantity = contador - 1}return x
+            if(x.id == product.id){
+                x.quantity = contador - 1
+            }
+            return x
         })
+        console.log(contador)
+        setTotalGuest(product.price * contador)
         localStorage.setItem('Cart', JSON.stringify({Products: data}))
     }
 
@@ -78,10 +86,13 @@ function CartLine ({product, imgs, userId}){
                         src={`${product.imgs ? product.imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} 
                         alt="" className={`${styles.imgCartline}`}
                     />
+                    { logged ?
                     <div>
                         <button className={`rounded-circles ${styles.btnContador}`} onClick={handleResta}>-</button>
                         <button className={`rounded-circles ${styles.btnContador}`} onClick={handleSuma}>+</button>
+
                     </div>
+                    : "" }
                 </div>
                 <div className={`container ${styles.detailsContainer}`}>
                     <div className=''>
@@ -90,7 +101,7 @@ function CartLine ({product, imgs, userId}){
                     <div className={`container ${styles.productDetails}`}>
                         <span className=""> ARS$ {logged ? product.price : product.price} </span>
                         <span className=""> Cantidad: {contador} </span>
-                        <span> Total: {logged ? product.price * contador : product.price * product.quantity} </span>
+                        <span> Total: {logged ? product.price * contador : totalGuest} </span>
                         {/* product.price * product.orderline.quantity */}
                     </div>
                 </div>
