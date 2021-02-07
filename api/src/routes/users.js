@@ -103,6 +103,7 @@ server.post("/login", async (req, res) => {
         });
         const token = jwt.sign({ user }, SECRET, { expiresIn: 10000000 });
         res.status(200).json({
+          id: user.id,
           firstname: user.firstname,
           lastname: user.lastname,
           role: user.role,

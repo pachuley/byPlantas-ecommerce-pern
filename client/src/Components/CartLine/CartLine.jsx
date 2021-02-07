@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import { connect } from 'react-redux'
 import styles from './cartline.module.css'
 import Swal from 'sweetalert2'
+import { useSelector } from 'react-redux'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
@@ -15,8 +16,11 @@ function CartLine ({product, imgs, userId}){
       },
     };
 
+    //invocamos para saber si estamos loggeados desde redux
+  const userLogin = useSelector(state => state.userLogin)
+  var logged =  userLogin.userLogin
 
-    const [logged, setlogged] = useState(JSON.parse(localStorage.getItem('Login')))
+    
     const [contador, setContador] = useState(logged ? product.orderline.quantity : product.quantity)
     const [totalGuest, setTotalGuest] = useState(logged ? product.orderline.quantity : product.price * product.quantity)
 
@@ -31,7 +35,7 @@ function CartLine ({product, imgs, userId}){
             icon: 'info'
           })
         }else{
-          axios.delete(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${productID}`, config)
+          axios.delete(`${REACT_APP_BACKEND_URL}/users/${logged.id}/cart/${productID}`, config)
           .then(res=>{
             console.log(res);
             window.location = '/cart'
