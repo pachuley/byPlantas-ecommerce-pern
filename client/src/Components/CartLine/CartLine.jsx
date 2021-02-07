@@ -90,7 +90,8 @@ function CartLine ({product, imgs, userId}){
                     <div className={`container ${styles.productDetails}`}>
                         <span className=""> ARS$ {logged ? product.price : product.price} </span>
                         <span className=""> Cantidad: {contador} </span>
-                        <span> Total: {logged ? product.price * product.orderline.quantity : product.price * product.quantity} </span>
+                        <span> Total: {logged ? product.price * contador : product.price * product.quantity} </span>
+                        {/* product.price * product.orderline.quantity */}
                     </div>
                 </div>
             </div>
