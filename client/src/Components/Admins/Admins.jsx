@@ -1,12 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom'
 import styles from './admins.module.css'
+import {Redirect} from 'react-router-dom'
+import { useSelector} from 'react-redux'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
 const Admins = (props) => {
-
+  const userLogin = useSelector(state => state.userLogin)
+  let isAuth = userLogin.userLogin && userLogin.userLogin?.role === 'ADMIN_ROLE'
   return (
+    isAuth ? 
       <div className = {`container`}>
         <div className={`containerByPlantas`}>
           <h2 className={`m-0 text-center p-5`}>Herramientas de Administrador</h2> 
@@ -19,7 +23,14 @@ const Admins = (props) => {
             </div>
           </div>
         </div>
-      </div>     
+      </div>  
+      :   
+      <Redirect to={{
+        pathname: '/login',
+        state: {
+          message: 'Debes estar logueado y ser ADMIN.'
+        }
+      }}/>
   )}        
 
 

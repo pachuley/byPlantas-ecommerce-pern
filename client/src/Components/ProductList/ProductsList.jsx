@@ -4,10 +4,13 @@ import EditProduct from '../EditProduct/EditProduct';
 import {Link} from 'react-router-dom'
 import Swal from 'sweetalert2'
 import styles from './productslist.module.css'
+import {Redirect} from 'react-router-dom'
+import { useSelector} from 'react-redux'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
 const ProductsList = (props) => {
+  const userLogin = useSelector(state => state.userLogin)
   
   const [products, setProducts] = useState([]);
 
@@ -15,7 +18,7 @@ const ProductsList = (props) => {
     getProducts()
    },[])
 
-   let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
   let config = {
     headers: {
       'Content-Type': 'application/json',
@@ -51,12 +54,13 @@ const ProductsList = (props) => {
           }
         })
       }
-  
+      
+    let isAuth = userLogin.userLogin && userLogin.userLogin?.role === 'ADMIN_ROLE'
     return (
+      isAuth ?
         <div className="container">
-          <div className='containerByPlantas'>
-            <h2 className={`m-0 text-center p-5`}>Inventario de Productos</h2>
-            <div className="d-flex justify-content-center pb-5">
+            <h4 className={`m-0 text-center py-3`}>Inventario de Productos</h4>
+            <div className="d-flex justify-content-center pb-3">
               <Link to='/addProduct' className={`text-center btn btnByPlantas ${styles.btnEdit}`}>Agregar Producto</Link>
               <Link to='/addCategory' className={`text-center btn btnByPlantas ${styles.btnEdit}`}>Agregar Categoría</Link>
             </div>
@@ -100,8 +104,14 @@ const ProductsList = (props) => {
           }
           </tbody>
           </table>
-        </div>
       </div>
+      :
+      <Redirect to={{
+        pathname: '/login',
+        state: {
+          message: 'Debes estar logueado y ser ADMIN para ver Productos'
+        }
+      }}/>
     )}        
 
 

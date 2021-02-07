@@ -3,6 +3,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2'
 import {useFormik} from 'formik'
 import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 
@@ -45,6 +46,8 @@ const FormProduct = (props) => {
       'token': userLocalstorage !== null ? userLocalstorage.token : null
     },
   };
+
+
 
   const formik = useFormik({
     initialValues: {
@@ -95,9 +98,9 @@ const FormProduct = (props) => {
     }
   }
 
-  
+  let isAuth = props.userLogin.userLogin && props.userLogin.userLogin?.role === 'ADMIN_ROLE'
   return (
-   
+      isAuth ?
       <div className='container'>
         <form className="mx-auto w-50 py-3" onSubmit={formik.handleSubmit}>
             <h2 className={`text-center`}>Agregar Un Producto</h2>
@@ -168,6 +171,13 @@ const FormProduct = (props) => {
           <button disabled={Object.keys(formik.errors).length > 0} className='btn btnByPlantas mt-2 mb-3' type='submit'>Agregar</button>
       </form>
     </div>
+    :
+    <Redirect to={{
+      pathname: '/login',
+      state: {
+        message: 'Debes estar logueado y ser ADMIN para crear Productos'
+      }
+    }}/>
   )
 }
 

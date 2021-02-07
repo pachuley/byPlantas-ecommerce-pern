@@ -1,17 +1,16 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './navbar.module.css'
 import Logout from '../Logout/Logout'
+import { useSelector} from 'react-redux'
 
-export default function NavBar() {
-    //invoco al Localstorage para levantar si el admin es true o no.
-    let admin = localStorage.getItem('admin')
-    console.log(admin)
-    //
+const NavBar = () => {
+    const userLogin = useSelector(state => state.userLogin)
+    
     return (
         <header id="header" className={`fixed-top ${styles.header, styles.headerText}`}>
             <nav className={`navbar navbar-expand-lg ${styles.byPlantasNavbar}`} >
-                <h1 className={`navbar-brand mr-auto ${styles.h1Margin, styles.headerLogo}`}><a className={styles.linkLogo} href="/">byPlantas</a></h1>
+                <h1 className={`navbar-brand mr-auto ${styles.h1Margin, styles.headerLogo}`}><Link className={styles.linkLogo} to="/">byPlantas</Link></h1>
                 <button className={`navbar-toggler`} type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className={`navbar-toggler-icon`}></span>
                 </button>
@@ -22,23 +21,23 @@ export default function NavBar() {
                             <NavLink className={styles.link} activeClassName={styles.alink} exact to="/products" >Catálogo</NavLink>
                             
                         </li>
-                        <li className={`${styles.liMargin}`}>
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/login" >LogIn</NavLink>
-                        </li>
-                        <li className={`${styles.liMargin}`}>
-                            {admin !== "true" ?
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                            {userLogin.userLogin === null || userLogin.userLogin.role !== "ADMIN_ROLE" ?
+                                <li className={`${styles.liMargin}`}>
+                                    <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                                </li>
                             : ""}
-                        </li>
-                        <li className={`${styles.liMargin}`}>
-                        { admin === "true" ?
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
+                        { userLogin.userLogin && userLogin.userLogin.role === "ADMIN_ROLE" ?
+                            <li className={`${styles.liMargin}`}>
+                                <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
+                            </li>
                             : ""}
-                        </li>
                         <li className={`${styles.liMargin}`}>
-                        { admin === "true" ?
-                            <Logout />
-                            : ""}
+                            {userLogin.userLogin ? 
+                            (
+                                <Logout />
+                            ) : 
+                                <NavLink className={styles.link} activeClassName={styles.alink} exact to="/login" >LogIn</NavLink>
+                            }
                         </li>
                     </ul>
                 </div>
@@ -46,3 +45,5 @@ export default function NavBar() {
         </header>
     )
 }
+
+export default NavBar

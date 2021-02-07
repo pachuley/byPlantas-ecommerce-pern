@@ -15,6 +15,7 @@ import OrderTable from "./Components/OrderTable/OrderTable";
 import Order from "./Components/Order/Order";
 import Cart from "./Components/Cart/Cart";
 import FormUser from "./Components/FormUser/FormUser";
+import Profile from './Ui_Components/Profile/Profile'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/orders" exact render={() => <OrderTable />} />
           <Route path="/admin/orders/:id" render={({ match }) => <Order match={match} />}/>
           <Route path="/register" exact render={() => <FormUser />} />
+          <Route path="/profile" exact render={() => <Profile />} />
         </Switch>
       </div>
       <Footer />

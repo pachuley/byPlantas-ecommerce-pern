@@ -1,15 +1,40 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {logout} from '../../Redux/actions/userActions';
-import styles from './logout.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../Redux/actions/userActions';
+import { useHistory } from "react-router"
+import {Link} from 'react-router-dom'
+/* import styles from './logout.module.css'; */
 
+const Logout = () => {
+  const userLogin = useSelector(state => state.userLogin);
+  const dispatch = useDispatch();
+  const history = useHistory()
+  const handleLogout = () => {
+    dispatch(logout())
+    history.push("/")
+  }
 
-const Logout = (props)=>(
-    <div>
-        <a className={`${styles.link }`} activeClassName={styles.alink}onClick={() => props.dispatch(logout())}>Logout</a>
+  return (
+    <div className='dropdown'>
+      <button
+        className='btn btn-secondary btn-sm dropdown-toggle'
+        type='button'
+        id='dropdownMenuButton'
+        data-toggle='dropdown'
+        aria-haspopup='true'
+        aria-expanded='false'>
+        {userLogin.userLogin.firstname}
+      </button>
+      <div className='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+        <button className='dropdown-item'>
+          <Link to='/profile'>Profile</Link>
+        </button>
+        <button className='dropdown-item' onClick={handleLogout}>
+          <Link>Logout</Link>
+        </button>
+      </div>
     </div>
-);
+  );
+};
 
-const mapStateToProps = state => ({})
-
-export default connect(mapStateToProps)(Logout)
+export default Logout;

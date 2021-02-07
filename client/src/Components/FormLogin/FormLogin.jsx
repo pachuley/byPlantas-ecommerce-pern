@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { connect } from 'react-redux';
 import { login } from '../../Redux/actions/userActions';
 import Spinner from '../Spinner/Spinner'
+import { useHistory } from "react-router"
 
 const validate = values => {
   const errors = {};
@@ -22,7 +23,10 @@ const validate = values => {
   return errors;
 };
 
-const FormLogin = ({ location, history, ...props }) => {
+const FormLogin = ({ location, ...props }) => {
+
+  let history = useHistory()
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -31,17 +35,21 @@ const FormLogin = ({ location, history, ...props }) => {
     validate,
     onSubmit: values => {
       props.dispatch(login(values.email, values.password));
+      const { userLogin} = props.userLogin;
+      if(userLogin.email !== null){
+        history.push("/")
+      }
     },
   });
 
-  const redirect = location.search ? location.search.split('=')[1] : '/';
   const { userLogin, isFetching, error } = props.userLogin;
-  useEffect(() => {
-    if (userLogin.userInfo) {
-      history.push(redirect);
-    }
-  }, [history, userLogin.userInfo, redirect]);
 
+  useEffect(() => {
+    if (userLogin) {
+      history.push('/');
+    } 
+  }, [history, userLogin]);  
+  
   return (
     <div className='container col-md-6 justify-content-center'>
       {error && (
@@ -50,6 +58,11 @@ const FormLogin = ({ location, history, ...props }) => {
         </div>
       )}
       {isFetching && <Spinner/>}
+      {props.history.location.state?.message && 
+        <div className="alert alert-primary" role="alert">
+          {props.history.location.state.message}
+        </div>
+      }
       <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
         <h4 className={`${styles.titles}`}>Ingresa a tu cuenta!</h4>
         <label htmlFor='inputLoginEmail' className='form-label'>

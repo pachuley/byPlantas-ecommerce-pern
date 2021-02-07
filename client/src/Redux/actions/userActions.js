@@ -34,5 +34,4 @@ export const logout = () => dispatch => {
     type: USER_LOGIN_LOGOUT
   })
   localStorage.removeItem('userInfo');
-  window.location = '/';
 }

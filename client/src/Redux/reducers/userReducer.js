@@ -3,7 +3,7 @@ import { USER_LOGIN_FAIL, USER_LOGIN_LOGOUT, USER_LOGIN_REQUEST, USER_LOGIN_SUCC
 const userInfoStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 
 const initialState = {
-    userLogin: {userInfo:userInfoStorage},
+    userLogin: userInfoStorage,
     isFetching: false,
     error: null
 }
@@ -32,7 +32,8 @@ const userLoginReducer = (state = initialState, action) => {
     case USER_LOGIN_LOGOUT:
       return {
         ...state,
-        userLogin: {userInfo: null}};
+        userLogin: null
+      };
     default:
       return state;
   }
