@@ -45,8 +45,11 @@ function Cart (){
           console.log(resp)
           setCart(resp.data[0].products)
           var subtotal = 0;
-          resp.data[0].products.forEach(x=>{subtotal = subtotal + parseFloat(x.price * x.orderline.quantity)})
-          setTotal(parseFloat(subtotal))
+          console.log(resp.data[0].products[0].orderline.total)
+          resp.data[0].products.forEach(x=>{subtotal = subtotal + parseFloat(x.orderline.total)})
+          console.log(subtotal)
+          parseFloat(subtotal)
+          setTotal(subtotal)
         })
     }
     
