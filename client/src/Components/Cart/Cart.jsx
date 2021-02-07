@@ -45,15 +45,18 @@ function Cart (){
           console.log(resp)
           setCart(resp.data[0].products)
           var subtotal = 0;
-          console.log(resp.data[0].products[0].orderline.total)
-          resp.data[0].products.forEach(x=>{subtotal = subtotal + parseFloat(x.orderline.total)})
-          console.log(subtotal)
+          
+          resp.data[0].products.forEach(x=>
+            x.orderline.total !== undefined || x !== undefined?
+            subtotal = subtotal + parseFloat(x.orderline.total)
+            :
+            subtotal = 0)
           parseFloat(subtotal)
           setTotal(subtotal)
         })
     }
     
-
+console.log(cart)
     return (
         <div>
             <div className = {`row containerByPlantas`}>
