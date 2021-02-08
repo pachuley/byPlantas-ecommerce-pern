@@ -49,7 +49,7 @@ function CartLine ({product, imgs, userId}){
     const handleSuma = () => {
         setContador(contador + 1)
         logged ? 
-        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${product.id}`, {contador:contador + 1}, config)
+        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.id}/cart/${product.id}`, {contador:contador + 1}, config)
         : handleSumaGuest()
     }
     const handleSumaGuest = () => {
@@ -65,7 +65,7 @@ function CartLine ({product, imgs, userId}){
     const handleResta = () => {
         setContador(contador - 1)
         logged ? 
-        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart/${product.id}`, {contador:contador - 1}, config)
+        axios.put(`${REACT_APP_BACKEND_URL}/users/${logged.id}/cart/${product.id}`, {contador:contador - 1}, config)
         : handleRestaGuest()
     }
     const handleRestaGuest = () => {
