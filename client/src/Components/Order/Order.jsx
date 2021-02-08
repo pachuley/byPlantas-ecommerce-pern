@@ -9,7 +9,13 @@ const { REACT_APP_BACKEND_URL } = process.env;
 export default function Order({ match }) {
 
   //invocamos para saber si estamos loggeados desde redux
-  
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
   
 
   const [order, setOrder] = useState({});
@@ -20,14 +26,16 @@ export default function Order({ match }) {
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState(order.status);
   const userLogin = useSelector(state => state.userLogin)
+
   var logged =  userLogin.userLogin
+  console.log(logged)
   useEffect(() => {
     getOrder();
   }, [status]);
   const getOrder = () => {
     console.log("order");
     axios
-      .get(`${REACT_APP_BACKEND_URL}/orders/${match.params.id}/orders`)
+      .get(`${REACT_APP_BACKEND_URL}/orders/${match.params.id}/orders`, config)
       .then((res) => {
         setOrder(res.data[0]);
         setFecha(res.data[0].createdAt.split("T", 1));
@@ -46,17 +54,16 @@ export default function Order({ match }) {
       });
       setProducts(storage.Products);
       setTotal(subtotal);
-      console.log("puto");
     } else {
-      console.log("puto");
       buscarProducts();
     }
   }, []);
 
   const buscarProducts = () => {
     axios
-      .get(`${REACT_APP_BACKEND_URL}/users/${logged.userId}/cart`)
+      .get(`${REACT_APP_BACKEND_URL}/users/${match.params.id}/cart`, config)
       .then((resp) => {
+        console.log(resp)
         setProducts(resp.data[0].products);
         var subtotal = 0;
         resp.data[0].products.forEach((x) => {
@@ -73,7 +80,7 @@ export default function Order({ match }) {
   const handleButtonEdit = (e) => {
     let body = { status: status };
     axios
-      .put(`${REACT_APP_BACKEND_URL}/orders/${order.id}`, body)
+      .put(`${REACT_APP_BACKEND_URL}/orders/${order.id}`, body, config)
       .then((res) => {
         console.log(res);
         window.location = `/admin/orders/${order.id}`;
@@ -110,14 +117,14 @@ export default function Order({ match }) {
                 <u>Productos</u>
               </h2>
               {products !== undefined && products.length !== 0
-                ? (console.log("puto1"),
+                ? (console.log("entra"),
                   products.map(
                     (product) => (
                       console.log(product),
                       (<CartLine product={product}></CartLine>)
                     )
                   ))
-                : (console.log("puto2"), (<span> No hay productos</span>))}
+                : (console.log("no hay prod"), (<span> No hay productos</span>))}
             </div>
             <h3 className={`text-center`}>
               Total de Compra: $ <span>{total}</span>
