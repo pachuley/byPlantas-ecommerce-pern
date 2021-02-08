@@ -7,14 +7,21 @@ import { useSelector } from 'react-redux'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
-const Payment = ({product, imgs, userId}) =>{
-console.log(imgs)
+const Payment = ({cart, imgs, userId}) =>{
+console.log(cart)
 
+let totalPayment = 0;
+
+cart.forEach(e=>totalPayment = (e.orderline.price * e.orderline.quantity) + totalPayment )
+
+console.log(totalPayment)
 return (
 
 
 <div>
     PAYMENT
+
+    total: {totalPayment}
 </div>
 )
 }

@@ -77,7 +77,7 @@ console.log(cart)
               </div>
              
               <div className='text-center mt-5 container'>
-                  <Payment/>
+                  <Payment cart={cart}/>
               </div>
               <div className='text-center mt-5 container'>
                   <ShippingDetail/>
