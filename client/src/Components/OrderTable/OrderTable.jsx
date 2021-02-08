@@ -8,6 +8,15 @@ import { useSelector} from 'react-redux'
 const { REACT_APP_BACKEND_URL } = process.env;
 
 export default function OrderTable() {
+
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
+
   const [orders, setOrders] = useState([]);
   const [fecha, setFecha] = useState("");
   const userLogin = useSelector(state => state.userLogin)
@@ -16,7 +25,7 @@ export default function OrderTable() {
     getOrders();
   }, []);
   const getOrders = async () => {
-    axios.get(`${REACT_APP_BACKEND_URL}/orders`).then((res) => {
+    axios.get(`${REACT_APP_BACKEND_URL}/orders`, config).then((res) => {
       setOrders(...orders, res.data);
       setFecha(res.data[0].createdAt.split("T", 1));
     });
