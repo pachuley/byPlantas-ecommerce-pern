@@ -13,14 +13,25 @@ const validate = values => {
     const errors = {};
 
     if (!values.name) {
-      errors.name = 'Nombre de la categoría es requerida';
-    } else if (values.name.length < 5) {
+      errors.name = 'Nombre requerido';
+    } else if (values.name.length < 0) {
         errors.name = 'Al menos debe tener 5 caracteres';
     }
 
-    if (!values.description) {
-        errors.description = 'Descripción de la categoría es requerida';
+    if (!values.lastname) {
+        errors.lastname = 'Apellido requerido';
       }
+      if (!values.identifier) {
+        errors.identifier = 'Ingrese su identificacion Ejemplo: 99.999.999 => ingresa 99999999';
+      }
+      if (!values.adress) {
+        errors.adress = 'Ingrese la dirección de entrega';
+      }
+      if (!values.postalcode) {
+        errors.postalcode = 'Ingrese el codigo postal de su dirección de entrega';
+      }
+
+
   
     return errors;
   };
@@ -97,7 +108,7 @@ return (
                     onBlur={formik.handleBlur}
                     value={formik.values.lastname}
                     />
-                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+                   {formik.errors.lastname && formik.touched.lastname ? <p className="my-2 error">{formik.errors.lastname}</p> : null}
 
                    <label htmlFor='inputIdentifier' className='form-label'>DNI / CUIT / CUIL</label>
                 <textarea 
@@ -111,7 +122,7 @@ return (
                     onBlur={formik.handleBlur}
                     value={formik.values.identifier}
                     />
-                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+                   {formik.errors.identifier && formik.touched.identifier ? <p className="my-2 error">{formik.errors.identifier}</p> : null}
                 
                 
                    <label htmlFor='inputAdress' className='form-label'>Dirección de envio</label>
@@ -126,7 +137,7 @@ return (
                     onBlur={formik.handleBlur}
                     value={formik.values.adress}
                     />
-                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+                   {formik.errors.adress && formik.touched.adress ? <p className="my-2 error">{formik.errors.adress}</p> : null}
                 
                    <label htmlFor='inputPostalCode' className='form-label'>Codigo postal</label>
                 <textarea 
@@ -140,7 +151,7 @@ return (
                     onBlur={formik.handleBlur}
                     value={formik.values.postalcode}
                     />
-                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+                   {formik.errors.postalcode && formik.touched.postalcode ? <p className="my-2 error">{formik.errors.postalcode}</p> : null}
                 
                    <label htmlFor='inputExtraDescription' className='form-label'>Aclaraciones sobre el envio</label>
                 <textarea 
@@ -154,7 +165,7 @@ return (
                     onBlur={formik.handleBlur}
                     value={formik.values.clarification}
                     />
-                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+                   {formik.errors.clarification && formik.touched.clarification ? <p className="my-2 error">{formik.errors.clarification}</p> : null}
                 
             </form>
         </div>
