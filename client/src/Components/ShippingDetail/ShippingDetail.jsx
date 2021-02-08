@@ -44,8 +44,8 @@ const userLogin = useSelector(state => state.userLogin)
   const formik = useFormik({
     initialValues: {
       name: '',
-      street: '',
-      identification: '',
+      lastname: '',
+      identifier: '',
       adress: '',
       postalcode: '',
       clarification: '',
@@ -72,9 +72,9 @@ return (
     <div className='container'>
             <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
                 <h2 className={`text-center`}>SHIPPING DETAIL</h2>
-                <label htmlFor='inputNameCategory' className='form-label'>Nombre</label>
+                <label htmlFor='inputName' className='form-label'>Nombre</label>
                 <input 
-                    id='inputNameCategory' 
+                    id='inputName' 
                     name='name' 
                     className='form-control' 
                     type='text' 
@@ -85,16 +85,74 @@ return (
                     />
                     {formik.errors.name && formik.touched.name ? <p className="my-2 error">{formik.errors.name}</p> : null}
 
-                <label htmlFor='inputDescriptionCategory' className='form-label'>Descripción</label>
+                <label htmlFor='inputLastName' className='form-label'>Apellido</label>
                 <textarea 
-                    id='inputDescriptionCategory' 
-                    name='description' 
+                    id='inputLastName' 
+                    name='lastname' 
                     className='form-control' 
-                    rows="3" 
-                    placeholder='Ingrese Descripción' 
+                    type='text'
+                    rows='1'
+                    placeholder='Ingrese Apellido' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.description}
+                    value={formik.values.lastname}
+                    />
+                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+
+                   <label htmlFor='inputIdentifier' className='form-label'>DNI / CUIT / CUIL</label>
+                <textarea 
+                    id='inputIdentifier' 
+                    name='identifier' 
+                    className='form-control' 
+                    type='text'
+                    rows='1'
+                    placeholder="Ingrese su clave de identificación tributaria sin '.' ni '-'"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.identifier}
+                    />
+                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+                
+                
+                   <label htmlFor='inputAdress' className='form-label'>Dirección de envio</label>
+                <textarea 
+                    id='inputAdress' 
+                    name='adress' 
+                    className='form-control' 
+                    type='text'
+                    rows='1'
+                    placeholder='Ingrese dirección del envio' 
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.adress}
+                    />
+                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+                
+                   <label htmlFor='inputPostalCode' className='form-label'>Codigo postal</label>
+                <textarea 
+                    id='inputPostalCode' 
+                    name='postalcode' 
+                    className='form-control' 
+                    type='text'
+                    rows='1'
+                    placeholder='Ingrese su codigo postal' 
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.postalcode}
+                    />
+                   {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
+                
+                   <label htmlFor='inputExtraDescription' className='form-label'>Aclaraciones sobre el envio</label>
+                <textarea 
+                    id='inputExtraDescription' 
+                    name='extradescription' 
+                    className='form-control' 
+                    type='text'
+                    rows='3'
+                    placeholder='Ingrese aclaraciones' 
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.clarification}
                     />
                    {formik.errors.description && formik.touched.description ? <p className="my-2 error">{formik.errors.description}</p> : null}
                 
