@@ -24,13 +24,17 @@ const validate = values => {
       if (!values.identifier) {
         errors.identifier = 'Ingrese su identificacion Ejemplo: 99.999.999 => ingresa 99999999';
       }
-      if (!values.adress) {
-        errors.adress = 'Ingrese la dirección de entrega';
+      if (!values.address) {
+        errors.address = 'Ingrese la dirección de entrega';
       }
       if (!values.postalcode) {
         errors.postalcode = 'Ingrese el codigo postal de su dirección de entrega';
       }
-
+      if (!values.clarification) {
+        errors.clarification = 'Nombre requerido';
+      } else if (values.clarification.length < 2) {
+          errors.clarification = 'Al menos debe tener 2 caracteres';
+      }
 
   
     return errors;
@@ -54,10 +58,10 @@ const userLogin = useSelector(state => state.userLogin)
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      lastname: '',
+      name: logged.firstname,
+      lastname: logged.lastname,
       identifier: '',
-      adress: '',
+      address: logged.address,
       postalcode: '',
       clarification: '',
     },
@@ -125,19 +129,19 @@ return (
                    {formik.errors.identifier && formik.touched.identifier ? <p className="my-2 error">{formik.errors.identifier}</p> : null}
                 
                 
-                   <label htmlFor='inputAdress' className='form-label'>Dirección de envio</label>
+                   <label htmlFor='inputAddress' className='form-label'>Dirección de envio</label>
                 <textarea 
-                    id='inputAdress' 
-                    name='adress' 
+                    id='inputAddress' 
+                    name='address' 
                     className='form-control' 
                     type='text'
                     rows='1'
                     placeholder='Ingrese dirección del envio' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.adress}
+                    value={formik.values.address}
                     />
-                   {formik.errors.adress && formik.touched.adress ? <p className="my-2 error">{formik.errors.adress}</p> : null}
+                   {formik.errors.address && formik.touched.address ? <p className="my-2 error">{formik.errors.address}</p> : null}
                 
                    <label htmlFor='inputPostalCode' className='form-label'>Codigo postal</label>
                 <textarea 
@@ -160,7 +164,7 @@ return (
                     className='form-control' 
                     type='text'
                     rows='3'
-                    placeholder='Ingrese aclaraciones' 
+                    placeholder='Ingrese aclaraciones: Departamento - Intersecciones de calles' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.clarification}
