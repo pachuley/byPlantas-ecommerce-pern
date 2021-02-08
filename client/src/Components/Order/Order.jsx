@@ -54,17 +54,16 @@ export default function Order({ match }) {
       });
       setProducts(storage.Products);
       setTotal(subtotal);
-      console.log("puto");
     } else {
-      console.log("puto");
       buscarProducts();
     }
   }, []);
 
   const buscarProducts = () => {
     axios
-      .get(`${REACT_APP_BACKEND_URL}/users/${logged.id}/cart`, config)
+      .get(`${REACT_APP_BACKEND_URL}/users/${match.params.id}/cart`, config)
       .then((resp) => {
+        console.log(resp)
         setProducts(resp.data[0].products);
         var subtotal = 0;
         resp.data[0].products.forEach((x) => {
