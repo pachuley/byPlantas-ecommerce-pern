@@ -10,10 +10,22 @@ import {fetchReviews} from '../../Redux/actions/reviewActions'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 const ProductDetail = ({match, ...props}) =>{
+
+    //Levanto los datos del local para poder enviar con la variante config todos los datos del token
+    //con la variante config, por eso la paso como parametro en config (el header)
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
+
+
     const [prod, setProd] = useState({})
     
     useEffect(()=>{
-        axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`)
+        axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`, config)
         .then(res => {
             setProd(res.data)
         })
@@ -37,7 +49,10 @@ const ProductDetail = ({match, ...props}) =>{
                     <hr/>
                     <p> Stock: {stock}</p>
                     <hr/>
-                    <BtnCart className="btn btnByPlantas" productId={parseInt(match.params.id)} stock={stock} name={name} price={price} imgs={imgs} />
+                    <div >{price !== undefined ?
+                        <BtnCart className="btn btnByPlantas" productId={parseInt(match.params.id)} stock={parseInt(stock)} name={name} price={parseFloat(price)} imgs={imgs} />
+                        : ''
+                    }</div>
                     
                </div>
            </div>
