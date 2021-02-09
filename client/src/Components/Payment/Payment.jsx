@@ -15,12 +15,11 @@ const [payment, setPayment] = useState('efectivo')
 let totalPayment = 0;
 cart.forEach(e=>totalPayment = (e.orderline.price * e.orderline.quantity) + totalPayment )
 //
-
+//payment status
 const handleSelect = (event) => {
   setPayment(event.target.value)
 }
 
-console.log(payment)
 return (
 
 
