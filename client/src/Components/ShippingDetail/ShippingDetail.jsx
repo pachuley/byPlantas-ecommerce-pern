@@ -14,8 +14,8 @@ const validate = values => {
 
     if (!values.name) {
       errors.name = 'Nombre del receptor requerido';
-    } else if (values.name.length < 0) {
-        errors.name = 'Al menos debe tener 5 caracteres';
+    } else if (values.name.length < 2) {
+        errors.name = 'Ingrese su nombre completo';
     }
 
     if (!values.lastname) {
