@@ -87,7 +87,7 @@ return (
     <div className='container'>
             <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
                 <h2 className={`text-center`}>SHIPPING DETAIL</h2>
-                <label htmlFor='inputName' className='form-label'>Nombre</label>
+                <label htmlFor='inputName' className='form-label'>Nombre/s</label>
                 <input 
                     id='inputName' 
                     name='name' 
@@ -100,7 +100,7 @@ return (
                     />
                     {formik.errors.name && formik.touched.name ? <p className="my-2 error">{formik.errors.name}</p> : null}
 
-                <label htmlFor='inputLastName' className='form-label'>Apellido</label>
+                <label htmlFor='inputLastName' className='form-label'>Apellido/s</label>
                 <textarea 
                     id='inputLastName' 
                     name='lastname' 

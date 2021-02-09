@@ -18,10 +18,23 @@ console.log(totalPayment)
 return (
 
 
-<div>
+<div className='border'>
     PAYMENT
 
-    total: {totalPayment}
+<p>total: {totalPayment}</p>
+
+    <label for="cars">Elige un metodo de pago:   </label>
+  <select name="PaymentMethod" id="PaymentMethod">
+    <option value="MercadoPago">MercadoPago</option>
+    <option value="Tarjeta">Tarjeta de credito/debito</option>
+    <option value="Efectivo">Efectivo</option>
+    <option value="Transferencia">Transferencia</option>
+  </select>
+
+  <div>
+      <button>Finalizar Compra</button>
+  </div>
+
 </div>
 )
 }
