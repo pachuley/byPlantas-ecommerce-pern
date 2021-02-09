@@ -13,16 +13,16 @@ const validate = values => {
     const errors = {};
 
     if (!values.name) {
-      errors.name = 'Nombre requerido';
+      errors.name = 'Nombre del receptor requerido';
     } else if (values.name.length < 0) {
         errors.name = 'Al menos debe tener 5 caracteres';
     }
 
     if (!values.lastname) {
-        errors.lastname = 'Apellido requerido';
+        errors.lastname = 'Apellido del receptor requerido';
       }
       if (!values.identifier) {
-        errors.identifier = 'Ingrese su identificacion Ejemplo: 99.999.999 => ingresa 99999999';
+        errors.identifier = 'Ingrese la identificacion del receptor Ejemplo: 99.999.999 => ingresa 99999999';
       }
       if (!values.address) {
         errors.address = 'Ingrese la dirección de entrega';
@@ -31,7 +31,7 @@ const validate = values => {
         errors.postalcode = 'Ingrese el codigo postal de su dirección de entrega';
       }
       if (!values.clarification) {
-        errors.clarification = 'Nombre requerido';
+        errors.clarification = 'Ingresar un detalle';
       } else if (values.clarification.length < 2) {
           errors.clarification = 'Al menos debe tener 2 caracteres';
       }
@@ -58,8 +58,8 @@ const userLogin = useSelector(state => state.userLogin)
 
   const formik = useFormik({
     initialValues: {
-      name: logged.firstname,
-      lastname: logged.lastname,
+      namereceiver: logged.firstname,
+      lastnamereceiver: logged.lastname,
       identifier: '',
       address: logged.address,
       postalcode: '',
@@ -87,7 +87,7 @@ return (
     <div className='container'>
             <form className={` w-50 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
                 <h2 className={`text-center`}>SHIPPING DETAIL</h2>
-                <label htmlFor='inputName' className='form-label'>Nombre/s</label>
+                <label htmlFor='inputName' className='form-label'>Nombre/s del receptor</label>
                 <input 
                     id='inputName' 
                     name='name' 
@@ -96,11 +96,11 @@ return (
                     placeholder='Ingrese Nombre' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.name}
+                    value={formik.values.namereceiver}
                     />
-                    {formik.errors.name && formik.touched.name ? <p className="my-2 error">{formik.errors.name}</p> : null}
+                    {formik.errors.namereceiver && formik.touched.namereceiver ? <p className="my-2 error">{formik.errors.namereceiver}</p> : null}
 
-                <label htmlFor='inputLastName' className='form-label'>Apellido/s</label>
+                <label htmlFor='inputLastName' className='form-label'>Apellido/s del receptor</label>
                 <textarea 
                     id='inputLastName' 
                     name='lastname' 
@@ -110,11 +110,11 @@ return (
                     placeholder='Ingrese Apellido' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.lastname}
+                    value={formik.values.lastnamereceiver}
                     />
-                   {formik.errors.lastname && formik.touched.lastname ? <p className="my-2 error">{formik.errors.lastname}</p> : null}
+                   {formik.errors.lastnamereceiver && formik.touched.lastnamereceiver ? <p className="my-2 error">{formik.errors.lastnamereceiver}</p> : null}
 
-                   <label htmlFor='inputIdentifier' className='form-label'>DNI / CUIT / CUIL</label>
+                   <label htmlFor='inputIdentifier' className='form-label'>DNI del receptor</label>
                 <textarea 
                     id='inputIdentifier' 
                     name='identifier' 
