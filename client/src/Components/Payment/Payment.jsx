@@ -8,13 +8,19 @@ import { useSelector } from 'react-redux'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 const Payment = ({cart, imgs, userId}) =>{
-console.log(cart)
 
+const [payment, setPayment] = useState('efectivo')
+
+//
 let totalPayment = 0;
-
 cart.forEach(e=>totalPayment = (e.orderline.price * e.orderline.quantity) + totalPayment )
+//
 
-console.log(totalPayment)
+const handleSelect = (event) => {
+  setPayment(event.target.value)
+}
+
+console.log(payment)
 return (
 
 
@@ -23,12 +29,13 @@ return (
 
 <p>total: {totalPayment}</p>
 
-    <label for="cars">Elige un metodo de pago:   </label>
-  <select name="PaymentMethod" id="PaymentMethod">
-    <option value="MercadoPago">MercadoPago</option>
-    <option value="Tarjeta">Tarjeta de credito/debito</option>
-    <option value="Efectivo">Efectivo</option>
-    <option value="Transferencia">Transferencia</option>
+
+    <label for="PaymentMethod">Elige un metodo de pago:   </label>
+  <select name="PaymentMethod" id="PaymentMethod" onChange={handleSelect}>
+  <option value="efectivo">Efectivo</option>
+    <option value="mepago">MercadoPago</option>
+    <option value="tarjeta">Tarjeta de credito/debito</option>
+    <option value="transferencia">Transferencia</option>
   </select>
 
   <div>
