@@ -2,6 +2,8 @@ import {combineReducers} from 'redux'
 import products from './productReducer'
 import userLogin from './userReducer'
 import reviews from './reviewReducer'
+import {cartReducer} from './cartReducer'
+
 
 const initialState = {userId: 0, logged:false}
 
@@ -18,5 +20,6 @@ export default combineReducers({
     firstReducer,
     products,
     userLogin,
-    reviews
+    reviews,
+    cart: cartReducer,
 })
