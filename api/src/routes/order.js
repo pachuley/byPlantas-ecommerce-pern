@@ -13,10 +13,10 @@ server.get("/", [verifyToken, verifyRoleAdmin], (req, res, next) => {
     ],
   })
     .then((orders) => {
-      res.send(orders).status(200);
+      res.status(200).json(orders)
     })
     .catch((err) => {
-      return res.send({ data: err }).status(400);
+      return res.status(400).json({ data: err })
     });
 });
 
@@ -62,7 +62,7 @@ server.post("/:userId/cart", async (req, res) => {
 });
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
-server.get("/:id/orders", verifyToken, (req, res, next) => {
+server.get("/:id/orders", (req, res, next) => {
   Order.findAll({
     where: { id: req.params.id },
     include: [
