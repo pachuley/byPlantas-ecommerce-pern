@@ -62,7 +62,7 @@ server.post("/:userId/cart", async (req, res) => {
 });
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
-server.get("/:id/orders", (req, res, next) => {
+server.get("/:id/orders", verifyToken, (req, res, next) => {
   Order.findAll({
     where: { id: req.params.id },
     include: [
