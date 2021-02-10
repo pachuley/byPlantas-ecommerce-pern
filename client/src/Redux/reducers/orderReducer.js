@@ -4,7 +4,7 @@ const initialState = {
 
 const orders = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_ALL_ORDERS": // trae todas las ordenes
+    case "GET_ALL_ORDERS":
       return {
         ...state,
         orders: action.payload,
