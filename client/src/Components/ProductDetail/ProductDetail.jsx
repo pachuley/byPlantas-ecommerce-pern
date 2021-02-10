@@ -5,11 +5,12 @@ import BtnCart from '../Commons/BtnCart';
 import ReviewContainer from '../ReviewContainer/ReviewContainer'
 import Spinner from '../Spinner/Spinner'
 import {connect} from 'react-redux'
+import { useSelector} from 'react-redux'
 import {fetchReviews} from '../../Redux/actions/reviewActions'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
-const ProductDetail = ({match, ...props}) =>{
+const ProductDetail = ({match,history,location, ...props}) =>{
     const [prod, setProd] = useState({})
     
     useEffect(()=>{
@@ -19,6 +20,8 @@ const ProductDetail = ({match, ...props}) =>{
         })
         props.dispatch(fetchReviews(match.params.id))
     },[])
+    const cartItems = useSelector(state => state.cart.cartItems)
+    let item = cartItems.find(item => item.productId === parseInt(match.params.id))
 
     let {stock, name, price, imgs, description} = prod
     return(
@@ -37,7 +40,10 @@ const ProductDetail = ({match, ...props}) =>{
                     <hr/>
                     <p> Stock: {stock}</p>
                     <hr/>
-                    <BtnCart className="btn btnByPlantas" productId={parseInt(match.params.id)} stock={stock} name={name} price={price} imgs={imgs} />
+                    <BtnCart 
+                        productId={parseInt(match.params.id)}
+                        quantity={item !== undefined ? item.quantity : 0}
+                    />
                     
                </div>
            </div>
