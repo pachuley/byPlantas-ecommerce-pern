@@ -58,7 +58,6 @@ server.post("/register", async (req, res) => {
     role: "CLIENT_ROLE"
   })
     .then((user) => {
-      console.log(user)
       Order.create({
         userId: user.id,
       }).then((order) => {
@@ -115,6 +114,44 @@ server.post("/login", async (req, res) => {
       } else {
         res.status(400).json("Contraseña equivocada!");
       }
+    } else {
+      res.status(404).json("Usuario no encontrado");
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).json("Something broke!");
+  }
+});
+
+server.post("/login/:email", async (req, res) => {
+  console.log('esto entra', req.params.email)
+  let googleEmail = req.params.email
+  try {
+
+    const user = await User.findOne({
+      where: { email: googleEmail },
+    });
+    console.log('consiguio el usuario')
+    if (user) {
+      const findOrder = await Order.findOrCreate({
+        where: {
+          id: user.id,
+          status: "active",
+        },
+      });
+      console.log('esta buscando la order')
+      const token = jwt.sign({ user }, SECRET, { expiresIn: 10000000 });
+      res.status(200).json({
+        id: user.id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        role: user.role,
+        email: user.email,
+        birthdate: user.birthdate,
+        address: user.address,
+        token
+      });
+      console.log(token)
     } else {
       res.status(404).json("Usuario no encontrado");
     }
