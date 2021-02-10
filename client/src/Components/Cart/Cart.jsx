@@ -1,89 +1,50 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux';
-import {Redirect} from 'react-router-dom'
+import React from 'react'
 import CartLine from '../CartLine/CartLine'
-import { useSelector } from 'react-redux'
-const {REACT_APP_BACKEND_URL} = process.env;
+import BtnCheckout from '../Commons/BtnCheckout/BtnCheckout'
+import {useSelector} from 'react-redux'
 
+const Cart = () => {
 
-function Cart (){
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
 
-  //Levanto los datos del local para poder enviar con la variante config todos los datos del token
-    //con la variante config, por eso la paso como parametro en config (el header)
-    let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
-    let config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'token': userLocalstorage !== null ? userLocalstorage.token : null
-      },
-    };
-
-    //invocamos para saber si estamos loggeados desde redux
   const userLogin = useSelector(state => state.userLogin)
-  var logged =  userLogin.userLogin
-  
-    const [cart, setCart] = useState([])
-    const [total, setTotal] = useState(0)
+  const cartItems = useSelector(state => state.cart.cartItems)
+  const logged =  userLogin.userLogin
 
-
-    // verificar si hay un usuario logueado y si no usar el carrito como guest, corroborarlo en el store
-    useEffect(()=>{
-      if(!logged){
-        if(!localStorage.getItem('Cart')){
-          localStorage.setItem('Cart', JSON.stringify({Products:[]}))
-        }
-        const storage = JSON.parse(localStorage.getItem('Cart'))
-        var subtotal = 0;
-        storage.Products.forEach(x=>{subtotal = subtotal + parseFloat(x.price * x.quantity)})
-        setCart(storage.Products)
-        setTotal(subtotal)
-      }else{
-        buscarProducts()
-      } 
-    }, [])
-
-    const buscarProducts = () => {
-      axios.get(`${REACT_APP_BACKEND_URL}/users/${logged.id}/cart`, config)
-        .then(resp=>{
-          console.log(resp)
-          setCart(resp.data[0].products)
-          var subtotal = 0;
-          
-          resp.data[0].products.forEach(x=>
-            x.orderline.total !== undefined || x !== undefined?
-            subtotal = subtotal + parseFloat(x.orderline.total)
-            :
-            subtotal = 0)
-          parseFloat(subtotal)
-          setTotal(subtotal)
-        })
+    const totalCart = () => {
+      let total = 0
+      cartItems.forEach(element => {
+        total = total + (parseFloat(element.price) * parseInt(element.quantity))
+      });
+      return total
     }
     
-console.log(cart)
     return (
-        <div>
-            <div className = {`row containerByPlantas`}>
-              <h2 className={`m-0 text-center p-5`}>Aquí están los productos que elegiste</h2>
-              <div className='row text-center'>
-                  {cart[0] ? cart.map((product,index)=>(
-                      <div key={index}>
-                          <CartLine product={product} />
-                      </div>
-                  )) : <h1>El carrito esta vacio</h1>}                
-              </div>
-              <div className='text-center mt-5 container'>
-                  <h4>Precio Total</h4>
-                  <hr/>
-                  <p>Total: ARS$ {total}</p>
-              </div>
-            </div>
+      <div className="container">
+        <div className="row">
+          <h5 className={`m-0 py-1`}>Aquí están los productos que elegiste</h5>
         </div>
+        <div className="row">
+          <div className="col-8">
+          {
+            cartItems.lenght === 0 ? 
+            <div className="alert alert-primary" role="alert">
+              El carrito está vacío
+            </div>
+            : cartItems.map((item, index) => {
+              return <CartLine product={item} />
+            })
+          }
+          </div>
+          <div className="col-4">
+              <div>Precio Total ({cartItems.length}) items</div>
+              <p className="mt-1">Total: ${totalCart()}</p>
+              <BtnCheckout/>
+          </div>
+        </div>
+      </div>
+        
     )
 }
 
-const mapStateToProps = state => ({})
-const mapDispatchToProps = dispatch => ({}) 
-
-
-export default connect(mapStateToProps, mapDispatchToProps) (Cart)
+export default Cart
