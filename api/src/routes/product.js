@@ -51,8 +51,9 @@ server.post("/", [verifyToken, verifyRoleAdmin], (req, res) => {
     price: addProduct.price,
     stock: addProduct.stock,
     imgs: addProduct.imgProduct, // Que es imgProduct?
-  }).then((response) => res.status(201).send(response));
+  }).then((response) => res.status(201).json(response));
 });
+
 server.post(
   "/:idProducto/category/setCategories",
   verifyToken,
@@ -74,10 +75,12 @@ server.get("/:id", (req, res) => {
     where: { id: id },
   }).then(function (result) {
     if (result) {
-      res.send(result);
+      res.status(201).json(result);
     } else {
-      res.send(
-        "El registro no concuerda con ninguno dentro de la tabla products"
+      res.status(404).json({
+        ok: false,
+        message:"El registro no concuerda con ninguno dentro de la tabla products"
+      }
       );
     }
   });
@@ -155,14 +158,17 @@ server.delete("/:id", [verifyToken, verifyRoleAdmin], (req, res) => {
   Product.destroy({
     where: { id: id },
   }).then((result) => {
-    if (result) {
-      res.redirect(200, "/products");
-    } else {
-      res.send(
-        "El registro no concuerda con ninguno dentro de la tabla products"
-      );
-    }
-  });
+    res.status(200).json({
+      ok: true,
+      result
+    })
+  })
+  .catch(err=>{
+    res.status(400).json({
+      ok:false,
+      err
+    })
+  })
 });
 
 server.delete(
