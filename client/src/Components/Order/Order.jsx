@@ -192,17 +192,27 @@ export default function Order({ match }) {
                           <label>Status</label>
                         </div>
                         <div className="col-sm">
-                          <select
-                            name="select"
-                            className={`selectpicker`}
-                            onChange={handleStatus}
-                          >
-                            <option value="active">-</option>
-                            <option value="active">active</option>
-                            <option value="processing">processing</option>
-                            <option value="complete">complete</option>
-                            <option value="canceled">canceled</option>
-                          </select>
+                          {order.status == "active" ? (
+                            <select
+                              name="select"
+                              className={`selectpicker`}
+                              onChange={handleStatus}
+                            >
+                              <option value="active">-</option>
+                              <option value="processing">processing</option>
+                              <option value="canceled">canceled</option>
+                            </select>
+                          ) : (
+                            <select
+                              name="select"
+                              className={`selectpicker`}
+                              onChange={handleStatus}
+                            >
+                              <option value="active">-</option>
+                              <option value="complete">complete</option>
+                              <option value="canceled">canceled</option>
+                            </select>
+                          )}
                         </div>
                       </div>
                     </div>
