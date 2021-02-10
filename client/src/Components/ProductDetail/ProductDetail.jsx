@@ -10,11 +10,21 @@ import {fetchReviews} from '../../Redux/actions/reviewActions'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
-const ProductDetail = ({match,history,location, ...props}) =>{
+const ProductDetail = ({match, ...props}) =>{
+
+  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'token': userLocalstorage !== null ? userLocalstorage.token : null
+    },
+  };
+
+
     const [prod, setProd] = useState({})
     
     useEffect(()=>{
-        axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`)
+        axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`, config)
         .then(res => {
             setProd(res.data)
         })

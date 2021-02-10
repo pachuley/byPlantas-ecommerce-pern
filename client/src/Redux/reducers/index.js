@@ -2,18 +2,19 @@ import {combineReducers} from 'redux'
 import products from './productReducer'
 import userLogin from './userReducer'
 import reviews from './reviewReducer'
+import orders from "./orderReducer";
 import {cartReducer} from './cartReducer'
 
 
-const initialState = {userId: 0, logged:false}
+const initialState = { userId: 0, logged: false };
 
-function firstReducer(state = initialState, action){
-    switch(action.type){
-        case 'CHANGE_LOGIN': 
-            return {...state, logged:true, userId: action.userId}
-        default:
-            return state
-    }
+function firstReducer(state = initialState, action) {
+  switch (action.type) {
+    case "CHANGE_LOGIN":
+      return { ...state, logged: true, userId: action.userId };
+    default:
+      return state;
+  }
 }
 
 export default combineReducers({
@@ -22,4 +23,5 @@ export default combineReducers({
     userLogin,
     reviews,
     cart: cartReducer,
+    orders,
 })
