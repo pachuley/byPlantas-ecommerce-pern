@@ -62,18 +62,18 @@ server.post("/:userId/cart", async (req, res) => {
 });
 
 // S45 : Crear Ruta que retorne todas las Ordenes de los usuarios
-server.get("/:id/orders", verifyToken, (req, res, next) => {
-  Order.findAll({
-    where: { id: req.params.id },
+server.get("/:id/orders",(req, res, next) => {
+  Order.findOne({
+    where: { id: parseInt(req.params.id) },
     include: [
       {
         model: Product,
       },
     ],
   })
-    .then((orders) => res.status(201).json(orders))
+    .then((order) => res.status(201).json(order))
     .catch((error) =>
-      res.send(400).json({ message: "We couldn't find your request" })
+      res.send(400).json({ ok: false, error })
     );
 });
 //S46 : Crear Ruta que retorne una orden en particular.
