@@ -4,6 +4,7 @@ import BtnCheckout from '../Commons/BtnCheckout/BtnCheckout'
 import {useSelector, useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getItems} from '../../Redux/actions/cartActions'
+import {updateOrder} from '../../Redux/actions/orderActions'
 
 const Cart = () => {
 
@@ -26,6 +27,10 @@ const Cart = () => {
       }
     },[])
     const orderid = cartItems[0]?.orderId
+    const handleCheckout = () => {
+      dispatch(updateOrder(orderid,'processing'))
+        console.log(orderid)
+    }
     
     return (
       <div className="container">
@@ -52,6 +57,7 @@ const Cart = () => {
                 <BtnCheckout
                   disabled={orderid === undefined ? true : false}
                   orderId={orderid !== undefined ? cartItems[0].orderId : ''}
+                  handleCheckout={handleCheckout}
                 />
                 :
                 <Link to='/login' className="btn btn-secondary btn-sm">

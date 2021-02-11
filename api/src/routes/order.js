@@ -19,6 +19,7 @@ server.get("/", [verifyToken, verifyRoleAdmin], (req, res, next) => {
       return res.status(400).json({ data: err })
     });
 });
+
 server.post("/:userId/order", [verifyToken, verifyRoleAdmin], (req, res) => {
   User.findByPk(req.params.userId).then((resp) => {
     resp.addOrder({}, { through: { selfGranted: true } });
@@ -28,7 +29,8 @@ server.post("/:userId/order", [verifyToken, verifyRoleAdmin], (req, res) => {
     });
   });
 });
-server.put("/:id", [verifyToken], (req, res, next) => {
+
+server.put("/:id", [verifyToken], async (req, res, next) => {
   let { status } = req.body;
   let id = req.params.id;
   Order.update(
@@ -38,7 +40,7 @@ server.put("/:id", [verifyToken], (req, res, next) => {
     { returning: true, where: { id } }
   )
     .then((response) => {
-      res.status(200).json(response);
+      res.status(200).json(response[1]);
     })
     .catch(next);
 });

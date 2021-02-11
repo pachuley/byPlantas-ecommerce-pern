@@ -22,6 +22,7 @@ const orders = (state = initialState, action) => {
     case "UPDATE_ORDER":
       return {
         ...state,
+        orders:[...state.orders, action.payload]
       };
     case "FILTER_ORDERS":
       return {
