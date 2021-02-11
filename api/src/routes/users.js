@@ -9,7 +9,7 @@ const { verifyToken, verifyRoleAdmin } = require("../middlewares/authHandler");
 
 // Routes
 // GET: /users
-server.get("/",verifyToken, verifyRoleAdmin, (req, res, next) => {
+server.get("/", verifyToken, verifyRoleAdmin, (req, res, next) => {
   User.findAll()
     .then((users) => {
       res.status(200).json(users);
@@ -18,27 +18,27 @@ server.get("/",verifyToken, verifyRoleAdmin, (req, res, next) => {
 });
 
 //post promote convierte el user a admin
-server.post('/auth/promote/:id',[verifyToken] ,async (req,res) => {
-  let idUser = req.params.id
-  const user = await User.findByPk(idUser)
-  if(!user){
+server.post("/auth/promote/:id", [verifyToken], async (req, res) => {
+  let idUser = req.params.id;
+  const user = await User.findByPk(idUser);
+  if (!user) {
     res.status(400).json({
-      ok:false
-    })
+      ok: false,
+    });
   }
-  user.role='ADMIN_ROLE'
+  user.role = "ADMIN_ROLE";
   await user.save();
   res.status(200).json({
-    ok:true,
-    message:'Se cambio el role a ADMIN',
+    ok: true,
+    message: "Se cambio el role a ADMIN",
     user,
-    userCreator: req.user
-  })
-})
+    userCreator: req.user,
+  });
+});
 
 // POST: Crear Usuario
 server.post("/register", async (req, res) => {
-  let { email, password, birthdate, firstname, lastname, address} = req.body;
+  let { email, password, birthdate, firstname, lastname, address } = req.body;
   const saltHash = await bcrypt.genSalt(10);
   const encryptedpassword = await bcrypt.hash(password, saltHash);
 
@@ -55,7 +55,7 @@ server.post("/register", async (req, res) => {
     lastname,
     address,
     birthdate,
-    role: "CLIENT_ROLE"
+    role: "CLIENT_ROLE",
   })
     .then((user) => {
       Order.create({
@@ -96,7 +96,7 @@ server.post("/login", async (req, res) => {
       if (validPassword) {
         const findOrder = await Order.findOrCreate({
           where: {
-            id: user.id,
+            userId: user.id,
             status: "active",
           },
         });
@@ -109,7 +109,7 @@ server.post("/login", async (req, res) => {
           email: user.email,
           birthdate: user.birthdate,
           address: user.address,
-          token
+          token,
         });
       } else {
         res.status(400).json("Contraseña equivocada!");
