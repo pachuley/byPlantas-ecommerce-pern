@@ -5,12 +5,9 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 import { getAllOrders, filterOrders } from "../../Redux/actions/orderActions";
-// import axios from 'axios';
+
 function OrderTable({ allOrders, getAllOrders, filterOrders }) {
   const userLogin = useSelector((state) => state.userLogin);
-  const [state, setState] = useState({
-    reload: false,
-  });
 
   useEffect(() => {
     getAllOrders();
