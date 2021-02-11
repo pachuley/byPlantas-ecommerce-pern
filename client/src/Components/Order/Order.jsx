@@ -1,34 +1,33 @@
 import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import CartLine from "../CartLine/CartLine";
-import {Redirect} from 'react-router-dom'
-import { useSelector} from 'react-redux'
+import styles from "../CartLine/cartline.module.css";
+import style from "./Order.module.css";
+import { Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 const { REACT_APP_BACKEND_URL } = process.env;
 
 export default function Order({ match }) {
-
   //invocamos para saber si estamos loggeados desde redux
-  let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
+  let userLocalstorage = JSON.parse(localStorage.getItem("userInfo"));
   let config = {
     headers: {
-      'Content-Type': 'application/json',
-      'token': userLocalstorage !== null ? userLocalstorage.token : null
+      "Content-Type": "application/json",
+      token: userLocalstorage !== null ? userLocalstorage.token : null,
     },
   };
-  
 
   const [order, setOrder] = useState({});
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
-  
+
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState(order.status);
-  const userLogin = useSelector(state => state.userLogin)
+  const userLogin = useSelector((state) => state.userLogin);
 
-  var logged =  userLogin.userLogin
-  console.log(logged)
+  var logged = userLogin.userLogin;
+  console.log(logged);
   useEffect(() => {
     getOrder();
   }, [status]);
@@ -63,13 +62,19 @@ export default function Order({ match }) {
     axios
       .get(`${REACT_APP_BACKEND_URL}/users/${match.params.id}/cart`, config)
       .then((resp) => {
-        console.log(resp)
+        console.log(resp);
         setProducts(resp.data[0].products);
         var subtotal = 0;
         resp.data[0].products.forEach((x) => {
           subtotal = subtotal + parseFloat(x.price * x.orderline.quantity);
         });
         setTotal(parseFloat(subtotal));
+      })
+      .catch((error) => {
+        console.log({
+          status: "error",
+          message: error.message,
+        });
       });
   };
   const handleStatus = (e) => {
@@ -86,11 +91,9 @@ export default function Order({ match }) {
         window.location = `/admin/orders/${order.id}`;
       });
   };
-
-  let isAuth = userLogin.userLogin && userLogin.userLogin?.role === 'ADMIN_ROLE'
-  return (
-    isAuth ? 
-
+  let isAuth =
+    userLogin.userLogin && userLogin.userLogin?.role === "ADMIN_ROLE";
+  return isAuth ? (
     <Fragment>
       <div className="container mt-5">
         <button className={`btn btn-dark mt-4`}>
@@ -99,7 +102,7 @@ export default function Order({ match }) {
           </Link>
         </button>
         <h2 className={`text-center`}>Orden del usuario {order.userId}</h2>
-        <div className="container d-flex mt-5 border">
+        <div className={`container d-flex mt-5 border ${style.order}`}>
           <div className="col-md-4 border border-light">
             <h2 className={`text-center pt-5`}>
               <u>Order ID:</u> <span>{order.id}</span>
@@ -121,10 +124,38 @@ export default function Order({ match }) {
                   products.map(
                     (product) => (
                       console.log(product),
-                      (<CartLine product={product}></CartLine>)
+                      (
+                        <div className={`container bg-white`}>
+                          <hr />
+                          <div className="">
+                            <h6 className={`${styles.productName}`}>
+                              {product.name}
+                            </h6>
+                          </div>
+                          <div className={`container ${styles.productDetails}`}>
+                            <span className="">
+                              {" "}
+                              ARS${" "}
+                              {logged
+                                ? product.orderline.price
+                                : product.price}{" "}
+                            </span>
+                            <span className="">
+                              {" "}
+                              Cantidad: {product.orderline.quantity}{" "}
+                            </span>
+                            <span>
+                              Total:
+                              {product.price * product.orderline.quantity}
+                            </span>
+                            {/* product.price * product.orderline.quantity */}
+                          </div>
+                        </div>
+                      )
                     )
                   ))
-                : (console.log("no hay prod"), (<span> No hay productos</span>))}
+                : (console.log("no hay prod"),
+                  (<span> No hay productos</span>))}
             </div>
             <h3 className={`text-center`}>
               Total de Compra: $ <span>{total}</span>
@@ -155,15 +186,36 @@ export default function Order({ match }) {
                   </div>
 
                   <div className="modal-body">
-                    <label>Status</label>
-                    <input
-                      type="string"
-                      className="form-control my-2"
-                      placeholder="Estado"
-                      value={products.status}
-                      name="status"
-                      onChange={(e) => handleStatus(e)}
-                    />
+                    <div className="container text-center">
+                      <div className="row">
+                        <div className="col-sm">
+                          <label>Status</label>
+                        </div>
+                        <div className="col-sm">
+                          {order.status == "active" ? (
+                            <select
+                              name="select"
+                              className={`selectpicker`}
+                              onChange={handleStatus}
+                            >
+                              <option value="active">-</option>
+                              <option value="processing">processing</option>
+                              <option value="canceled">canceled</option>
+                            </select>
+                          ) : (
+                            <select
+                              name="select"
+                              className={`selectpicker`}
+                              onChange={handleStatus}
+                            >
+                              <option value="active">-</option>
+                              <option value="complete">complete</option>
+                              <option value="canceled">canceled</option>
+                            </select>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="modal-footer">
@@ -193,12 +245,14 @@ export default function Order({ match }) {
         </div>
       </div>
     </Fragment>
-    :   
-    <Redirect to={{
-      pathname: '/login',
-      state: {
-        message: 'Debes estar logueado y ser ADMIN.'
-      }
-    }}/>
+  ) : (
+    <Redirect
+      to={{
+        pathname: "/login",
+        state: {
+          message: "Debes estar logueado y ser ADMIN.",
+        },
+      }}
+    />
   );
 }

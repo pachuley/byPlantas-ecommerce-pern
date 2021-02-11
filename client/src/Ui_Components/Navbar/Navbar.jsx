@@ -6,7 +6,7 @@ import { useSelector} from 'react-redux'
 
 const NavBar = () => {
     const userLogin = useSelector(state => state.userLogin)
-    
+    const cartItems = useSelector(state => state.cart.cartItems)
     return (
         <header id="header" className={`fixed-top ${styles.header, styles.headerText}`}>
             <nav className={`navbar navbar-expand-lg ${styles.byPlantasNavbar}`} >
@@ -24,6 +24,7 @@ const NavBar = () => {
                             {userLogin.userLogin === null || userLogin.userLogin.role !== "ADMIN_ROLE" ?
                                 <li className={`${styles.liMargin}`}>
                                     <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
+                                    <span class="badge badge-info">{cartItems.length === 0 ? '' : cartItems.length}</span>
                                 </li>
                             : ""}
                         { userLogin.userLogin && userLogin.userLogin.role === "ADMIN_ROLE" ?
