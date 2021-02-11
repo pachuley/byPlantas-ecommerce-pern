@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CartLine from '../CartLine/CartLine'
 import BtnCheckout from '../Commons/BtnCheckout/BtnCheckout'
 import {useSelector, useDispatch} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {getItems} from '../../Redux/actions/cartActions'
 
 const Cart = () => {
@@ -44,9 +45,17 @@ const Cart = () => {
           <div className="col-4">
               <div>Precio Total ({cartItems.length}) items</div>
               <p className="mt-1">Total: ${totalCart()}</p>
-              <BtnCheckout
-                orderId={cartItems.lenght > 0 && cartItems[0].orderId}
-              />
+              {
+                isAuth ? 
+                <BtnCheckout
+                  disabled={cartItems<=0 ? true : false}
+                  orderId={cartItems.lenght > 0 ? cartItems[0].orderId : '#'}
+                />
+                :
+                <Link to='/login' className="btn btn-secondary btn-sm">
+                  Ir a login
+                </Link>
+              }
           </div>
         </div>
       </div>

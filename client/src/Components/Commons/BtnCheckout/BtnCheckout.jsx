@@ -1,11 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-const BtnCheckout = ({orderId}) => {
+import styles from './btncheckout.module.css'
+const BtnCheckout = ({orderId,disabled}) => {
+    let disabledLink = disabled ? styles.disabledlink : ''
     return ( 
         <div>
             <Link 
                 className="btn btn-sm btn-secondary"
-                to={`/checkout/${orderId}`}    
+                to={`/checkout/${orderId}`} 
+                className={`${disabledLink} btn btn-sm btn-secondary`}   
             >
                 Checkout
             </Link>
