@@ -1,6 +1,7 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, FETCH_ITEMS_REQUEST, FETCH_ITEM_ERROR } from '../types';
+import { CART_ADD_ITEM,CART_ITEMS_GET, CART_REMOVE_ITEM, FETCH_ITEMS_REQUEST, FETCH_ITEM_ERROR } from '../types';
 
 const cartItemsStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
+
 
 const initialState = {
   cartItems: cartItemsStorage,
@@ -15,6 +16,12 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         isFetching: true,
       };
+    case CART_ITEMS_GET:
+      return {
+        ...state,
+        isFetching: false,
+        cartItems: action.payload,
+    }
 
     case CART_ADD_ITEM:
       const item = action.payload;
