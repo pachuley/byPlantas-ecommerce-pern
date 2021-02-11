@@ -13,14 +13,12 @@ const AccountContainer = ({history, location}) => {
             <div className = {`container container-md d-inline-flex justify-content-around p-0 m-auto`}>
                 <FormLogin history={history} location={location}/>
             </div>
+            <h4 className={`${styles.titles} mb-4`}>O ingresa con tu usuario Google</h4>
             <div>
                 <GoogleCredentialsLogin />
             </div>
+            <h4 className={`${styles.titles} mt-4 mb-4`}>Y si no tienes un usuario siempre te puedes registrar y crear una cuenta nueva!</h4>
             <div>
-                <GoogleCredentialsLogout />
-            </div>
-            <div>
-                <hr className = {`col-3 ${styles.horizontalRule}`}></hr>
                 <div className = {`${styles.buttonContainer}`}>
                     <Link to="/register" className={`btn btnByPlantas`}>
                         Nuevo Usuario

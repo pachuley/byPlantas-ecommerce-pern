@@ -2,6 +2,7 @@ import React from 'react';
 import {GoogleLogin} from 'react-google-login';
 import axios from 'axios'
 import {useHistory} from "react-router"
+import { FaGoogle } from 'react-icons/fa';
 
 const {REACT_APP_BACKEND_URL} = process.env;
 const clientId = '515747986042-aams7flhu6mhnr1boi3mnm0pdqlih0il.apps.googleusercontent.com'
@@ -24,6 +25,11 @@ function GoogleCredentialsLogin() {
         <div>
             <GoogleLogin
                 clientId={clientId}
+                render={renderProps => (
+                    <button onClick={renderProps.onClick} disabled={renderProps.disabled} className={`btn btnByPlantas justify-content-center align-content-center`}>  
+                    <i><FaGoogle size={13}/></i> Login
+                    </button>
+                )}
                 buttonText='Login'
                 onSuccess={onSuccess}
                 onFailure={onFailure}
