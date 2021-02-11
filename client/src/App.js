@@ -33,7 +33,8 @@ function App() {
           <Route path="/admins" exact render={() => <Admins />} />
           <Route path="/login" exact render={({history,location}) => <AccountContainer history={history} location={location}/>} />
           <Route path="/cart" exact render={() => <Cart />} />
-          <Route path="/checkout" exact render={() => <CheckOut />} />
+          {/* <Route path="/checkout/:id" exact render={({match}) => <CheckOut match={match}/>} /> */}
+          <Route path="/checkout/" exact render={() => <CheckOut />} />
           <Route path="/orders" exact render={() => <OrderTable />} />
           <Route path="/admin/orders/:id" render={({ match }) => <Order match={match} />}/>
           <Route path="/register" exact render={() => <FormUser />} />

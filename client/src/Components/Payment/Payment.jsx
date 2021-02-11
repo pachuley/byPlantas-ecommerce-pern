@@ -9,7 +9,7 @@ const {REACT_APP_BACKEND_URL} = process.env;
 
 const Payment = () =>{
 
-const [payment, setPayment] = useState('mepago')
+
 const [datos, setDatos] = useState("")
 
 const cartItems = useSelector(state => state.cart.cartItems)
@@ -31,7 +31,11 @@ console.log(datos)
 
 //DIRECTO DE LA API DE MERCADOLIBRE - RENDERIZA EL BOTON DE PAGAR
 useEffect(()=>{
-  
+  let flag;
+  if(datos){
+    flag = true
+  }
+  if(flag === true){
   const script = document.createElement('script'); //Crea un elemento html script
   const attr_data_preference = document.createAttribute('data-preference-id') //Crea un nodo atribute
 
@@ -48,18 +52,17 @@ useEffect(()=>{
   return () =>{
     //Elimina el script como nodo hijo del elemento form
     document.getElementById('form1').removeChild(script);
+    flag = false;
   }
- },[datos])
+}},[datos])
 
 //DIRECTO DE LA API DE MERCADOLIBRE
 //
 let totalPayment = 0;
-// cart.forEach(e=>totalPayment = (e.orderline.price * e.orderline.quantity) + totalPayment )
+cartItems.forEach(e=>totalPayment = e.total + totalPayment )
 // //
 //payment status
-const handleSelect = (event) => {
-  setPayment(event.target.value)
-}
+
 
 return (
 

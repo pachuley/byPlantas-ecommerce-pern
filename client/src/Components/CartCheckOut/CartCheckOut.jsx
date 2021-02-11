@@ -1,59 +1,33 @@
-import axios from 'axios'
-import React, {useState} from 'react'
-import { connect } from 'react-redux'
-import styles from './cartcheckout.module.css'
-import Swal from 'sweetalert2'
-import { useSelector } from 'react-redux'
-
-const {REACT_APP_BACKEND_URL} = process.env;
-
-const CartCheckOut = ({product, imgs, userId}) =>{
-console.log(product)
-
-    //invocamos para saber si estamos loggeados desde redux
-  const userLogin = useSelector(state => state.userLogin)
-  var logged =  userLogin.userLogin
-
-    
-    const [contador, setContador] = useState(logged ? product.orderline.quantity : product.quantity)
-    const [totalGuest, setTotalGuest] = useState(logged ? product.orderline.quantity : product.price * product.quantity)
-
-    
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-    return (
-        <div>
-            <div className={`container ${styles.containerCartline}`}>
-                <div className={`${styles.imgContainer}`}>
-                    <img 
-                        src={`${product.imgs ? product.imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} 
-                        alt="" className={`${styles.imgCartline}`}
-                    />
-                    { logged ?
-                    <div>
-                        
+const CartCheckOut = ({ product }) => {
+  const imgDefault = 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png';
+  
+  
+  const { orderId, productId, productName, productPrice, productDescription, quantity,imgs, stockProduct,total } = product;
 
-                    </div>
-                    : "" }
-                </div>
-                <div className={`container ${styles.detailsContainer}`}>
-                    <div className=''>
-                        <h6 className={`${styles.productName}`}>{product.name}</h6>
-                    </div>
-                    <div className={`container ${styles.productDetails}`}>
-                        <span className=""> ARS$ {logged ? product.price : product.price} </span>
-                        <span className=""> Cantidad: {contador} </span>
-                        <span> Total: {logged ? product.price * contador : totalGuest} </span>
-                        {/* product.price * product.orderline.quantity */}
-                    </div>
-                </div>
-            </div>
-            <div>
-        
-            </div>
-        </div>
-    )
-}
-
+  const dispatch = useDispatch();
+  
+  return (
+    <div className='row my-2'>
+      <div className='col-2'>
+        <img src={imgs ? imgs : imgDefault} className='img-fluid' alt='' />
+      </div>
+      <div className='col-2'>
+        <p className='text-uppercase'>{productName}</p>
+        <p>{productDescription}</p>
+      </div>
+      <div className='col-2'>
+        <p>Precio: ARS {productPrice}</p>
+        <p>Cant: {quantity}</p>
+        <p>Total: {quantity*productPrice}</p>
+      </div>
+      <div className='col-2'>
+      </div>
+    </div>
+  );
+};
 
 export default CartCheckOut;

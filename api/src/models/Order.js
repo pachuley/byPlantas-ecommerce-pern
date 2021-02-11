@@ -49,5 +49,24 @@ module.exports = (sequelize) => {
                   type: DataTypes.ENUM("mepago", "tarjeta", "efectivo", "transferencia"),
                   allowNull: true,
                 },
+                payment_id: {
+                  type: DataTypes.TEXT,
+                  allowNull: true
+                  
+                    //como inicial debe llevar false
+                  },
+                  payment_status: {
+                    type: DataTypes.TEXT,
+                    allowNull: true
+                    
+                      //como inicial debe llevar false
+                    },
+                    merchant_order_id: {
+                      type: DataTypes.TEXT,
+                      allowNull: true
+                      
+                        //como inicial debe llevar false
+                      },
+                
   });
 };
