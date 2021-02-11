@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react';
-import {useSelector, useDispatch} from 'react-redux'
-import {fetchOrder} from '../../../Redux/actions/orderCheckAction'
-
-const BtnCheckout = () => {
-    const dispatch = useDispatch()
-    useEffect(()=>{
-        dispatch(fetchOrder)
-    },[])
-    const handle = () => {
-        dispatch(fetchOrder())
-    }
+import React from 'react';
+import {Link} from 'react-router-dom'
+const BtnCheckout = ({orderId}) => {
     return ( 
         <div>
-            <button className="btn btn-sm btn-secondary" onClick={handle}>
+            <Link 
+                className="btn btn-sm btn-secondary"
+                to={`/checkout/${orderId}`}    
+            >
                 Checkout
-            </button>
+            </Link>
         </div>
      );
 }
