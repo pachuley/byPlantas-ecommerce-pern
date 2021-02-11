@@ -21,7 +21,14 @@ export const getAllOrders = () => (dispatch,getState) => {
   });
 };
 
-export const createOrder = (id) => (dispatch) => {
+export const createOrder = (id) => (dispatch, getState) => {
+  const isAuth = getState().userLogin.userLogin;
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      token: isAuth ? isAuth.token : null,
+    },
+  };
   axios
     .get(`${REACT_APP_BACKEND_URL}/orders/${id}/orders`, config)
     .then((res) => {
