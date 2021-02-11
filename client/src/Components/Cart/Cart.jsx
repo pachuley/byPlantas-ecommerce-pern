@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CartLine from '../CartLine/CartLine'
 import BtnCheckout from '../Commons/BtnCheckout/BtnCheckout'
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import {getItems} from '../../Redux/actions/cartActions'
 
 const Cart = () => {
 
@@ -9,16 +10,21 @@ const Cart = () => {
 
   const userLogin = useSelector(state => state.userLogin)
   const cartItems = useSelector(state => state.cart.cartItems)
-  const logged =  userLogin.userLogin
-
-    const totalCart = () => {
-      let total = 0
+  console.log(cartItems)
+  const dispatch=useDispatch()
+  const isAuth =  userLogin.userLogin
+  const totalCart = () => {
+      let totalCart = 0
       cartItems.forEach(element => {
-        total = total + (parseFloat(element.price) * parseInt(element.quantity))
+        totalCart +=  element.total
       });
-      return total
-    }
-    
+      return totalCart
+  }
+    useEffect(()=>{
+      if(isAuth){
+        dispatch(getItems())
+      }
+    },[])
     return (
       <div className="container">
         <div className="row">
@@ -31,8 +37,8 @@ const Cart = () => {
             <div className="alert alert-primary" role="alert">
               El carrito está vacío
             </div>
-            : cartItems.map((item, index) => {
-              return <CartLine product={item} />
+            : cartItems.map((product, index) => {
+              return <CartLine product={product} />
             })
           }
           </div>
