@@ -5,35 +5,6 @@
     background-position: top;
 }
 
-.jumbotron {
-    background-image: url("./Images/Jumbotron.png");
-    width: 100%;
-    margin: 0%;
-    background-size: cover;
-    background-position: 0;
-    min-height: 25em;
-    align-content: center;
-}
-
-.jumbotronText {
-    width: 2em;
-    margin-left: 72%;
-    color: #507b00;
-    font-weight: 600;
-    padding: 0;
-    text-align: center;
-    align-content: center;
-    justify-content: center;
-}
-
-.jumbotronh2 {
-    width: 20;
-    font-weight: 500;
-    padding-top: 1.8em;
-    padding-bottom: 0.2em;
-    margin: auto;
-}
-
 .filosofia {
     padding: 2.5em 7em;
     justify-content: space-around;
