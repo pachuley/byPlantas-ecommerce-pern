@@ -284,7 +284,25 @@ server.put("/:userId/cart", verifyToken, (req, res) => {
     });
 });
 
-server.get("/:userId/cart", async(req, res) => {
+server.get("/:userId/cart", verifyToken, (req, res) => {
+  Order.findAll({
+    attributes: ["id", "userId", "status"],
+    where: {
+      [Op.and]: [{ userId: req.params.userId }, { status: "active" }],
+    },
+    include: [
+      {
+        model: Product,
+      },
+    ],
+  })
+    .then((orders) => {
+      res.json(orders);
+    })
+    .catch((e) => console.log(e));
+});
+
+server.get("/:userId/orderlines", async(req, res) => {
   
   try{
     let order = await Order.findOne({
