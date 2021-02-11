@@ -100,7 +100,7 @@ server.post("/login", async (req, res) => {
             status: "active",
           },
         });
-        const token = jwt.sign({ user }, SECRET, { expiresIn: 10000000 });
+        const token = jwt.sign({ user }, SECRET, { expiresIn: 3600 });
         res.status(200).json({
           id: user.id,
           firstname: user.firstname,
@@ -140,7 +140,7 @@ server.post("/login/:email", async (req, res) => {
         },
       });
       console.log('esta buscando la order')
-      const token = jwt.sign({ user }, SECRET, { expiresIn: 10000000 });
+      const token = jwt.sign({ user }, SECRET, { expiresIn: 3600 });
       res.status(200).json({
         id: user.id,
         firstname: user.firstname,
