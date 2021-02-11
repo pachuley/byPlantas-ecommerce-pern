@@ -284,22 +284,34 @@ server.put("/:userId/cart", verifyToken, (req, res) => {
     });
 });
 
-server.get("/:userId/cart", verifyToken, (req, res) => {
-  Order.findAll({
-    attributes: ["id", "userId", "status"],
-    where: {
-      [Op.and]: [{ userId: req.params.userId }, { status: "active" }],
-    },
-    include: [
-      {
-        model: Product,
-      },
-    ],
-  })
-    .then((orders) => {
-      res.json(orders);
+server.get("/:userId/cart", async(req, res) => {
+  
+  try{
+    let order = await Order.findOne({
+      where: { userId: parseInt(req.params.userId), status: "active" },
+    });
+    let orderlines = await order.getProducts()
+     
+    let arrAux = []
+    orderlines.forEach(element => {
+      arrAux.push({
+        orderId: element.orderline.orderId,
+        productId: element.orderline.productId,
+        productPrice: parseFloat(element.orderline.price),
+        quantity: element.orderline.quantity,
+        total: parseFloat(element.orderline.total),
+        productName: element.name,
+        imgs: element.imgs,
+        productDescription: element.description,
+        stockProduct: element.stock,
+      })
+    });
+    res.json(arrAux)
+  }catch{
+    res.status(400).json({
+      ok: false,
     })
-    .catch((e) => console.log(e));
+  }
 });
 
 module.exports = server;
