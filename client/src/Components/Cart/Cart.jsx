@@ -25,6 +25,8 @@ const Cart = () => {
         dispatch(getItems())
       }
     },[])
+    const orderid = cartItems[0]?.orderId
+    
     return (
       <div className="container">
         <div className="row">
@@ -48,8 +50,8 @@ const Cart = () => {
               {
                 isAuth ? 
                 <BtnCheckout
-                  disabled={cartItems<=0 ? true : false}
-                  orderId={cartItems.lenght > 0 ? cartItems[0].orderId : '#'}
+                  disabled={orderid === undefined ? true : false}
+                  orderId={orderid !== undefined ? cartItems[0].orderId : ''}
                 />
                 :
                 <Link to='/login' className="btn btn-secondary btn-sm">
