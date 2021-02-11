@@ -10,11 +10,11 @@ const NavBar = () => {
     return (
         <header id="header" className={`fixed-top ${styles.header, styles.headerText}`}>
             <nav className={`navbar navbar-expand-lg ${styles.byPlantasNavbar}`} >
-                <h1 className={`navbar-brand mr-auto ${styles.h1Margin, styles.headerLogo}`}><Link className={styles.linkLogo} to="/">byPlantas</Link></h1>
+                <h1 className={`navbar-brand ${styles.h1Margin, styles.headerLogo}`}><Link className={styles.linkLogo} to="/">byPlantas</Link></h1>
                 <button className={`navbar-toggler`} type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className={`navbar-toggler-icon`}></span>
                 </button>
-                <div className={`collapse navbar-collapse`}>
+                <div className={`collapse navbar-collapse d-flex justify-content-end mr-4`}>
                     <ul className={`navbar-nav ${styles.ulMargin}`}>
                         <li className={`${styles.liMargin}`}>
                         
