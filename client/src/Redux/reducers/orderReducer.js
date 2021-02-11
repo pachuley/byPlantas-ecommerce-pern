@@ -12,6 +12,7 @@ const orders = (state = initialState, action) => {
     case "CREATE_ORDER":
       return {
         ...state,
+        orders: action.payload,
       };
     case "DELETE_ORDER": //
       return {

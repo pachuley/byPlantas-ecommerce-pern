@@ -18,6 +18,13 @@ export const getAllOrders = () => (dispatch) => {
     dispatch({ type: GET_ALL_ORDERS, payload: res.data });
   });
 };
+export const createOrder = (id) => (dispatch) => {
+  axios
+    .get(`${REACT_APP_BACKEND_URL}/orders/${id}/orders`, config)
+    .then((res) => {
+      dispatch({ type: CREATE_ORDER, payload: res.data });
+    });
+};
 export const updateOrder = (state) => (dispatch, getState) => {
   axios
     .put(
@@ -39,7 +46,12 @@ export const deleteOrder = (id) => (dispatch, getState) => {
 export const filterOrders = (state) => (dispatch) => {
   axios.get(`${REACT_APP_BACKEND_URL}/orders`, config).then((res) => {
     console.log(res.data);
-    const resp = res.data.filter((order) => order.status == state);
+    let resp;
+    if (state == "todas") {
+      resp = res.data;
+    } else {
+      resp = res.data.filter((order) => order.status == state);
+    }
     dispatch({ type: "FILTER_ORDERS", payload: resp });
   });
 };

@@ -14,7 +14,7 @@ function OrderTable({ allOrders, getAllOrders, filterOrders }) {
 
   useEffect(() => {
     getAllOrders();
-  }, [state.reload]);
+  }, []);
 
   const handleColor = (status) => {
     switch (status) {
@@ -31,10 +31,6 @@ function OrderTable({ allOrders, getAllOrders, filterOrders }) {
     }
   };
   const handleFilterOrders = (e) => {
-    if (e.target.value === "todas") {
-      getAllOrders();
-      window.location.reload();
-    }
     filterOrders(e.target.value);
   };
   let isAuth =
