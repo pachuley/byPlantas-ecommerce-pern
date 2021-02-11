@@ -8,13 +8,7 @@ import { useSelector } from 'react-redux'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 const CartCheckOut = ({product, imgs, userId}) =>{
-    let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
-    let config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'token': userLocalstorage !== null ? userLocalstorage.token : null
-      },
-    };
+console.log(product)
 
     //invocamos para saber si estamos loggeados desde redux
   const userLogin = useSelector(state => state.userLogin)

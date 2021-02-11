@@ -24,6 +24,7 @@ const CheckOut = ()=>{
     //invocamos para saber si estamos loggeados desde redux
   const userLogin = useSelector(state => state.userLogin)
   var logged =  userLogin.userLogin
+  const cartItems = useSelector(state => state.cart.cartItems)
   
     const [cart, setCart] = useState([])
     const [total, setTotal] = useState(0)
@@ -77,7 +78,7 @@ console.log(cart)
               </div>
              
               <div className='text-center mt-5 container'>
-                  <Payment cart={cart}/>
+                  <Payment/>
               </div>
               <div className='text-center mt-5 container'>
                   <ShippingDetail/>

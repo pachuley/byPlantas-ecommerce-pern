@@ -1,4 +1,5 @@
 const server = require('express').Router();
+const { Order} = require('../db.js');
 
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
@@ -15,18 +16,22 @@ mercadopago.configure({
 server.post("/", (req, res) => {
     
     console.log(req.body)
-    
-
-const payment_id= req.query.payment_id
-  const payment_status= req.query.status
-  const external_reference = req.query.external_reference
-  const merchant_order_id= req.query.merchant_order_id
   
-    console.log('external ref:   '+ external_reference)
+  
+let orderId = 0;
+  req.body.forEach(e=> orderId = e.orderId)
+
+
+    const items_ml = req.body.map(i => ({
+      title: i.productName,
+      unit_price: i.productPrice,
+      quantity: i.quantity,
+    }))
+
   // Crea un objeto de preferencia
   let preference = {
-    items: [{title: "Producto 1", quantity: 5, unit_price: 10.52}] ,
-    external_reference : '1',
+    items: items_ml ,
+    external_reference : `${orderId}`,
     payment_methods: {
       excluded_payment_types: [
         {
@@ -35,11 +40,11 @@ const payment_id= req.query.payment_id
       ],
       installments: 3  //Cantidad máximo de cuotas
     },
-    // back_urls: {
-    //   success: 'http://localhost:3001/mercadopago/pagos',
-    //   failure: 'http://localhost:3001/mercadopago/pagos',
-    //   pending: 'http://localhost:3001/mercadopago/pagos',
-    // },
+    back_urls: {
+      success: 'http://localhost:3001/mercadopago/pagos',
+      failure: 'http://localhost:3001/mercadopago/pagos',
+      pending: 'http://localhost:3001/mercadopago/pagos',
+    },
   };
 
 
@@ -49,7 +54,7 @@ const payment_id= req.query.payment_id
     console.info('respondio')
   //Este valor reemplazará el string"<%= global.id %>" en tu HTML
     global.id = response.body.id;
-    console.log(response.body)
+    // console.log(response.body)
     res.json({ id: global.id });
   
   })

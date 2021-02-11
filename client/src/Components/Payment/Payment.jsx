@@ -7,21 +7,18 @@ import { useSelector } from 'react-redux'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
-const Payment = ({cart, productos, data}) =>{
+const Payment = () =>{
 
 const [payment, setPayment] = useState('mepago')
 const [datos, setDatos] = useState("")
 
+const cartItems = useSelector(state => state.cart.cartItems)
 
+console.log(cartItems)
 
   useEffect(()=>{
     
-    var data1 = [
-      {title: "Producto 1", quantity: 5, price: 10.52},
-      {title: "Producto 2", quantity: 15, price: 100.52},
-      {title: "Producto 3", quantity: 6, price: 200}
-    ]
-    axios.post("http://localhost:3001/mercadopago", data1)
+    axios.post("http://localhost:3001/mercadopago", cartItems)
     .then((data)=>{
       console.log(data)
       setDatos(data.data)
@@ -57,8 +54,8 @@ useEffect(()=>{
 //DIRECTO DE LA API DE MERCADOLIBRE
 //
 let totalPayment = 0;
-cart.forEach(e=>totalPayment = (e.orderline.price * e.orderline.quantity) + totalPayment )
-//
+// cart.forEach(e=>totalPayment = (e.orderline.price * e.orderline.quantity) + totalPayment )
+// //
 //payment status
 const handleSelect = (event) => {
   setPayment(event.target.value)
