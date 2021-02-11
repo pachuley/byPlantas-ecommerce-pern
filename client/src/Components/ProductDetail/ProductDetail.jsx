@@ -5,14 +5,13 @@ import BtnCart from '../Commons/BtnCart';
 import ReviewContainer from '../ReviewContainer/ReviewContainer'
 import Spinner from '../Spinner/Spinner'
 import {connect} from 'react-redux'
+import { useSelector} from 'react-redux'
 import {fetchReviews} from '../../Redux/actions/reviewActions'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
 const ProductDetail = ({match, ...props}) =>{
 
-    //Levanto los datos del local para poder enviar con la variante config todos los datos del token
-    //con la variante config, por eso la paso como parametro en config (el header)
   let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
   let config = {
     headers: {
@@ -31,6 +30,8 @@ const ProductDetail = ({match, ...props}) =>{
         })
         props.dispatch(fetchReviews(match.params.id))
     },[])
+    const cartItems = useSelector(state => state.cart.cartItems)
+    let item = cartItems.find(item => item.productId === parseInt(match.params.id))
 
     let {stock, name, price, imgs, description} = prod
     return(
@@ -49,10 +50,10 @@ const ProductDetail = ({match, ...props}) =>{
                     <hr/>
                     <p> Stock: {stock}</p>
                     <hr/>
-                    <div >{price !== undefined ?
-                        <BtnCart className="btn btnByPlantas" productId={parseInt(match.params.id)} stock={parseInt(stock)} name={name} price={parseFloat(price)} imgs={imgs} />
-                        : ''
-                    }</div>
+                    <BtnCart 
+                        productId={parseInt(match.params.id)}
+                        quantity={item !== undefined ? item.quantity : 0}
+                    />
                     
                </div>
            </div>

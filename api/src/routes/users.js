@@ -168,35 +168,51 @@ server.put("/:id", verifyToken, async (req, res) => {
 
 server.post("/:userId/cart", verifyToken, async (req, res) => {
   try {
-    let product = await Product.findOne({ where: { id: req.body.productId } });
+    let product = await Product.findOne({ where: { id: parseInt(req.body.productId) } });
     let order = await Order.findOne({
-      where: { userId: req.params.userId, status: "active" },
+      where: { userId: parseInt(req.params.userId), status: "active" },
     });
 
     await order.addProduct(product);
-
     let orderline = await Orderline.findOne({
       where: {
         [Op.and]: [{ orderId: order.id }, { productId: product.id }],
       },
     });
 
-    await orderline.update({
-      price: req.body.price,
-      quantity: orderline.quantity
-        ? orderline.quantity + req.body.quantity
-        : req.body.quantity,
-      discount: req.body.discount,
-      total: parseInt(req.body.quantity) * parseFloat(req.body.price),
-    });
+    orderline.price = parseFloat(product.price)
+    orderline.quantity = orderline.quantity + parseInt(req.body.quantity)
+    orderline.discount = parseFloat(req.body.discount)
+    orderline.total = orderline.quantity ? orderline.quantity * parseFloat(product.price) : parseInt(req.body.quantity) * parseFloat(product.price)
 
-    /*         console.log(orderline)
-            console.log(Object.keys(orderline.__proto__))
-            console.log(Object.keys(order.__proto__))
-            console.log(Object.keys(product.__proto__)) */
-    res.status(201).json(order);
+    //TODO: controlar stock
+/*     if((product.stock - orderline.quantity) > 0){
+      product.stock = product.stock - parseInt(req.body.quantity) */
+/*       await product.save() */
+      await orderline.save()
+      res.status(201).json({
+        orderId: orderline.orderId,
+        productId: product.id,
+        productPrice: orderline.price,
+        quantity: orderline.quantity,
+        total: orderline.total,
+        productName: product.name,
+        imgs: product.imgs,
+        productDescription: product.description,
+        stockProduct: product.stock
+  
+      });
+/*     }else{
+      return res.status(400).json({
+        ok: false,
+        message: 'No se agrego orderline'
+      })
+    } */
   } catch (error) {
-    console.log(error);
+    res.status(400).json({
+      ok: false,
+      error
+    })
   }
 });
 
@@ -222,7 +238,11 @@ server.delete("/:userId/cart/:productId", verifyToken, (req, res) => {
   }).then((order) => {
     Product.findByPk(req.params.productId).then((prod) => {
       order.removeProduct(prod);
-      res.send("ok");
+      res.status(200).json({
+        ok:true,
+        id: req.params.productId,
+        message: `Se elimino producto id: ${req.params.productId}`
+      });
     });
   });
 });
@@ -280,6 +300,36 @@ server.get("/:userId/cart", verifyToken, (req, res) => {
       res.json(orders);
     })
     .catch((e) => console.log(e));
+});
+
+server.get("/:userId/orderlines", async(req, res) => {
+  
+  try{
+    let order = await Order.findOne({
+      where: { userId: parseInt(req.params.userId), status: "active" },
+    });
+    let orderlines = await order.getProducts()
+     
+    let arrAux = []
+    orderlines.forEach(element => {
+      arrAux.push({
+        orderId: element.orderline.orderId,
+        productId: element.orderline.productId,
+        productPrice: parseFloat(element.orderline.price),
+        quantity: element.orderline.quantity,
+        total: parseFloat(element.orderline.total),
+        productName: element.name,
+        imgs: element.imgs,
+        productDescription: element.description,
+        stockProduct: element.stock,
+      })
+    });
+    res.json(arrAux)
+  }catch{
+    res.status(400).json({
+      ok: false,
+    })
+  }
 });
 
 module.exports = server;
