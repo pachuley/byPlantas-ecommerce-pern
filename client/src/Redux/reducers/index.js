@@ -1,8 +1,10 @@
-import { combineReducers } from "redux";
-import products from "./productReducer";
-import userLogin from "./userReducer";
-import reviews from "./reviewReducer";
+import {combineReducers} from 'redux'
+import products from './productReducer'
+import userLogin from './userReducer'
+import reviews from './reviewReducer'
 import orders from "./orderReducer";
+import {cartReducer} from './cartReducer'
+
 
 const initialState = { userId: 0, logged: false };
 
@@ -16,9 +18,10 @@ function firstReducer(state = initialState, action) {
 }
 
 export default combineReducers({
-  firstReducer,
-  products,
-  userLogin,
-  reviews,
-  orders,
-});
+    firstReducer,
+    products,
+    userLogin,
+    reviews,
+    cart: cartReducer,
+    orders,
+})
