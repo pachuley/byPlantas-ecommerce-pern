@@ -1,4 +1,3 @@
-const { Order} = require('../db.js');
 const server = require('express').Router();
 
 // SDK de Mercado Pago
@@ -7,41 +6,42 @@ const mercadopago = require ('mercadopago');
 const { ACCESS_TOKEN } = process.env;
 
 //Agrega credenciales
+
 mercadopago.configure({
   access_token: ACCESS_TOKEN
 });
 
 //Ruta que genera la URL de MercadoPago
-server.get("/", (req, res, next) => {
+server.post("/", (req, res) => {
+    
+    console.log(req.body)
+    
 
+const payment_id= req.query.payment_id
+  const payment_status= req.query.status
+  const external_reference = req.query.external_reference
+  const merchant_order_id= req.query.merchant_order_id
+  
+    console.log('external ref:   '+ external_reference)
   // Crea un objeto de preferencia
-//   let preference = {
-//     items: items_ml,
-//     external_reference : `${id_orden}`,
-//     payment_methods: {
-//       excluded_payment_types: [
-//         {
-//           id: "atm"
-//         }
-//       ],
-//       installments: 3  //Cantidad máximo de cuotas
-//     },
-//     back_urls: {
-//       success: 'http://localhost:3001/mercadopago/pagos',
-//       failure: 'http://localhost:3001/mercadopago/pagos',
-//       pending: 'http://localhost:3001/mercadopago/pagos',
-//     },
-//   };
-
-let preference = {
-    items: [
-      {
-        title: 'Mi producto',
-        unit_price: 100,
-        quantity: 1,
-      }
-    ]
+  let preference = {
+    items: [{title: "Producto 1", quantity: 5, unit_price: 10.52}] ,
+    external_reference : '1',
+    payment_methods: {
+      excluded_payment_types: [
+        {
+          id: "atm"
+        }
+      ],
+      installments: 3  //Cantidad máximo de cuotas
+    },
+    // back_urls: {
+    //   success: 'http://localhost:3001/mercadopago/pagos',
+    //   failure: 'http://localhost:3001/mercadopago/pagos',
+    //   pending: 'http://localhost:3001/mercadopago/pagos',
+    // },
   };
+
 
   mercadopago.preferences.create(preference)
 
@@ -51,6 +51,7 @@ let preference = {
     global.id = response.body.id;
     console.log(response.body)
     res.json({ id: global.id });
+  
   })
   .catch(function(error){
     console.log(error);

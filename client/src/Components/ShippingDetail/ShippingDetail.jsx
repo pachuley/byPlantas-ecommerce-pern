@@ -54,8 +54,6 @@ const ShippingDetail = ({product, imgs, userId}) =>{
 const userLogin = useSelector(state => state.userLogin)
   var logged =  userLogin.userLogin
 
-  console.log(logged)
-
   const formik = useFormik({
     initialValues: {
       namereceiver: logged.firstname,
