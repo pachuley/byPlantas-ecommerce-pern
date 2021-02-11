@@ -80,7 +80,7 @@ export const getItems = () => async (dispatch,getState) => {
   };
  
   try {
-    const {data} = await axios.get(`${REACT_APP_BACKEND_URL}/users/${isAuth.id}/cart`,config)
+    const {data} = await axios.get(`${REACT_APP_BACKEND_URL}/users/${isAuth.id}/orderlines`,config)
     dispatch({
       type: CART_ITEMS_GET,
       payload: data,

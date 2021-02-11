@@ -22,9 +22,7 @@ server.get("/", [verifyToken, verifyRoleAdmin], (req, res, next) => {
     });
 });
 
-
-//cambiar para aceptar mas datos del checkout
-server.put("/:id", [verifyToken], (req, res, next) => {
+server.put("/:id", [verifyToken], async (req, res, next) => {
   let { status } = req.body;
   let id = req.params.id;
   Order.update(
@@ -34,7 +32,7 @@ server.put("/:id", [verifyToken], (req, res, next) => {
     { returning: true, where: { id } }
   )
     .then((response) => {
-      res.status(200).json(response);
+      res.status(200).json(response[1]);
     })
     .catch(next);
 });
