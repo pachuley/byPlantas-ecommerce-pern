@@ -49,6 +49,7 @@ function OrderTable({ allOrders, getAllOrders, filterOrders }) {
                   className={`selectpicker mb-3 `}
                   onChange={handleFilterOrders}
                 >
+                  <option value="todas">-</option>
                   <option value="todas">todas</option>
                   <option value="active">active</option>
                   <option value="processing">processing</option>
@@ -61,7 +62,7 @@ function OrderTable({ allOrders, getAllOrders, filterOrders }) {
           <table className="table table-hover table-dark thfontsize">
             <thead>
               <tr>
-                <th scope="col">Id User</th>
+                <th scope="col">User Email</th>
                 <th scope="col">Id Order</th>
                 <th scope="col">Status</th>
                 <th scope="col">F. Compra</th>
@@ -71,7 +72,7 @@ function OrderTable({ allOrders, getAllOrders, filterOrders }) {
             <tbody>
               {allOrders.map((order) => (
                 <tr key={order.id} className={handleColor(order.status)}>
-                  <td>{order.userId}</td>
+                  <td>{order.user.email}</td>
                   <td>{order.id}</td>
                   <td>{order.status}</td>
                   <td>{order.createdAt.split("T", 1)}</td>
