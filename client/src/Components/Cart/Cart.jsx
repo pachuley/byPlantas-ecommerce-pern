@@ -10,7 +10,6 @@ const Cart = () => {
 
   const userLogin = useSelector(state => state.userLogin)
   const cartItems = useSelector(state => state.cart.cartItems)
-  console.log(cartItems)
   const dispatch=useDispatch()
   const isAuth =  userLogin.userLogin
   const totalCart = () => {
@@ -45,7 +44,9 @@ const Cart = () => {
           <div className="col-4">
               <div>Precio Total ({cartItems.length}) items</div>
               <p className="mt-1">Total: ${totalCart()}</p>
-              <BtnCheckout/>
+              <BtnCheckout
+                orderId={cartItems.lenght > 0 && cartItems[0].orderId}
+              />
           </div>
         </div>
       </div>
