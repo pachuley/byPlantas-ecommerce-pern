@@ -16,6 +16,7 @@ import Order from "./Components/Order/Order";
 import Cart from "./Components/Cart/Cart";
 import FormUser from "./Components/FormUser/FormUser";
 import Profile from './Ui_Components/Profile/Profile'
+import UsersTable from "./Components/UsersTable/UsersTable";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/login" exact render={({history,location}) => <AccountContainer history={history} location={location}/>} />
           <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/orders" exact render={() => <OrderTable />} />
+          <Route path="/users" exact render={() => <UsersTable />} />
           <Route path="/admin/orders/:id" render={({ match }) => <Order match={match} />}/>
           <Route path="/register" exact render={() => <FormUser />} />
           <Route path="/profile" exact render={() => <Profile />} />
