@@ -39,7 +39,7 @@ const FormReview = ({idProd, ...props}) => {
           title: '',
           comment: '',
           stars: '5',
-          hojitas: 5,
+          // hojitas: '5'
         },
         validate,
         onSubmit: (values)=>{
@@ -89,7 +89,7 @@ const FormReview = ({idProd, ...props}) => {
                     </select>
                     {formik.errors.stars ? <p className="my-2 error">{formik.errors.stars}</p> : null}
 
-                    <label>Hojitas</label>
+                    {/* <label>Hojitas</label>
                     <br/>
                     <StarRatingComponent 
                       name='hojitas'
@@ -99,7 +99,7 @@ const FormReview = ({idProd, ...props}) => {
                       value={formik.values.hojitas}
                       onStarClick={(value,i,name)=>console.log(value,i,name)}
                     />
-                    <hr/>
+                    <hr/> */}
 
                     <label>Comentario</label>
                     <textarea 
