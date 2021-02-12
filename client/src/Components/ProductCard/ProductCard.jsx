@@ -12,12 +12,14 @@ const ProductCard = ({ name, description, price, imgs, stock, id }) => {
 
   return (
     <div className='card'>
-      <NavLink to={`/products/${id}`}>
-        <img
-          src={imgs ? imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}
-          className='img-thumbnail'
-        />
-      </NavLink>
+      <div className={`${styles.imgContainer}`}>
+        <NavLink to={`/products/${id}`}>
+          <img
+            src={imgs ? imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}
+            className='img-thumbnail'
+          />
+        </NavLink>
+      </div>
       <div className='card-body'>
         <h5 className='card-title'>{name}</h5>
         <p className='card-text'>Precio: ARS$ {price}</p>
