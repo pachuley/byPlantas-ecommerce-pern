@@ -21,9 +21,9 @@ const Catalog = ({products}) => {
             :
                 <>
                     <hr/>
-                    <div className="row">
+                    <div className={`${styles.catalog}`}>
                         {productsPag.map(product=> 
-                        <div className="col-4">
+                        <div className="col-3">
                             <ProductCard
                             key={product.id}
                             id = {product.id}

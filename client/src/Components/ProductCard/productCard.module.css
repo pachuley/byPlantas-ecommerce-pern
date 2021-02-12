@@ -1,8 +1,8 @@
 .productCard {
-    display: flex;
-    flex-direction: column;
+    display: block;
     padding: 0;
     text-align: center;
+    margin: 1em;
 }
 
 .imgContainer {
@@ -10,7 +10,7 @@
     justify-content: center;
     align-content: center;
     margin: 1em;
-    height: 10em;
+    max-height: 15em;
     width: auto;
 }
 
@@ -22,6 +22,7 @@
 .bodyContainer {
     display: flex;
     flex-direction: column;
+    float: none;
 }
 
 .titleBody {
