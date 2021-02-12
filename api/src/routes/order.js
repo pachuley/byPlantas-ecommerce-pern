@@ -107,8 +107,6 @@ server.get("/orders", [verifyToken, verifyRoleAdmin], (req, res, next) => {
     .catch(next);
 });
 
-<<<<<<< HEAD
-=======
 //MELI
 
 // server.post("/create_preference", (req, res) => {
@@ -144,5 +142,4 @@ server.get("/orders", [verifyToken, verifyRoleAdmin], (req, res, next) => {
 // });
 
 
->>>>>>> 3ba85ec4ccacf4611fcdb9b714912aeb2d7b2ca2
 module.exports = server;
