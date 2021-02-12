@@ -24,7 +24,16 @@ export default function UsersTable() {
     const dispatch = useDispatch()
     let isAuth = userLogin.userLogin && userLogin.userLogin?.role === 'ADMIN_ROLE'
 
-    
+    const handleBan = (userId, userStatus) => {
+        let {headers} = config
+        let stuff = {headers, userId, userStatus}
+        axios.put(`${REACT_APP_BACKEND_URL}/users/ban`, stuff)
+        .then(resp=>{
+            console.log(resp)
+        })
+        alert(userStatus ? 'el usuario fue baneado' : 'el usuario fue perdonado')
+        window.location = '/users';
+    }
 
     return(
         isAuth ?
@@ -50,7 +59,12 @@ export default function UsersTable() {
                                 <td>{user.role}</td>
                                 <td>{user.status ? 'Active' : 'InActive'}</td>
                                 <td><button className='btn btn-light'>Edit</button></td>
-                                <td><button className='btn btn-danger'>Ban</button></td>
+                                {user.role === 'ADMIN_ROLE' ? <td></td> :
+                                    user.status ?
+                                    <td><button className='btn btn-danger' onClick={()=>{handleBan(user.id, user.status)}}>Ban</button></td>
+                                    :
+                                    <td><button className='btn btn-info' onClick={()=>{handleBan(user.id, user.status)}}>Pardon</button></td>
+                                }
                             </tr>
                         ))}
                     </tbody>
