@@ -27,7 +27,7 @@ const userLoginReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        error: action.error
+        error: action.payload.error
       };
     case USER_LOGIN_LOGOUT:
       return {
