@@ -7,6 +7,8 @@ import Spinner from '../Spinner/Spinner'
 import {connect} from 'react-redux'
 import { useSelector} from 'react-redux'
 import {fetchReviews} from '../../Redux/actions/reviewActions'
+import StarRatingComponent from 'react-star-rating-component';
+import { FaLeaf } from 'react-icons/fa';
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
@@ -22,14 +24,24 @@ const ProductDetail = ({match, ...props}) =>{
 
 
     const [prod, setProd] = useState({})
+    const [revAverage, setRevAverage] = useState(5)
     
     useEffect(()=>{
         axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`, config)
         .then(res => {
             setProd(res.data)
         })
+        getReviewAverage()
         props.dispatch(fetchReviews(match.params.id))
     },[])
+
+    const getReviewAverage = () =>{
+        axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}/reviewaverage`)
+        .then(res=>{
+          setRevAverage(res.data.average)
+        })
+    }
+
     const cartItems = useSelector(state => state.cart.cartItems)
     let item = cartItems.find(item => item.productId === parseInt(match.params.id))
 
@@ -44,11 +56,17 @@ const ProductDetail = ({match, ...props}) =>{
                     <h3 className='h3'>{name}</h3>
                     <hr/>
                     <p>{description}</p>
-                    
                     <hr/>
                     <p>ARS$ {price}</p>
                     <hr/>
                     <p> Stock: {stock}</p>
+                    <hr/>
+                    <StarRatingComponent
+                        editing={false}
+                        renderStarIcon={() => <span><FaLeaf size={17}/></span>}
+                        starCount={5}
+                        value={revAverage}
+                    />
                     <hr/>
                     <BtnCart 
                         productId={parseInt(match.params.id)}
