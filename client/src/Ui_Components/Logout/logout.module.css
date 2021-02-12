@@ -12,11 +12,20 @@
     margin-left: 2rem;
     color:  #507b00;
 }
+
+.link:active {
+    border: none;
+}
+
 .alink{
     color: #507b00;
     border: none;
     
 }
 .alink:hover{
-    color: #507b00
+    color: #507b00;
+}
+
+.alink:active{
+    border:none;
 }

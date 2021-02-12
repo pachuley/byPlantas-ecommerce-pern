@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../Redux/actions/userActions';
 import { useHistory } from "react-router"
 import {Link} from 'react-router-dom'
-/* import styles from './logout.module.css'; */
+import styles from './logout.module.css';
 
 const Logout = () => {
   const userLogin = useSelector(state => state.userLogin);
@@ -17,7 +17,8 @@ const Logout = () => {
   return (
     <div className='dropdown'>
       <button
-        className='btn btn-secondary btn-sm dropdown-toggle'
+        className={styles.link} 
+        activeClassName={styles.alink}
         type='button'
         id='dropdownMenuButton'
         data-toggle='dropdown'
@@ -31,7 +32,7 @@ const Logout = () => {
         </button>
         <button className='dropdown-item' onClick={handleLogout}>
           <Link>Logout</Link>
-        </button>
+        </button> 
       </div>
     </div>
   );
