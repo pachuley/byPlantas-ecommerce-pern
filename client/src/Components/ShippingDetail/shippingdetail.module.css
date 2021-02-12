@@ -1,0 +1,61 @@
+.containerCartline {
+    width: 100%;
+    border: 2px solid #a17e30;
+    background-color: #fff;
+    height: 6em;
+    display: block;
+    padding: 0.5em;
+    margin-top: 1em;
+}
+
+.imgContainer {
+    margin: 0;
+    width: 15%;
+    float: left;
+}
+
+.imgCartline {
+    max-height: 5em;
+    margin: 0;
+}
+
+.detailsContainer {
+    margin-left: 15%;
+    text-align: left;
+}
+
+.productName {
+    font-weight: 500;
+    font-size: larger;
+    padding-top: 0.2em;
+}
+
+.productDetails {
+    justify-content: space-between;
+    padding-left: 0;
+}
+
+.productDetails span {
+    margin-right: 7em;
+}
+
+.btnCloseByPlantas {
+    background: rgb(163, 49, 49);
+    color:#f5f5ef;
+    margin-top: -1em;
+    align-content: center;
+    justify-content: center;
+}
+
+.btnContador {
+    background-color: #507b00;
+    color: #f5f5ef;
+    margin: 0.5em;
+    border: #f5f5ef;
+    border-radius: 2px;
+    width: 2em;
+}
+
+textarea {
+    resize: none;
+  }
