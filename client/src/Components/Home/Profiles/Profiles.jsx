@@ -11,52 +11,52 @@ export default function Profiles() {
                     <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
                         <div className="mb-3">   
                             <a href="https://www.linkedin.com/in/franciscosabategarrido/">
-                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="http://www.prepbootstrap.com/Content/images/template/people/person1.jpg" />
+                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128645/ecom1_h6fycs.jpg" />
                             </a>
                         </div>
-                        <h3>Francisco Sabaté</h3>
+                        <h4>Francisco Sabaté</h4>
                         <hr />
-                        <h5>Full Stack Web Developer</h5>
+                        <h6>Full Stack Web Developer</h6>
                     </div>
                     <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
                         <div className="mb-3">   
-                            <a href="https://www.linkedin.com/in/franciscosabategarrido/">
-                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="http://www.prepbootstrap.com/Content/images/template/people/person1.jpg" />
+                            <a href="#">
+                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128737/ecom3_xhqdym.jpg" />
                             </a>
                         </div>
-                        <h3>Homero Herrero</h3>
+                        <h4>Homero Herrero</h4>
                         <hr />
-                        <h5>Full Stack Web Developer</h5>
+                        <h6>Full Stack Web Developer</h6>
                     </div>
                     <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
                         <div className="mb-3">    
-                            <a href="https://www.linkedin.com/in/franciscosabategarrido/">
-                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="http://www.prepbootstrap.com/Content/images/template/people/person1.jpg" />
+                            <a href="https://www.linkedin.com/in/laguero/">
+                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128824/ecom2_ymzm8y.jpg" />
                             </a>
                         </div>
-                        <h3>Lucas Agüero</h3>
+                        <h4>Lucas Agüero</h4>
                         <hr />
-                        <h5>Full Stack Web Developer</h5>
+                        <h6>Full Stack Web Developer</h6>
                     </div>
                     <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
                         <div className="mb-3">   
-                            <a href="https://www.linkedin.com/in/franciscosabategarrido/">
-                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="http://www.prepbootstrap.com/Content/images/template/people/person1.jpg" />
+                            <a href="https://www.linkedin.com/in/lucasafernandezmorales/">
+                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128882/ecom4_ytw1j2.jpg" />
                             </a>
                         </div>
-                        <h3>Lucas Fernandez</h3>
+                        <h4>Lucas Fernandez</h4>
                         <hr />
-                        <h5>Full Stack Web Developer</h5>
+                        <h6>Full Stack Web Developer</h6>
                     </div>
                     <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
                         <div className="mb-3">   
-                            <a href="https://www.linkedin.com/in/franciscosabategarrido/">
-                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="http://www.prepbootstrap.com/Content/images/template/people/person1.jpg" />
+                            <a href="https://www.linkedin.com/in/marcosvillabasa/">
+                                <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128936/ecom4_1_taunal.jpg" />
                             </a>
                         </div>
-                        <h3>Marcos Villabasa</h3>
+                        <h4>Marcos Villabasa</h4>
                         <hr />
-                        <h5>Full Stack Web Developer</h5>
+                        <h6>Full Stack Web Developer</h6>
                     </div>
                 </div>
             </div>

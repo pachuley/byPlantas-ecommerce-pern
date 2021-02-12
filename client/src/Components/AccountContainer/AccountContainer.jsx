@@ -3,12 +3,11 @@ import FormLogin from '../FormLogin/FormLogin';
 import styles from './accountcontainer.module.css'
 import {Link} from 'react-router-dom'
 import GoogleCredentialsLogin from '../GoogleCredentials/GoogleCredentialsLogin'
-import GoogleCredentialsLogout from '../GoogleCredentials/GoogleCredentialsLogout'
 
 const AccountContainer = ({history, location}) => {
     
     return ( 
-        <div className = {`container`}>
+        <div className = {`container mb-5`}>
             <h2 className={`m-0 text-center p-5`}>Accede a tu cuenta o registrate como Nuevo Usuario!</h2>
             <div className = {`container container-md d-inline-flex justify-content-around p-0 m-auto`}>
                 <FormLogin history={history} location={location}/>
