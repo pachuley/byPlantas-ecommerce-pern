@@ -9,5 +9,64 @@ module.exports = (sequelize) => {
       defaultValue: "active",
       allowNull: false,
     },
+    namereceiver: {
+      type: DataTypes.STRING,
+      allowNull: true
+      
+        //como inicial debe llevar false
+      },
+      lastnamereceiver: {
+        type: DataTypes.STRING,
+        allowNull: true
+        
+          //como inicial debe llevar false
+        },
+        identifier: {
+          type: DataTypes.INTEGER,
+          allowNull: true
+          
+            //como inicial debe llevar false
+          },
+          address: {
+            type: DataTypes.STRING,
+            allowNull: true
+            
+              //como inicial debe llevar false
+            },
+            postalcode: {
+              type: DataTypes.INTEGER,
+              allowNull: true
+              
+                //como inicial debe llevar false
+              },
+              clarification: {
+                type: DataTypes.TEXT,
+                allowNull: true
+                
+                  //como inicial debe llevar false
+                },
+                paymenttype: {
+                  type: DataTypes.ENUM("mepago", "tarjeta", "efectivo", "transferencia"),
+                  allowNull: true,
+                },
+                payment_id: {
+                  type: DataTypes.TEXT,
+                  allowNull: true
+                  
+                    //como inicial debe llevar false
+                  },
+                  payment_status: {
+                    type: DataTypes.TEXT,
+                    allowNull: true
+                    
+                      //como inicial debe llevar false
+                    },
+                    merchant_order_id: {
+                      type: DataTypes.TEXT,
+                      allowNull: true
+                      
+                        //como inicial debe llevar false
+                      },
+                
   });
 };

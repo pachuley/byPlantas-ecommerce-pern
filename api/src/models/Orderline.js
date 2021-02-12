@@ -38,11 +38,7 @@ module.exports = (sequelize) => {
       
         //como inicial debe llevar false
       },
-
-
-
-
-
+      
 
   });
 };
