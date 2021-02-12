@@ -7,9 +7,9 @@ const BtnCheckout = ({orderId,disabled,handleCheckout}) => {
     return ( 
         <div>
             <Link 
-                className="btn btn-sm btn-secondary"
+                className="btn btn-sm btnByPlantas"
                 to={`/checkout/${orderId}`} 
-                className={`${disabledLink} btn btn-sm btn-secondary`}   
+                className={`${disabledLink} btn btn-sm btnByPlantas`}   
                 onClick={handleCheckout}
             >
                 Checkout

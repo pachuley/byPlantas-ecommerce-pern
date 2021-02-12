@@ -35,7 +35,7 @@ const Cart = () => {
     return (
       <div className="container">
         <div className="row">
-          <h5 className={`m-0 py-1`}>Aquí están los productos que elegiste</h5>
+          <h2 className={`m-0 text-center p-5`}>Aquí están los productos que elegiste</h2>
         </div>
         <div className="row">
           <div className="col-8">
@@ -60,8 +60,8 @@ const Cart = () => {
                   handleCheckout={handleCheckout}
                 />
                 :
-                <Link to='/login' className="btn btn-secondary btn-sm">
-                  Ir a login
+                <Link to='/login' className="btn btnByPlantas btn-sm">
+                  Ingresa a tu cuenta!
                 </Link>
               }
           </div>
