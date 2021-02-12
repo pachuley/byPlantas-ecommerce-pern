@@ -15,9 +15,6 @@ mercadopago.configure({
 //Ruta que genera la URL de MercadoPago
 server.post("/", (req, res) => {
     
-    console.log(req.body)
-  
-  
 let orderId = 0;
   req.body.forEach(e=> orderId = e.orderId)
 
@@ -45,6 +42,17 @@ let orderId = 0;
       failure: 'http://localhost:3001/mercadopago/pagos',
       pending: 'http://localhost:3001/mercadopago/pagos',
     },
+    shipments: {
+      receiver_address: {
+        zip_code: '',
+        street_name: '',
+        street_number: 11,
+        floor: '',
+        apartment: '',
+        
+      }
+    }
+    
   };
 
 
@@ -54,7 +62,7 @@ let orderId = 0;
     console.info('respondio')
   //Este valor reemplazará el string"<%= global.id %>" en tu HTML
     global.id = response.body.id;
-    // console.log(response.body)
+    console.log(response.body)
     res.json({ id: global.id });
   
   })
