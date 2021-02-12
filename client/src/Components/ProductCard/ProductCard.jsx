@@ -10,7 +10,7 @@ import axios from 'axios';
 const { REACT_APP_BACKEND_URL } = process.env;
 
 const ProductCard = ({ name, description, price, imgs, stock, id }) => {
-  const [revAverage, setRevAverage] = useState(5)
+  const [revAverage, setRevAverage] = useState(0)
 
   const cartItems = useSelector(state => state.cart.cartItems)
   let item = cartItems.find(item => item.productId === id)
@@ -38,12 +38,14 @@ const ProductCard = ({ name, description, price, imgs, stock, id }) => {
         <h5 className='card-title'>{name}</h5>
         <p className='card-text'>Precio: ARS$ {price}</p>
         <p className='card-text'>Stock: {stock}</p>
+        {revAverage > 0 ?
         <StarRatingComponent
                     editing={false}
                     renderStarIcon={() => <span><FaLeaf size={17}/></span>}
                     starCount={5}
                     value={revAverage}
                 />
+        : <p className='card-text'>No Hay Reseñas</p>}
         <BtnCart 
           productId={id} 
           quantity={item !== undefined ? item.quantity : 0}

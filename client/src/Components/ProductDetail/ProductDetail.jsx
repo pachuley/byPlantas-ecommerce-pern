@@ -24,7 +24,7 @@ const ProductDetail = ({match, ...props}) =>{
 
 
     const [prod, setProd] = useState({})
-    const [revAverage, setRevAverage] = useState(5)
+    const [revAverage, setRevAverage] = useState(0)
     
     useEffect(()=>{
         axios.get(`${REACT_APP_BACKEND_URL}/products/${match.params.id}`, config)
@@ -61,12 +61,15 @@ const ProductDetail = ({match, ...props}) =>{
                     <hr/>
                     <p> Stock: {stock}</p>
                     <hr/>
+                    <p>Calificacion Promedio:</p>
+                    {revAverage > 0 ?
                     <StarRatingComponent
                         editing={false}
                         renderStarIcon={() => <span><FaLeaf size={17}/></span>}
                         starCount={5}
                         value={revAverage}
                     />
+                    : <p>No Hay Reseñas</p>}
                     <hr/>
                     <BtnCart 
                         productId={parseInt(match.params.id)}
