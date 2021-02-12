@@ -17,6 +17,29 @@ server.get("/", verifyToken, verifyRoleAdmin, (req, res, next) => {
     .catch(next);
 });
 
+server.put('/ban', (req,res)=>{
+  var {userId, userStatus} = req.body
+  if(userStatus){
+    User.update({status: false}, {
+      where: {
+        id: userId
+      }
+    })
+    .then(resp=>{
+      res.json(resp)
+    })
+  }else{
+    User.update({status: true}, {
+      where: {
+        id: userId
+      }
+    })
+    .then(resp=>{
+      res.json(resp)
+    })
+  }
+})
+
 //post promote convierte el user a admin
 server.post("/auth/promote/:id", [verifyToken], async (req, res) => {
   let idUser = req.params.id;
@@ -93,7 +116,7 @@ server.post("/login", async (req, res) => {
         password,
         user.encryptedpassword
       );
-      if (validPassword) {
+      if (validPassword && user.status) {
         const findOrder = await Order.findOrCreate({
           where: {
             userId: user.id,
@@ -112,7 +135,9 @@ server.post("/login", async (req, res) => {
           token,
         });
       } else {
-        res.status(400).json("Contraseña equivocada!");
+        !validPassword ?
+        res.status(400).json({message:"Contraseña equivocada!"})
+        :res.status(401).json({message:"Usuario deshabilitado!"});
       }
     } else {
       res.status(404).json("Usuario no encontrado");

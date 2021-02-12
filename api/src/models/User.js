@@ -39,5 +39,10 @@ module.exports = (sequelize) => {
       values: ["CLIENT_ROLE", "ADMIN_ROLE", "VENDOR_ROLE"],
       defaultValue: "CLIENT_ROLE",
     },
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: true,
+    },
   });
 };

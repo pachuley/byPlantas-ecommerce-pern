@@ -3,6 +3,8 @@ import {useFormik} from 'formik'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import StarRatingComponent from 'react-star-rating-component'
+import { FaLeaf } from 'react-icons/fa'
 const {REACT_APP_BACKEND_URL} = process.env;
 
 const validate = values => {
@@ -37,6 +39,7 @@ const FormReview = ({idProd, ...props}) => {
           title: '',
           comment: '',
           stars: '5',
+          // hojitas: '5'
         },
         validate,
         onSubmit: (values)=>{
@@ -85,6 +88,19 @@ const FormReview = ({idProd, ...props}) => {
                         <option value='1'>1</option>
                     </select>
                     {formik.errors.stars ? <p className="my-2 error">{formik.errors.stars}</p> : null}
+
+                    {/* <label>Hojitas</label>
+                    <br/>
+                    <StarRatingComponent 
+                      name='hojitas'
+                      editing={true}
+                      renderStarIcon={() => <span><FaLeaf size={30}/></span>}
+                      starCount={5}
+                      value={formik.values.hojitas}
+                      onStarClick={(value,i,name)=>console.log(value,i,name)}
+                    />
+                    <hr/> */}
+
                     <label>Comentario</label>
                     <textarea 
                         type="text"

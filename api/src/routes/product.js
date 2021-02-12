@@ -295,4 +295,16 @@ server.get('/:id/review', (req, res, next) => {
   .catch(next)
 })
 
+server.get('/:id/reviewaverage', (req,res)=>{
+  const prodId = req.params.id
+  Review.findAll({where:{productId: prodId}})
+  .then(result=>{
+    let stars = result.map(x=>x.stars)
+    let sumStars = 0
+    stars.forEach(x=>{sumStars = sumStars + x})
+    const average = sumStars / stars.length
+    res.json({ok: true , average})
+  })
+})
+
 module.exports = server;
