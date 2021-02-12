@@ -17,6 +17,29 @@ server.get("/", verifyToken, verifyRoleAdmin, (req, res, next) => {
     .catch(next);
 });
 
+server.put('/ban', (req,res)=>{
+  var {userId, userStatus} = req.body
+  if(userStatus){
+    User.update({status: false}, {
+      where: {
+        id: userId
+      }
+    })
+    .then(resp=>{
+      res.json(resp)
+    })
+  }else{
+    User.update({status: true}, {
+      where: {
+        id: userId
+      }
+    })
+    .then(resp=>{
+      res.json(resp)
+    })
+  }
+})
+
 //post promote convierte el user a admin
 server.post("/auth/promote/:id", [verifyToken], async (req, res) => {
   let idUser = req.params.id;
