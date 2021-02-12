@@ -116,7 +116,7 @@ server.post("/login", async (req, res) => {
         password,
         user.encryptedpassword
       );
-      if (validPassword) {
+      if (validPassword && user.status) {
         const findOrder = await Order.findOrCreate({
           where: {
             userId: user.id,
@@ -135,7 +135,9 @@ server.post("/login", async (req, res) => {
           token,
         });
       } else {
-        res.status(400).json("Contraseña equivocada!");
+        !validPassword ?
+        res.status(400).json({message:"Contraseña equivocada!"})
+        :res.status(401).json({message:"Usuario deshabilitado!"});
       }
     } else {
       res.status(404).json("Usuario no encontrado");
