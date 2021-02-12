@@ -106,5 +106,3 @@ server.get("/orders", [verifyToken, verifyRoleAdmin], (req, res, next) => {
 });
 
 module.exports = server;
-
-module.exports = server;
