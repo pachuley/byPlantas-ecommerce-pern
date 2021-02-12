@@ -4,6 +4,7 @@ import userLogin from './userReducer'
 import reviews from './reviewReducer'
 import orders from "./orderReducer";
 import {cartReducer} from './cartReducer'
+import users from './fetchUsersReducer'
 
 
 const initialState = { userId: 0, logged: false };
@@ -24,4 +25,5 @@ export default combineReducers({
     reviews,
     cart: cartReducer,
     orders,
+    users
 })

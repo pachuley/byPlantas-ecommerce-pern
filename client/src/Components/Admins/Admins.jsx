@@ -22,6 +22,9 @@ const Admins = (props) => {
             <div className = {`m-2`}>
               <Link to='/orders' className="btn btnByPlantas">Listar y modificar Ordenes</Link>
             </div>
+            <div className='m-2'>
+              <Link to='/users' className='btn btnByPlantas'>Listar y modificar Usuarios</Link>
+            </div>
             <div className = {`m-2`}>
               <Link to='/productslist' className="btn btnByPlantas">Inventario de Productos y Categorias</Link>
             </div>
