@@ -90,6 +90,7 @@ server.get("/pagos", (req, res)=>{
     order.status = "complete"
     console.info('Salvando order')
     order.save()
+    Order.create({})
     .then((_) => {
       console.info('redirect success')
       
