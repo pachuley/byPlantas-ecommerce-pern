@@ -16,7 +16,9 @@ const AccountContainer = ({history, location}) => {
             <div>
                 <GoogleCredentialsLogin />
             </div>
-            <h4 className={`${styles.titles} mt-4 mb-4`}>Y si no tienes un usuario siempre te puedes registrar y crear una cuenta nueva!</h4>
+            <div>
+                <h4 className={`${styles.titles} mt-4 mb-4`}>Y si no tienes un usuario siempre te puedes registrar y crear una cuenta nueva!</h4>
+            </div>
             <div>
                 <div className = {`${styles.buttonContainer}`}>
                     <Link to="/register" className={`btn btnByPlantas`}>

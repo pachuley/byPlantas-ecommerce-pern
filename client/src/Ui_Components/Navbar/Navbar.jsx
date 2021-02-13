@@ -37,7 +37,7 @@ const NavBar = () => {
                             (
                                 <Logout />
                             ) : 
-                                <NavLink className={styles.link} activeClassName={styles.alink} exact to="/login" >LogIn</NavLink>
+                                <NavLink className={styles.link} activeClassName={styles.alink} exact to="/login" >Login</NavLink>
                             }
                         </li>
                     </ul>

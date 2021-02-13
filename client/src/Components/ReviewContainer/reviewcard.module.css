@@ -72,12 +72,11 @@
 }
 
 .titlereviews{
-    border-bottom: 1px solid #E5E8E8;
-    border-top: 1px solid #E5E8E8;
     padding: 0.5rem;
     color: #a17e30;
     font-weight: bold;
-}
+    margin-top: 0;
+    }
 
 .ratingicon {
     size: 1em;

@@ -1,18 +1,58 @@
-.boxes{
-    background-color: rgb(27, 141, 135);
-    border: 1 solid black;
-    padding: 10px;
-    height: 300px;
-    width: 300px;
-    border: 0 solid black;
-    margin: 10px;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 2%;
-    color: white;
+.productDetailContainer {
+    display: block;
+    margin: 5em;
 }
 
-.img{
-    height: 150px;
-    width: 150px;
+.productDetailCard {
+    display: flex; 
+    margin-top: 10em;
+    align-items: flex-start;
+}
+
+.imgButtonCard {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    padding-top: 0;
+    justify-content: center;
+}
+
+.imgCard {
+    max-height: 20em;
+    width: auto;
+    margin-bottom: 2em;
+}
+
+.detailsCard {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+    justify-content: center;
+    align-content: center;
+}
+
+.titleDetails {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+}
+
+.hrDetails {
+    width: 50%;
+    height: 2px;
+    color: #a17e30;
+}
+
+.reviewsDetails {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.spanDetails1 {
+    margin-bottom: 1em;
+}
+
+.spanDetails2 {
+    margin-right: 1em;
 }

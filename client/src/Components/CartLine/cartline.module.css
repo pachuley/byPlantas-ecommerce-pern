@@ -1,22 +1,30 @@
-.containerCartline {
-    width: 100%;
+.cartlineContainer {
     border: 2px solid #a17e30;
     background-color: #fff;
-    height: 6em;
-    display: block;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    align-content: space-between;
     padding: 0.5em;
-    margin-top: 1em;
+    padding-right: 1em;
+    margin: 0;
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 1em;
 }
 
 .imgContainer {
-    margin: 0;
-    width: 15%;
+    display: flex;
+    margin: 1em;
     float: left;
+    justify-content: center;
 }
 
-.imgCartline {
-    max-height: 5em;
-    margin: 0;
+.img {
+    border: none;
+    height: 7rem;
+    width: auto;
+
 }
 
 .detailsContainer {
@@ -24,34 +32,35 @@
     text-align: left;
 }
 
-.productName {
+.titleContainer {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.titleCart {
     font-weight: 500;
-    font-size: larger;
-    padding-top: 0.2em;
+    line-height: 1;
+    margin: 0;
 }
 
-.productDetails {
-    justify-content: space-between;
-    padding-left: 0;
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 1em;
+    margin-right: 5rem;
 }
 
-.productDetails span {
-    margin-right: 7em;
-}
-
-.btnCloseByPlantas {
+.btnCierre {
     background: rgb(163, 49, 49);
-    color:#f5f5ef;
-    margin-top: -1em;
-    align-content: center;
-    justify-content: center;
+    border-radius: 50%;
+    color: #f5f5ef;
+    border: none;
+    height: 2em;
+    width: 2em;
+    align-self: flex-end;
 }
 
-.btnContador {
-    background-color: #507b00;
-    color: #f5f5ef;
-    margin: 0.5em;
-    border: #f5f5ef;
-    border-radius: 2px;
-    width: 2em;
+.btnContador:focus {
+    outline: none;
 }

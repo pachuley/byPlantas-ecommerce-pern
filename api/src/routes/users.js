@@ -149,22 +149,19 @@ server.post("/login", async (req, res) => {
 });
 
 server.post("/login/:email", async (req, res) => {
-  console.log('esto entra', req.params.email)
   let googleEmail = req.params.email
   try {
 
     const user = await User.findOne({
       where: { email: googleEmail },
     });
-    console.log('consiguio el usuario')
     if (user) {
       const findOrder = await Order.findOrCreate({
         where: {
-          id: user.id,
+          userId: user.id,
           status: "active",
         },
       });
-      console.log('esta buscando la order')
       const token = jwt.sign({ user }, SECRET, { expiresIn: 3600 });
       res.status(200).json({
         id: user.id,
@@ -176,7 +173,6 @@ server.post("/login/:email", async (req, res) => {
         address: user.address,
         token
       });
-      console.log(token)
     } else {
       res.status(404).json("Usuario no encontrado");
     }
@@ -318,7 +314,6 @@ server.put("/:userId/cart/:productId", verifyToken, (req, res) => {
         [Op.and]: [{ orderId: order.id }, { productId: req.params.productId }],
       },
     }).then((orderline) => {
-      console.log(req.body);
       orderline.update({ quantity: req.body.contador });
       res.send("ok");
     });
@@ -332,7 +327,7 @@ server.put("/:userId/cart", verifyToken, (req, res) => {
       order = r.id;
     })
     .catch((error) => {
-      console.log;
+      console.log(error);
     });
   Orderline.update(
     { quantity: req.body.quantity },

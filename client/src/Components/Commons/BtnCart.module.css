@@ -1,12 +1,26 @@
+.btnContainer{
+    display: flex;
+    flex-direction: column;
+}
+
 .btnCart{
-    border-radius: 100%;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    border-radius: 50%;
+    background-color: rgb(163, 49, 49);
+    color: #f5f5ef;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    justify-content: center;
+}
+
+.btnCart:hover{
+    color: #f5f5ef;
+    font-size: 1.05em;
 }
 
 .divContainer{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left: 1rem;
+    margin: auto;
 }

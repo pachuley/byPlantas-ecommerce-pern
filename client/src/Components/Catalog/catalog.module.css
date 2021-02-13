@@ -9,3 +9,9 @@
     font-weight: 500;
     border-radius: 4px;
 }
+
+.catalog {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
