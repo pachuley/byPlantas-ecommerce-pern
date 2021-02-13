@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
-import styles from './shippingdetail.module.css'
 import Swal from 'sweetalert2'
 import { useSelector } from 'react-redux'
 import {useFormik} from 'formik'
