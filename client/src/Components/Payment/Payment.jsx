@@ -9,17 +9,19 @@ const {REACT_APP_BACKEND_URL} = process.env;
 
 const Payment = () =>{
 
-  const userLogin = useSelector(state => state.userLogin)
+  
+  
 
 const [datos, setDatos] = useState("")
 
 const cartItems = useSelector(state => state.cart.cartItems)
+const userLogin = useSelector(state => state.userLogin)
 
 console.log(cartItems)
 
   useEffect(()=>{
     
-    axios.post("http://localhost:3001/mercadopago", cartItems)
+    axios.post("http://localhost:3001/mercadopago", {cartItems, userLogin})
     .then((data)=>{
       console.log(data)
       setDatos(data.data)
