@@ -205,6 +205,23 @@ server.put("/:id", verifyToken, async (req, res) => {
   }
 });
 
+server.put('/:userId/changepassword', verifyToken, verifyRoleAdmin, async (req,res)=>{
+  const {password} = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const encryptedpassword = await bcrypt.hash(password, salt);
+
+  User.update(
+    {encryptedpassword: encryptedpassword},
+    { returning: true, where: { id: req.params.userId } 
+  })
+  .then(resp=>{
+    res.json('ok');
+  })
+  .catch(err=>{
+    res.status(400).json('error')
+  })  
+})
+
 // server.post('/:userId/cart/:prodId', (req,res)=>{
 //     var prod;
 //     Order.findOne({
