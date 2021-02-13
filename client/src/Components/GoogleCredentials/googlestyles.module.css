@@ -1,0 +1,9 @@
+.logout {
+    margin: 0;
+    color: #507b00;
+}
+
+.logout:focus{
+    outline: none;
+    border: none;
+}

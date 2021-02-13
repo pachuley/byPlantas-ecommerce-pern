@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-/* import style from './productDetail.module.css' */
+import styles from './productDetail.module.css'
 import axios from 'axios'
 import BtnCart from '../Commons/BtnCart';
 import ReviewContainer from '../ReviewContainer/ReviewContainer'
@@ -47,37 +47,36 @@ const ProductDetail = ({match, ...props}) =>{
 
     let {stock, name, price, imgs, description} = prod
     return(
-        <div className={`mt-5 px-5`}>
-           <div className="row py-5">
-               <div className="col-4">
-                <img src={`${imgs ? imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} alt="" className="img-fluid"/>
-               </div>
-               <div className="col-8">
-                    <h3 className='h3'>{name}</h3>
-                    <hr/>
-                    <p>{description}</p>
-                    <hr/>
-                    <p>ARS$ {price}</p>
-                    <hr/>
-                    <p> Stock: {stock}</p>
-                    <hr/>
-                    <p>Calificacion Promedio:</p>
-                    {revAverage > 0 ?
-                    <StarRatingComponent
-                        editing={false}
-                        renderStarIcon={() => <span><FaLeaf size={17}/></span>}
-                        starCount={5}
-                        value={revAverage}
-                    />
-                    : <p>No Hay Reseñas</p>}
-                    <hr/>
+        <div className={`${styles.productDetailContainer}`}>
+           <div className={`${styles.productDetailCard}`}>
+               <div className={`${styles.imgButtonCard} col-4`}>
+                    <img src={`${imgs ? imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}`} alt="" className={`${styles.imgCard} img-fluid`}/>
                     <BtnCart 
                         productId={parseInt(match.params.id)}
                         quantity={item !== undefined ? item.quantity : 0}
                     />
-                    
                </div>
-           </div>
+               <div className={`${styles.detailsCard} col-8`}>
+                    <h4 className={`${styles.titleDetails} col-8`}>{name}</h4>
+                    <hr className={`${styles.hrDetails}`}/>
+                    <span>{description}</span>
+                    <hr className={`${styles.hrDetails}`}/>
+                    <span className={`${styles.spanDetails1}`}>Precio: ARS$ {price}</span>
+                    <span>Stock: {stock}</span>
+                    <hr className={`${styles.hrDetails}`}/>
+                    <div className={`${styles.reviewsDetails}`}>
+                        <span className={`${styles.spanDetails2}`}>Calificación Promedio: </span>
+                            {revAverage > 0 ?
+                            <StarRatingComponent
+                                editing={false}
+                                renderStarIcon={() => <span><FaLeaf size={17}/></span>}
+                                starCount={5}
+                                value={revAverage}
+                            />
+                        : <span>No Hay Reseñas</span>}
+                    </div>
+                </div>
+            </div>
            <div className="row">
                {props.isFetching ? <Spinner /> :
                    <ReviewContainer 

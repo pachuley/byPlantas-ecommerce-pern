@@ -4,15 +4,10 @@ import { logout } from '../../Redux/actions/userActions';
 import { useHistory } from "react-router"
 import {Link} from 'react-router-dom'
 import styles from './logout.module.css';
+import GoogleCredentialsLogout from '../../Components/GoogleCredentials/GoogleCredentialsLogout'
 
 const Logout = () => {
   const userLogin = useSelector(state => state.userLogin);
-  const dispatch = useDispatch();
-  const history = useHistory()
-  const handleLogout = () => {
-    dispatch(logout())
-    history.push("/")
-  }
 
   return (
     <div className='dropdown'>
@@ -24,15 +19,15 @@ const Logout = () => {
         data-toggle='dropdown'
         aria-haspopup='true'
         aria-expanded='false'>
-        {userLogin.userLogin.firstname}
+        Hola {userLogin.userLogin.firstname}!
       </button>
       <div className='dropdown-menu' aria-labelledby='dropdownMenuButton'>
         <button className='dropdown-item'>
-          <Link to='/profile'>Profile</Link>
+          <Link to='/profile'>Mi Perfil</Link>
         </button>
-        <button className='dropdown-item' onClick={handleLogout}>
-          <Link>Logout</Link>
-        </button> 
+        <button className='dropdown-item'>
+          <GoogleCredentialsLogout />
+        </button>
       </div>
     </div>
   );

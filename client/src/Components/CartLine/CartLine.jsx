@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BtnCart from '../Commons/BtnCart';
 import { removeFromCart } from '../../Redux/actions/cartActions';
+import styles from './cartline.module.css'
 
 const CartLine = ({ product }) => {
   const imgDefault = 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png';
@@ -14,27 +15,26 @@ const CartLine = ({ product }) => {
     dispatch(removeFromCart(id));
   };
   return (
-    <div className='row my-2'>
-      <div className='col-2'>
-        <img src={imgs ? imgs : imgDefault} className='img-fluid' alt='' />
+    <div className={`${styles.cartlineContainer}`}>
+      <div className={`${styles.imgContainer} col-2`}>
+        <img src={imgs ? imgs : imgDefault} className={`${styles.img} img-fluid img-thumbnail`} alt='' />
       </div>
-      <div className='col-2'>
-        <p className='text-uppercase'>{productName}</p>
-        <p>{productDescription}</p>
-      </div>
-      <div className='col-2'>
-        <p>Precio: ARS {productPrice}</p>
-        <p>Cant: {quantity}</p>
+      <div className='col-3'>
+        <h5 className={`${styles.titleCart}`}>{productName}</h5>
       </div>
       <div className='col-3'>
         <BtnCart 
             productId={productId} 
-            quantity={quantity} 
+            quantity={quantity}
         />
       </div>
-      <div className='col-2'>
-        <button className='btn btn_sm' onClick={() => removeItem(productId)}>
-          X
+      <div className={`${styles.textContainer}`}>
+        <span>Precio: ARS {productPrice}</span>
+        <span>Cant: {quantity}</span>
+      </div>
+      <div>
+        <button className={`${styles.btnCierre} col-2`} onClick={() => removeItem(productId)}>
+          x
         </button>
       </div>
     </div>
