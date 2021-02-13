@@ -46,18 +46,18 @@ var logged =  userLogin.userLogin
     
 
     return (
-        <div>
+        <div className={`${style.btnContainer}`} >
             <div className={style.divContainer}>
                 <button 
                     type='button' 
                     id='btnCartLess' 
-                    className={`btn btn-danger btn-sm m-2 ${style.btnCart}`} 
+                    className={`btn btn-sm m-2 ${style.btnCart}`} 
                     onClick={resQty}>-</button>
                 <p className='m-2'>{qty}</p>
                 <button 
                     type='button' 
                     id='btnCartPlus' 
-                    className={`btn btn-danger btn-sm m-2 ${style.btnCart}`} 
+                    className={`btn btn-sm m-2 ${style.btnCart}`} 
                     onClick={addQty}>+</button>
             </div>
             <div>

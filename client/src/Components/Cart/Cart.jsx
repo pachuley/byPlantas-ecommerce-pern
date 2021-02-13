@@ -5,6 +5,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getItems} from '../../Redux/actions/cartActions'
 import {updateOrder} from '../../Redux/actions/orderActions'
+import styles from './cart.module.css'
 
 const Cart = () => {
 
@@ -33,14 +34,14 @@ const Cart = () => {
     }
     
     return (
-      <div className="container">
-        <div className="row">
+      <div className={`${styles.cartContainer}`}>
+        <div>
           <h2 className={`m-0 text-center p-5`}>Aquí están los productos que elegiste</h2>
         </div>
-        <div className="row">
-          <div className="col-8">
+        <div className={`${styles.cart}`}>
+          <div className={`${styles.cartlinesContainer} col-9`}>
           {
-            cartItems.lenght === 0 ? 
+            cartItems.length === 0 ? 
             <div className="alert alert-primary" role="alert">
               El carrito está vacío
             </div>
@@ -49,9 +50,9 @@ const Cart = () => {
             })
           }
           </div>
-          <div className="col-4">
-              <div>Precio Total ({cartItems.length}) items</div>
-              <p className="mt-1">Total: ${totalCart()}</p>
+          <div className="col-2">
+              <div className={`text-center`}>Precio ({cartItems.length}) items</div>
+              <p className="text-center mt-1">Total: ${totalCart()}</p>
               {
                 isAuth ? 
                 <BtnCheckout
