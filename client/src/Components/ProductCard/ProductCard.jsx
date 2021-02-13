@@ -27,25 +27,31 @@ const ProductCard = ({ name, description, price, imgs, stock, id }) => {
   }
 
   return (
-    <div className='card'>
-      <NavLink to={`/products/${id}`}>
-        <img
-          src={imgs ? imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}
-          className='img-thumbnail'
-        />
-      </NavLink>
-      <div className='card-body'>
-        <h5 className='card-title'>{name}</h5>
-        <p className='card-text'>Precio: ARS$ {price}</p>
-        <p className='card-text'>Stock: {stock}</p>
-        {revAverage > 0 ?
-        <StarRatingComponent
-                    editing={false}
-                    renderStarIcon={() => <span><FaLeaf size={17}/></span>}
-                    starCount={5}
-                    value={revAverage}
-                />
-        : <p className='card-text'>No Hay Reseñas</p>}
+    <div className={`${styles.productCard} card`}>
+      <div className={`${styles.imgContainer}`}>
+        <NavLink to={`/products/${id}`}>
+          <img
+            src={imgs ? imgs : 'https://cdn.iconscout.com/icon/premium/png-256-thumb/coming-soon-label-842108.png'}
+            className={`${styles.productImg} img-thumbnail`}
+          />
+        </NavLink>
+      </div>
+      <div className={`${styles.bodyContainer} card-body`}>
+        <h5 className={`${styles.titleBody} card-title`}>{name}</h5>
+        <hr/>
+        <span className={`${styles.priceBody} card-text`}>Precio: ARS$ {price}</span>
+        <span className={`${styles.stockBody} card-text`}>Stock: {stock}</span>
+        <div className={`${styles.starAverage}`}>
+          {revAverage > 0 ?
+          <StarRatingComponent
+                      editing={false}
+                      renderStarIcon={() => <span><FaLeaf size={17}/></span>}
+                      starCount={5}
+                      value={revAverage}
+                  />
+          : <p className='card-text'>No Hay Reseñas</p>}
+        </div>
+        
         <BtnCart 
           productId={id} 
           quantity={item !== undefined ? item.quantity : 0}

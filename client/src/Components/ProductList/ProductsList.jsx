@@ -59,7 +59,7 @@ const ProductsList = (props) => {
     return (
       isAuth ?
         <div className="container">
-            <h4 className={`m-0 text-center py-3`}>Inventario de Productos</h4>
+          <h2 className={`m-0 text-center p-5`}>Inventario de Productos</h2> 
             <div className="d-flex justify-content-center pb-3">
               <Link to='/addProduct' className={`text-center btn btnByPlantas ${styles.btnEdit}`}>Agregar Producto</Link>
               <Link to='/addCategory' className={`text-center btn btnByPlantas ${styles.btnEdit}`}>Agregar Categoría</Link>

@@ -41,7 +41,6 @@
     margin-left: 2em;
 }
 
-
 .link{
     margin-left: 2rem;
     color: #f5f5ef;
@@ -52,11 +51,20 @@
     margin-left: 2rem;
     color:  #507b00;
 }
+
+.link:after {
+    color: #f5f5ef
+}
+
 .alink{
     color: #507b00;
 }
 .alink:hover{
     color: #507b00
+}
+
+.alink:after {
+    color: #f5f5ef
 }
 
 .alinkLogo{
@@ -68,6 +76,10 @@
     color: #507b00
 }
 
+.alinkLogo:after{
+    color: #f5f5ef
+}
+
 .linkLogo{
     margin-left: 3px;
     color: #f5f5ef;
@@ -76,4 +88,8 @@
 }
 .linkLogo:hover{
     color:  #507b00;
+}
+
+.linkLogo:after{
+    color: #f5f5ef
 }

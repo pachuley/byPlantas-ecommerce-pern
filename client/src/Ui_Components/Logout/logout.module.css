@@ -6,8 +6,12 @@
     border: none;
     background-color: #a17e30;
     cursor: pointer;
-    
 }
+
+.link:focus{
+    outline: none;
+}
+
 .link:hover{
     margin-left: 2rem;
     color:  #507b00;
@@ -15,6 +19,7 @@
 
 .link:active {
     border: none;
+    color:  #507b00
 }
 
 .alink{

@@ -7,6 +7,7 @@ import {getItems, removeAllItems} from '../../Redux/actions/cartActions'
 import {updateOrder} from '../../Redux/actions/orderActions'
 import Swal from 'sweetalert2'
 import { useHistory } from "react-router"
+import styles from './cart.module.css'
 
 const Cart = () => {
 
@@ -74,7 +75,7 @@ const Cart = () => {
       <div className="container">
         <div className="row py-2">
           <div className="col-6">
-            {/* <h5 className={`m-0 py-1`}>Aquí están los productos que elegiste</h5> */}
+            <h5 className={`m-0 py-1`}>Aquí están los productos que elegiste</h5>
           </div>
           <div className="col-6">
             <button 
@@ -86,10 +87,10 @@ const Cart = () => {
               </button>
           </div>
         </div>
-        <div className="row">
-          <div className="col-8">
+        <div className={`${styles.cart}`}>
+          <div className={`${styles.cartlinesContainer} col-9`}>
           {
-            cartItems.lenght === 0 ? 
+            cartItems.length === 0 ? 
             <div className="alert alert-primary" role="alert">
               El carrito está vacío
             </div>
@@ -98,9 +99,9 @@ const Cart = () => {
             })
           }
           </div>
-          <div className="col-4">
-              <div>Precio Total ({cartItems.length}) items</div>
-              <p className="mt-1">Total: ${totalCart()}</p>
+          <div className="col-2">
+              <div className={`text-center`}>Precio ({cartItems.length}) items</div>
+              <p className="text-center mt-1">Total: ${totalCart()}</p>
               {
                 isAuth ? 
                 <BtnCheckout
@@ -109,8 +110,8 @@ const Cart = () => {
                   handleCheckout={handleCheckout}
                 />
                 :
-                <Link to='/login' className="btn btn-secondary btn-sm">
-                  Ir a login
+                <Link to='/login' className="btn btnByPlantas btn-sm">
+                  Ingresa a tu cuenta!
                 </Link>
               }
           </div>
