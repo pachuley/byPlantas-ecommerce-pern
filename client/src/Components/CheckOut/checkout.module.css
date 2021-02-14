@@ -14,3 +14,33 @@
     padding: 0;
     width: 85%;
 }
+.shippingdetail{
+    display: flex;
+    align-content: flex-start;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    
+
+}
+
+.btnContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.btnCart{
+    border-radius: 50%;
+    background-color: rgb(163, 49, 49);
+    color: #f5f5ef;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    justify-content: center;
+}
+
+.btnCart:hover{
+    color: #f5f5ef;
+    font-size: 1.05em;
+}

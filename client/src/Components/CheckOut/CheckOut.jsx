@@ -7,6 +7,7 @@ import CartCheckOut from "../CartCheckOut/CartCheckOut";
 import { useSelector } from "react-redux";
 import Payment from "../Payment/Payment";
 import ShippingDetail from "../ShippingDetail/ShippingDetail";
+import {useFormik} from 'formik'
 
 const { REACT_APP_BACKEND_URL } = process.env;
 const CheckOut = () => {
@@ -134,11 +135,11 @@ errors.clarification = 'Ingresar un detalle';
          }
         </div>
       </div>
-      <div className="text-center mt-2 container">
+      <div className={`${styles.shippingdetail}`}>
         <div>
         {/* disabled={Object.keys(errors).length > 0} */}
-          <form onSubmit={handleSubmit} >
-            <button type='submit' disabled={Object.keys(errors).length > 0}>Aceptar para pagar</button>
+          <form onSubmit={handleSubmit} className="mx-auto w-50 py-3" >
+            <button className={`btn btnByPlantas`} type='submit' disabled={Object.keys(errors).length > 0}>Aceptar para pagar</button>
             <div>
               <label>Nombre:</label>
               <input
@@ -148,8 +149,8 @@ errors.clarification = 'Ingresar un detalle';
                 onChange={handleInputChange}
                 value={input.name}
               />
-              {errors.name && <p className="danger">{errors.name}</p>}
-
+              {errors.name && <p className="my-2 error">{errors.name}</p>}
+          <br></br>
               <label>Apellido:</label>
               <input
                 className={`${errors.lastname && "danger"}`}
@@ -158,8 +159,8 @@ errors.clarification = 'Ingresar un detalle';
                 onChange={handleInputChange}
                 value={input.lastname}
               />
-              {errors.lastname && <p className="danger">{errors.lastname}</p>}
-
+              {errors.lastname && <p className="my-2 error">{errors.lastname}</p>}
+              <br></br>
               <label>Identificador:</label>
               <input
                 className={`${errors.identifier && "danger"}`}
@@ -168,9 +169,9 @@ errors.clarification = 'Ingresar un detalle';
                 onChange={handleInputChange}
                 value={input.identifier}
               />
-              {errors.identifier && <p className="danger">{errors.identifier}</p>}
+              {errors.identifier && <p className="my-2 error">{errors.identifier}</p>}
 
-
+              <br></br>
               <label>Dirección:</label>
               <input
                 className={`${errors.address && "danger"}`}
@@ -179,9 +180,9 @@ errors.clarification = 'Ingresar un detalle';
                 onChange={handleInputChange}
                 value={input.address}
               />
-              {errors.address && <p className="danger">{errors.address}</p>}
+              {errors.address && <p className="my-2 error">{errors.address}</p>}
 
-
+              <br></br>
               <label>Codigo Postal:</label>
               <input
                 className={`${errors.postalcode && "danger"}`}
@@ -190,9 +191,9 @@ errors.clarification = 'Ingresar un detalle';
                 onChange={handleInputChange}
                 value={input.postalcode}
               />
-              {errors.postalcode && <p className="danger">{errors.postalcode}</p>}
+              {errors.postalcode && <p className="my-2 error">{errors.postalcode}</p>}
 
-
+              <br></br>
               <label>Aclaración:</label>
               <input
                 className={`${errors.clarification && "danger"}`}
@@ -201,7 +202,7 @@ errors.clarification = 'Ingresar un detalle';
                 onChange={handleInputChange}
                 value={input.clarification}
               />
-              {errors.clarification && <p className="danger">{errors.clarification}</p>}
+              {errors.clarification && <p className="my-2 error">{errors.clarification}</p>}
               
             
             </div>
