@@ -83,6 +83,12 @@ const Cart = () => {
         }
       })
     }
+    const joinCartHandle = () => {
+      dispatch(joinCarts())
+      Swal.fire(
+        'Se agregaron a su orden!',
+        )
+    }
 
     return (
       <div className="container">
@@ -119,7 +125,7 @@ const Cart = () => {
                   <div>
                   <button 
                     className="btn btn-success btn_sm mx-1"
-                    onClick={()=>{dispatch(joinCarts())}}
+                    onClick={joinCartHandle}
                   ><FaPlusSquare/></button>
                   <button 
                     className="btn btn-success btn_sm"
