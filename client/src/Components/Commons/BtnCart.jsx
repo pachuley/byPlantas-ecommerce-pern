@@ -3,7 +3,7 @@ import style from './BtnCart.module.css'
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import { useSelector,useDispatch} from 'react-redux'
-import {addToCart} from '../../Redux/actions/cartActions'
+import {addToCart,addToCartGuest} from '../../Redux/actions/cartActions'
 
 export default function BtnCart ({productId, quantity}){
 
@@ -35,11 +35,19 @@ var logged =  userLogin.userLogin
                     icon: 'error'
                 })
             }else{
-                dispatch(addToCart(productId,qty))
-                Swal.fire({
-                    title: 'Se agrego el producto',
-                    icon: 'success'
-                })
+                if(logged !== null){
+                    dispatch(addToCart(productId,qty))
+                    Swal.fire({
+                        title: 'Se agrego el producto',
+                        icon: 'success'
+                    })
+                }else{
+                    dispatch(addToCartGuest(productId,qty))
+                    Swal.fire({
+                        title: 'Se agrego el producto (invitado)',
+                        icon: 'success'
+                    })
+                }
             }
         }
     }

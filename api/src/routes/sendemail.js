@@ -21,9 +21,9 @@ server.post('/send', (req,res)=>{
         html: `<h3>Hola ${name}, como estas?</h3>
         <p>${message}</p>`,
     }).then(resp => {
-        res.json({resp})
+        res.json({resp,message: `Email enviado a ${email}`})
     }).catch(err=>{
-        console.log(err)
+        res.status(400).json(err)
     })
 })
 
