@@ -180,7 +180,7 @@ server.post("/login/:email", async (req, res) => {
     console.log(e);
     res.status(500).json("Something broke!");
   }
-});
+}); 
 
 server.put("/:id", verifyToken, async (req, res) => {
   try {
@@ -204,7 +204,6 @@ server.put("/:id", verifyToken, async (req, res) => {
     }
   }
 });
-
 server.put('/:userId/changepassword', verifyToken, verifyRoleAdmin, async (req,res)=>{
   const {password} = req.body;
   const salt = await bcrypt.genSalt(10);
@@ -221,31 +220,11 @@ server.put('/:userId/changepassword', verifyToken, verifyRoleAdmin, async (req,r
     res.status(400).json('error')
   })  
 })
-
-// server.post('/:userId/cart/:prodId', (req,res)=>{
-//     var prod;
-//     Order.findOne({
-//         where:{ [Op.and]: [
-//             { userId: req.params.userId },
-//             { status: 'active' }
-//           ]}
-//     })
-//     .then(order=>{
-//         Product.findByPk(parseInt(req.params.prodId))
-//         .then(resp=>{
-//             prod = resp
-//             order.addProduct(prod)
-//             res.json('todo bien')
-//         })
-
-//     })
-// })
-
 server.post("/:userId/cart", verifyToken, async (req, res) => {
   try {
     let product = await Product.findOne({ where: { id: parseInt(req.body.productId) } });
     let order = await Order.findOne({
-      where: { userId: parseInt(req.params.userId), status: "active" },
+      where: { userId: parseInt(req.params.userId) },
     });
 
     await order.addProduct(product);
@@ -292,32 +271,61 @@ server.post("/:userId/cart", verifyToken, async (req, res) => {
 });
 
 //vaciar carrito
-server.delete("/:userId/cart", verifyToken, (req, res) => {
-  Order.findOne({ where: { userId: req.params.userId, status: "active" } })
-    .then((orders) => {
+server.delete("/:userId/cart", async(req, res) => {
+
+  let order = await Order.findOne({ where: { userId: req.params.userId, status: "active" } })
+  if(order){
+    console.log(Object.keys(order.__proto__))
+    order.removeProducts()
+      .then(resp => {
+        return res.status(200).json({
+          ok:true,
+          message: `Se eliminaron productos de la orden: ${order.id}`,
+          data: resp
+        })
+      })
+      .catch(err => {
+        res.status(400).json({
+          ok: false,
+          message: err
+        })
+      })
+  }
+  /* res.json('error') */
+  /* Order.findOne({ where: { userId: req.params.userId, status: "active" } })
+    .then((order) => {
       Orderline.destroy({
         where: { orderId: orderId },
       }).then(res.status(200).json({ message: "El carrito fue vaciado" }));
     })
     .catch(function (err) {
+      
       res
         .status(400)
         .json({ message: "No se pudo vaciar el carrito.", error: err });
-    });
+    }); */
 });
 
 server.delete("/:userId/cart/:productId", verifyToken, (req, res) => {
   var prod;
   Order.findOne({
-    where: { userId: req.params.userId, status: "active" },
+    where: { userId: req.params.userId},
   }).then((order) => {
     Product.findByPk(req.params.productId).then((prod) => {
-      order.removeProduct(prod);
-      res.status(200).json({
-        ok:true,
-        id: req.params.productId,
-        message: `Se elimino producto id: ${req.params.productId}`
-      });
+      order.removeProducts(prod).then(resp => {
+        res.status(200).json({
+          ok:true,
+          id: req.params.productId,
+          data: resp,
+          message: `Se elimino producto id: ${req.params.productId}`
+        });
+      })
+      .catch(err => {
+        res.status(402).json({
+          ok:false,
+          err
+        })
+      })
     });
   });
 });
@@ -380,7 +388,7 @@ server.get("/:userId/orderlines", async(req, res) => {
   
   try{
     let order = await Order.findOne({
-      where: { userId: parseInt(req.params.userId), status: "active" },
+      where: { userId: parseInt(req.params.userId)},
     });
     let orderlines = await order.getProducts()
      
@@ -405,5 +413,27 @@ server.get("/:userId/orderlines", async(req, res) => {
     })
   }
 });
+
+server.get('/removes', async(req,res)=>{
+  try {
+    const users = await Order.findAll({
+      paranoid: false
+    });
+    res.status(200).json(users)
+    
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
+server.delete("/:id", (req, res) => {
+    User.destroy({
+      where: { id: req.params.id }
+    }).then(user => {
+        res.json(user)
+    }).catch(err => {
+      res.status(400).json(err)
+    })
+})
 
 module.exports = server;

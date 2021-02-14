@@ -1,7 +1,6 @@
 const server = require("express").Router();
 const { Product, Category, Review, User } = require("../db.js");
 const Sequelize = require("sequelize");
-const { response } = require("../app.js");
 const Op = Sequelize.Op;
 const {verifyToken, verifyRoleAdmin} = require('../middlewares/authHandler')
 
