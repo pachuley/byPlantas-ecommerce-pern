@@ -10,13 +10,6 @@
     text-align: center;    
 }
 
-.backgroundProfile{
-    background-image: url(https://static.vecteezy.com/system/resources/previews/000/245/854/original/banana-leaf-background-vector.jpg);
-    background-size: cover;
-    margin: 0;
-    width: 100%;
-}
-
 .filosofia {
     padding: 2.5em 7em;
     justify-content: space-around;
@@ -67,4 +60,22 @@
     right: 0;
     transition: 0.5s;
   } 
-  
+
+  @media (max-width: 992px) {
+    .carousel {
+        display: none;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .filosofiaContainer {
+        display: none;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .contactformContainer {
+        display: flex;
+        width: 100%;
+    }
+  }
