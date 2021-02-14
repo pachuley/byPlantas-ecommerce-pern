@@ -9,11 +9,11 @@ const Home = () => {
         <Fragment>
             <div className={`${styles.home}`}>
     
-                <section>
+                <section className={`${styles.carousel}`}>
                     <ControlledCarousel/>
                 </section>
 
-                <section>
+                <section className={`${styles.filosofiaContainer}`}>
                     <div className={`d-flex flex-column mt-5 ${styles.filosofia}`}>
                         <h2 className={`${styles.titles}`}>Filosofia</h2>
                         <p className={`${styles.filosofiaP}`}>Vender productos producidos de manera sustentable bajo la ideología de cuidar el medioambiente sin dejar de lado la calidad que el público espera de las mejores marcas!</p>
@@ -24,7 +24,7 @@ const Home = () => {
                     <Profiles />
                 </section>
                 
-                <section>
+                <section className={`${styles.contactformContainer}`}>
                     <ContactForm />
                 </section>
 

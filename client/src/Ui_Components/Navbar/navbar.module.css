@@ -31,6 +31,7 @@
 .byPlantasNavbar {
     background-color: #a17e30;
     height: 5em;
+    align-items: center;
 }
 
 .ulMargin {
@@ -92,4 +93,12 @@
 
 .linkLogo:after{
     color: #f5f5ef
+}
+
+.collapseDiv {
+    background-color: #a17e30;
+}
+
+.collapseButton {
+    margin-right: 5rem;
 }

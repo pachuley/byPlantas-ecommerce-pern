@@ -8,7 +8,7 @@ export default function Profiles() {
             <div className="row">
             <h2 className={`${styles.titles} mt-5`}>Nuestro Equipo</h2>
                 <div className="row pt-md d-flex justify-content-around">
-                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
+                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-6`}>
                         <div className="mb-3">   
                             <a href="https://www.linkedin.com/in/franciscosabategarrido/">
                                 <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128645/ecom1_h6fycs.jpg" />
@@ -18,7 +18,7 @@ export default function Profiles() {
                         <hr />
                         <h6>Full Stack Web Developer</h6>
                     </div>
-                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
+                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-6`}>
                         <div className="mb-3">   
                             <a href="#">
                                 <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128737/ecom3_xhqdym.jpg" />
@@ -28,7 +28,7 @@ export default function Profiles() {
                         <hr />
                         <h6>Full Stack Web Developer</h6>
                     </div>
-                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
+                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-6`}>
                         <div className="mb-3">    
                             <a href="https://www.linkedin.com/in/laguero/">
                                 <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128824/ecom2_ymzm8y.jpg" />
@@ -38,7 +38,7 @@ export default function Profiles() {
                         <hr />
                         <h6>Full Stack Web Developer</h6>
                     </div>
-                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
+                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-6`}>
                         <div className="mb-3">   
                             <a href="https://www.linkedin.com/in/lucasafernandezmorales/">
                                 <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128882/ecom4_ytw1j2.jpg" />
@@ -48,7 +48,7 @@ export default function Profiles() {
                         <hr />
                         <h6>Full Stack Web Developer</h6>
                     </div>
-                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-12`}>
+                    <div className= {`${styles.profile} col-lg-2 col-md-2 col-sm-4 col-xs-6`}>
                         <div className="mb-3">   
                             <a href="https://www.linkedin.com/in/marcosvillabasa/">
                                 <img className={`${styles.profileimg} img-responsive img-thumbnail`} alt="Responsive Team Profiles" src="https://res.cloudinary.com/pachuley/image/upload/v1613128936/ecom4_1_taunal.jpg" />
