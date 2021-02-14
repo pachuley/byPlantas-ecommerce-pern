@@ -98,8 +98,10 @@ server.get("/pagos", (req, res)=>{
       userId: userId,
     })
     .then((_) => {
-      console.info('redirect success')
       
+      // res.json({ok: true, message : 'se completo la order'})
+      console.info('redirect success')
+      //return res.redirect("http://localhost:3000")
       return res.redirect("http://localhost:3000")
     })
     .catch((err) =>{

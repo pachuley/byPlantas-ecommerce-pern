@@ -120,7 +120,7 @@ server.post("/login", async (req, res) => {
         const findOrder = await Order.findOrCreate({
           where: {
             userId: user.id,
-            status: "active",
+            status: "active" || "complete"
           },
         });
         const token = jwt.sign({ user }, SECRET, { expiresIn: 3600 });
