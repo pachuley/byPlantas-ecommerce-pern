@@ -1,4 +1,6 @@
 body {
+  display: flex;
+  flex-direction: column;
   background: #f5f5ef;
   color: #507b00;
   font-family: "Montserrat", sans-serif;

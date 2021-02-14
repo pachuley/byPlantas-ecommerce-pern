@@ -9,35 +9,37 @@ const NavBar = () => {
     const cartItems = useSelector(state => state.cart.cartItems)
     return (
         <header id="header" className={`fixed-top ${styles.header, styles.headerText}`}>
-            <nav className={`navbar navbar-expand-lg ${styles.byPlantasNavbar}`} >
+            <nav className={`navbar navbar-expand-lg navbar-light ${styles.byPlantasNavbar}`}>
                 <h1 className={`navbar-brand ${styles.h1Margin, styles.headerLogo}`}><Link className={styles.linkLogo} to="/">byPlantas</Link></h1>
-                <button className={`navbar-toggler`} type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className={`navbar-toggler-icon`}></span>
-                </button>
-                <div className={`collapse navbar-collapse d-flex justify-content-end mr-4`}>
+                <div className={`${styles.collapseDiv}`}>
+                    <div className={`${styles.collapseButton}`}>   
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                <div className={`collapse navbar-collapse justify-content-end ${styles.collapseDiv}`} id="navbarNav">
                     <ul className={`navbar-nav ${styles.ulMargin}`}>
-                        <li className={`${styles.liMargin}`}>
-                        
-                            <NavLink className={styles.link} activeClassName={styles.alink} exact to="/products" >Catálogo</NavLink>
-                            
+                        <li className={`nav-item ${styles.liMargin}`}>
+                            <NavLink className={`${styles.link}`} activeClassName={`${styles.alink}`} exact to="/products" >Catálogo</NavLink>
                         </li>
-                            {userLogin.userLogin === null || userLogin.userLogin.role !== "ADMIN_ROLE" ?
-                                <li className={`${styles.liMargin}`}>
-                                    <NavLink className={styles.link} activeClassName={styles.alink} exact to="/cart" >Carrito</NavLink>
-                                    <span class="badge badge-info">{cartItems.length === 0 ? '' : cartItems.length}</span>
-                                </li>
-                            : ""}
-                        { userLogin.userLogin && userLogin.userLogin.role === "ADMIN_ROLE" ?
-                            <li className={`${styles.liMargin}`}>
-                                <NavLink className={styles.link} activeClassName={styles.alink} exact to="/admins" >Admin</NavLink>
+                        {userLogin.userLogin === null || userLogin.userLogin.role !== "ADMIN_ROLE" ?
+                            <li className={`nav-item ${styles.liMargin}`}>
+                                <NavLink className={`${styles.link}`} activeClassName={`${styles.alink}`} exact to="/cart" >Carrito</NavLink>
+                                <span class="badge badge-info">{cartItems.length === 0 ? '' : cartItems.length}</span>
                             </li>
                             : ""}
-                        <li className={`${styles.liMargin}`}>
+                        {userLogin.userLogin && userLogin.userLogin.role === "ADMIN_ROLE" ?
+                            <li className={`nav-item ${styles.liMargin}`}>
+                                    <NavLink className={`${styles.link}`} activeClassName={`${styles.alink}`} exact to="/admins" >Admin</NavLink>
+                            </li>
+                            : ""}
+                        <li className={`nav-item ${styles.liMargin}`}>
                             {userLogin.userLogin ? 
                             (
                                 <Logout />
                             ) : 
-                                <NavLink className={styles.link} activeClassName={styles.alink} exact to="/login" >Login</NavLink>
+                                <NavLink className={`${styles.link}`} activeClassName={`${styles.alink}`} exact to="/login" >Login</NavLink>
                             }
                         </li>
                     </ul>
