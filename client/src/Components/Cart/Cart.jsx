@@ -126,6 +126,7 @@ const Cart = () => {
                   <button 
                     className="btn btn-success btn_sm mx-1"
                     onClick={joinCartHandle}
+                    disabled={isAuth === null ? true : false}
                   ><FaPlusSquare/></button>
                   <button 
                     className="btn btn-success btn_sm"
