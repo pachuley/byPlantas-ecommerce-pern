@@ -50,18 +50,20 @@ useEffect(()=>{
 
   
   //Agrega el script como nodo hijo del elemento form
-  if(btnDisabled === false){
+  
+  
+  
   let form1 = document.getElementById('form1')
   
-  if(form1 === true){
-  document.getElementById('form1').appendChild(script)}
+  
+  document.getElementById('form1').appendChild(script)
   return () =>{
     //Elimina el script como nodo hijo del elemento form
-    if (form1 === true){
+    
     document.getElementById('form1').removeChild(script);
-    flag = false;
-  }
-  }
+    
+  
+  
 }}},[datos])
 
 //DIRECTO DE LA API DE MERCADOLIBRE

@@ -85,6 +85,7 @@ errors.clarification = 'Ingresar un detalle';
   });
 
   const handleInputChange = (e) => {
+    console.log(input)
     setInput({
       ...input,
       [e.target.name]: e.target.value
@@ -96,9 +97,13 @@ errors.clarification = 'Ingresar un detalle';
   }
   const [btnDisabled, setbtnDisabled] = useState(true)
 
+  console.log(errors)
+
   const handleSubmit = (e) => {
-    console.log(errors)
-    errors.errors === '' ? setbtnDisabled(false) : setbtnDisabled(true)
+    e.preventDefault()
+    let erroresestrueono = Object.keys(errors).length === 0
+    Object.keys(errors).length === 0 ? setbtnDisabled(false) : setbtnDisabled(true)
+    
   }
 
 
@@ -124,12 +129,16 @@ errors.clarification = 'Ingresar un detalle';
           )}
         </div>
         <div className="text-center container col-3">
+          { btnDisabled ? '' :
           <Payment btnDisabled={btnDisabled}/>
+         }
         </div>
       </div>
       <div className="text-center mt-2 container">
         <div>
-          <form>
+        {/* disabled={Object.keys(errors).length > 0} */}
+          <form onSubmit={handleSubmit} >
+            <button type='submit' disabled={Object.keys(errors).length > 0}>Aceptar para pagar</button>
             <div>
               <label>Nombre:</label>
               <input
@@ -193,8 +202,8 @@ errors.clarification = 'Ingresar un detalle';
                 value={input.clarification}
               />
               {errors.clarification && <p className="danger">{errors.clarification}</p>}
-              <input type="submit" onSubmit={()=>handleSubmit}></input>
-
+              
+            
             </div>
           </form>
         </div>
