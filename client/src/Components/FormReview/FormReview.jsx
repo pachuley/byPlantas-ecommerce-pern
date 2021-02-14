@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {useFormik} from 'formik'
 import {connect} from 'react-redux'
 import axios from 'axios'
@@ -19,14 +19,17 @@ const validate = values => {
       errors.comment = 'Comentario requerido';
     }
   
-    if (!values.stars) {
-      errors.stars = 'Calificación requerida';
-    }
+    // if (!values.stars) {
+    //   errors.stars = 'Calificación requerida';
+    // }
 
     return errors;
   };
 
 const FormReview = ({idProd, ...props}) => {
+  const [leafs, setLeafs] = useState(1)
+  const [hover, setHover] = useState(null)
+
   let userLocalstorage = JSON.parse(localStorage.getItem('userInfo'))
   let config = {
     headers: {
@@ -37,14 +40,12 @@ const FormReview = ({idProd, ...props}) => {
     const formik = useFormik({
         initialValues: {
           title: '',
-          comment: '',
-          stars: '5',
-          // hojitas: '5'
+          comment: ''
         },
         validate,
         onSubmit: (values)=>{
           let body = {
-            ...values,
+            ...values, stars: leafs
           }
           console.log(body)
           axios.post(`${REACT_APP_BACKEND_URL}/products/${idProd}/review`, body, config)
@@ -74,7 +75,7 @@ const FormReview = ({idProd, ...props}) => {
                     />
                     {formik.errors.title ? <p className="my-2 error">{formik.errors.title}</p> : null}
                     <label>Calificación</label>
-                    <select
+                    {/*<select
                         name="stars"
                         className="form-control mb-2"
                         onChange={formik.handleChange}
@@ -87,19 +88,30 @@ const FormReview = ({idProd, ...props}) => {
                         <option value='2'>2</option>
                         <option value='1'>1</option>
                     </select>
-                    {formik.errors.stars ? <p className="my-2 error">{formik.errors.stars}</p> : null}
-
-                    {/* <label>Hojitas</label>
+                    {formik.errors.stars ? <p className="my-2 error">{formik.errors.stars}</p> : null} */}
                     <br/>
-                    <StarRatingComponent 
-                      name='hojitas'
-                      editing={true}
-                      renderStarIcon={() => <span><FaLeaf size={30}/></span>}
-                      starCount={5}
-                      value={formik.values.hojitas}
-                      onStarClick={(value,i,name)=>console.log(value,i,name)}
-                    />
-                    <hr/> */}
+                    <div>
+                      {[...Array(5)].map((star, i)=>{
+                        const ratingValue = i + 1;
+                        return(
+                          <label key={i}>
+                            <input 
+                              type='radio' 
+                              name='rating' 
+                              className='d-none'
+                              value={ratingValue}
+                              onClick={()=>setLeafs(ratingValue)}
+                            />
+                            <FaLeaf 
+                              color={ratingValue <= (hover || leafs) ? '#ffc107' : '#4f4f4f'} 
+                              size={30}
+                              onMouseEnter={()=>setHover(ratingValue)}
+                              onMouseLeave={()=>setHover(null)}
+                            />
+                          </label>
+                        )
+                      })}                     
+                    </div>
 
                     <label>Comentario</label>
                     <textarea 
