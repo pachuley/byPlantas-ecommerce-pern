@@ -3,6 +3,7 @@ import axios from "axios";
 import {Redirect} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {fetchUsers} from '../../Redux/actions/fetchUsersActions'
+import EditPassword from "./EditPassword/EditPassword";
 const { REACT_APP_BACKEND_URL } = process.env;
 
 export default function UsersTable() {
@@ -47,18 +48,18 @@ export default function UsersTable() {
                             <th scope='col'>Email</th>
                             <th scope='col'>Rol</th>
                             <th scope='col'>Status</th>
-                            <th scope='col'>Editar</th>
+                            <th scope='col'>Cambiar Contraseña</th>
                             <th scope='col'>Bannear</th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.users.map((user,index)=>(
-                            <tr>
+                            <tr key={index}>
                                 <td>{user.id}</td>
                                 <td>{user.email}</td>
                                 <td>{user.role}</td>
                                 <td>{user.status ? 'Active' : 'InActive'}</td>
-                                <td><button className='btn btn-light'>Edit</button></td>
+                                <td><EditPassword userId={user.id}/></td>
                                 {user.role === 'ADMIN_ROLE' ? <td></td> :
                                     user.status ?
                                     <td><button className='btn btn-danger' onClick={()=>{handleBan(user.id, user.status)}}>Ban</button></td>
