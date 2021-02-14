@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 
 const {REACT_APP_BACKEND_URL} = process.env;
 
-const Payment = () =>{
+const Payment = (btnDisabled) =>{
 
   
   
@@ -17,21 +17,20 @@ const [datos, setDatos] = useState("")
 const cartItems = useSelector(state => state.cart.cartItems)
 const userLogin = useSelector(state => state.userLogin)
 
-console.log(cartItems)
+
 
   useEffect(()=>{
     
     axios.post("http://localhost:3001/mercadopago", {cartItems, userLogin})
     .then((data)=>{
-      console.log(data)
       setDatos(data.data)
       console.info('Contenido de data:', data)
     })
     .catch(err => console.error(err)) 
   },[])
 
-console.log(datos)
 
+  console.log(btnDisabled)
 //DIRECTO DE LA API DE MERCADOLIBRE - RENDERIZA EL BOTON DE PAGAR
 useEffect(()=>{
   let flag;
@@ -51,13 +50,19 @@ useEffect(()=>{
 
   
   //Agrega el script como nodo hijo del elemento form
-  document.getElementById('form1').appendChild(script)
+  if(btnDisabled === false){
+  let form1 = document.getElementById('form1')
+  
+  if(form1 === true){
+  document.getElementById('form1').appendChild(script)}
   return () =>{
     //Elimina el script como nodo hijo del elemento form
+    if (form1 === true){
     document.getElementById('form1').removeChild(script);
     flag = false;
   }
-}},[datos])
+  }
+}}},[datos])
 
 //DIRECTO DE LA API DE MERCADOLIBRE
 //
@@ -73,8 +78,10 @@ return (
     <p className={`${styles.pagoTotal}`}>Total: ARS ${totalPayment}</p>
       <div>
         <span className={`${styles.mercadoPago}`}>MercadoPago</span>
+        
         <form id='form1' className={`${styles.boton}`}>
         </form>
+
       </div>
     </div>
   )
