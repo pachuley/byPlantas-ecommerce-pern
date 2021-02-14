@@ -75,13 +75,16 @@ cartItems.forEach(e=>totalPayment = e.total + totalPayment )
 
 
 return (
-  <div>
+  <div className={`${styles.payment}`}>
     <h4>Opciones de Pago</h4>
+    <br></br>
     <p className={`${styles.pagoTotal}`}>Total: ARS ${totalPayment}</p>
       <div>
+      <br></br>
         <span className={`${styles.mercadoPago}`}>MercadoPago</span>
         
         <form id='form1' className={`${styles.boton}`}>
+        <br></br>
         </form>
 
       </div>
