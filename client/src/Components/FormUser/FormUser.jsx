@@ -20,7 +20,7 @@ const validate = values => {
     }
 
     if(!values.password2){
-        errors.password2 = 'Contrasela requerida';
+        errors.password2 = 'Contraseña requerida';
     }else if (values.password2 !== values.password) {
         errors.password = 'No coinciden las contraseñas';
     }

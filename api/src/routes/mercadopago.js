@@ -16,10 +16,12 @@ mercadopago.configure({
 server.post("/", (req, res) => {
     
 let orderId = 0;
-  req.body.forEach(e=> orderId = e.orderId)
+  req.body.cartItems.forEach(e=> orderId = e.orderId)
+  let userId = req.body.userLogin.userLogin.id
+  let orderUserSeparator = '.'
 
 
-    const items_ml = req.body.map(i => ({
+    const items_ml = req.body.cartItems.map(i => ({
       title: i.productName,
       unit_price: i.productPrice,
       quantity: i.quantity,
@@ -28,7 +30,7 @@ let orderId = 0;
   // Crea un objeto de preferencia
   let preference = {
     items: items_ml ,
-    external_reference : `${orderId}`,
+    external_reference : `${orderId}`+`${orderUserSeparator}`+`${userId}`,
     payment_methods: {
       excluded_payment_types: [
         {
@@ -77,12 +79,14 @@ server.get("/pagos", (req, res)=>{
   console.info("EN LA RUTA PAGOS ", req)
   const payment_id= req.query.payment_id
   const payment_status= req.query.status
-  const external_reference = req.query.external_reference
+  const external_reference = req.query.external_reference.split('.')
+  const orderId = external_reference[0];
+  const userId = external_reference[1]
   const merchant_order_id= req.query.merchant_order_id
   console.log("EXTERNAL REFERENCE ", external_reference)
 
   //Aquí edito el status de mi orden
-  Order.findByPk(external_reference)
+  Order.findByPk(orderId)
   .then((order) => {
     order.payment_id= payment_id
     order.payment_status= payment_status
@@ -90,6 +94,9 @@ server.get("/pagos", (req, res)=>{
     order.status = "complete"
     console.info('Salvando order')
     order.save()
+    Order.create({
+      userId: userId,
+    })
     .then((_) => {
       console.info('redirect success')
       
