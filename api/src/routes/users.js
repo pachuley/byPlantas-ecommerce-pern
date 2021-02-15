@@ -5,6 +5,7 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
+const { passwordReset } = require("./passwordReset/passwordReset")
 const { verifyToken, verifyRoleAdmin } = require("../middlewares/authHandler");
 
 // Routes
@@ -120,7 +121,7 @@ server.post("/login", async (req, res) => {
         const findOrder = await Order.findOrCreate({
           where: {
             userId: user.id,
-            status: "active" || "complete"
+            [Op.or]: [{ status: 'active' }, { status: 'processing' }],
           },
         });
         const token = jwt.sign({ user }, SECRET, { expiresIn: 3600 });
@@ -345,8 +346,33 @@ server.put("/:userId/cart/:productId", verifyToken, (req, res) => {
   });
 });
 
-server.put("/:userId/cart", verifyToken, (req, res) => {
-  let order;
+server.put("/:userId/cart", async (req, res) => {
+  let order = await Order.findOne({where: {
+    [Op.and] : [
+      {userId : parseInt(req.params.userId)},
+      {status: 'active'}
+    ]
+  }})
+  if(!order){
+    return res.status(400).json({message: 'Error al encontrar orden a editar'})
+  }
+  Orderline.update({
+    quantity: req.body.quantity
+  },
+  {
+    where: {
+      [Op.and]: [{ orderId: order.id }, { productId: parseInt(req.body.productId) }],
+    }
+  }
+  ).then(resp => {
+    res.status(200).json(resp)
+  })
+  .catch(err => {
+    res.status(400).json(err)
+  })
+
+
+  /* et order;
   Order.findOne({ where: { userId: req.params.userId, status: "active" } })
     .then((r) => {
       order = r.id;
@@ -363,14 +389,14 @@ server.put("/:userId/cart", verifyToken, (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-    });
+    }); */
 });
 
-server.get("/:userId/cart", verifyToken, (req, res) => {
+server.get("/:userId/cart", (req, res) => {
   Order.findAll({
     attributes: ["id", "userId", "status"],
     where: {
-      [Op.and]: [{ userId: req.params.userId }, { status: "active" }],
+      [Op.and]: [{ userId: req.params.userId }],
     },
     include: [
       {
@@ -412,6 +438,58 @@ server.get("/:userId/orderlines", async(req, res) => {
       ok: false,
     })
   }
+});
+server.put("/reset/resetpassword",async(req, res) => {
+  const { newPassword, token,email } = req.body;
+  const saltHash = await bcrypt.genSalt(10);
+  const encryptedpassword = await bcrypt.hash(newPassword, saltHash);
+  jwt.verify(token, SECRET, (error, user) => {
+  if (error) res.status(400).json(error);
+  else {
+    User.findOne({
+      where: { email: email },
+    })
+      .then((user) => {
+        if (newPassword) {
+          if (newPassword.includes(" ")) {
+            res.json({
+              error: {
+                message: "La contraseña no puede tener espacios en blanco",
+              },
+            });
+          }
+          user.update({
+            encryptedpassword:encryptedpassword
+          }).then(()=>{
+            res.json({
+              status:'success',
+            })
+          }).catch((e)=>{
+            res.json({
+              status:'error',
+              message:e.message
+            })
+          })
+        }
+      })
+  }
+});
+});
+
+server.post("/reset/password",(req, res) => {
+  User.findOne({
+    where: { email: req.body.email },
+  }).then((user) => {
+    console.log(user.dataValues);
+    passwordReset(user);
+    res.json({
+      status:"success",
+    });
+  }).catch((error)=>{
+    res.status(400).json({
+      error:error.message
+    })
+  })
 });
 
 server.get('/removes', async(req,res)=>{

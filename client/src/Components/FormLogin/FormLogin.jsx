@@ -1,6 +1,7 @@
 import React, { useEffect} from 'react';
 import styles from './formlogin.module.css';
 import { useFormik } from 'formik';
+import {Link} from "react-router-dom";
 import { connect } from 'react-redux';
 import { login } from '../../Redux/actions/userActions';
 import Spinner from '../Spinner/Spinner'
@@ -102,6 +103,11 @@ const FormLogin = ({ location, ...props }) => {
           disabled={Object.keys(formik.errors).length > 0}>
           Ingresa
         </button>
+        <div className="container text-center">
+        <Link className={`link`}
+                        to={`/login/reset`}>Olvidaste tu contraseña?</Link>
+        </div>
+        
       </form>
     </div>
   );

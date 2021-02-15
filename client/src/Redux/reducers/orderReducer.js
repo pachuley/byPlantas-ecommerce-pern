@@ -1,5 +1,8 @@
+import {GET_ORDERS_USER} from '../types'
+
 const initialState = {
   orders: [],
+  orderUser: []
 };
 
 const orders = (state = initialState, action) => {
@@ -29,6 +32,11 @@ const orders = (state = initialState, action) => {
         ...state,
         orders: action.payload,
       };
+    case GET_ORDERS_USER:
+      return {
+        ...state,
+        orderUser: action.payload
+      }
     default:
       return state;
   }
