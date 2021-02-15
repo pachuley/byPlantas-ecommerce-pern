@@ -23,9 +23,13 @@ const Cart = () => {
 
   const totalCart = () => {
       let totalCart = 0
+      isAuth ?
       cartItems.forEach(element => {
         totalCart +=  element.total
-      });
+      }) :
+      cartItemsGuest.forEach(element => {
+        totalCart += parseFloat(element.price) * element.quantity
+      })
       return totalCart
   }
     useEffect(()=>{
