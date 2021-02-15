@@ -1,4 +1,4 @@
-import { USER_LOGIN_FAIL, USER_LOGIN_LOGOUT, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from '../types';
+import { USER_LOGIN_FAIL, USER_LOGIN_LOGOUT, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS,USER_RESET_PASSWORD } from '../types';
 
 const userInfoStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 
@@ -30,6 +30,11 @@ const userLoginReducer = (state = initialState, action) => {
         error: action.payload.error
       };
     case USER_LOGIN_LOGOUT:
+      return {
+        ...state,
+        userLogin: null
+      };
+    case USER_RESET_PASSWORD:
       return {
         ...state,
         userLogin: null

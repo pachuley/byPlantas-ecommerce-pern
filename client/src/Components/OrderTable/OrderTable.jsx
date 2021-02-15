@@ -80,7 +80,7 @@ function OrderTable({ allOrders, getAllOrders, filterOrders }) {
                     <button className={`btn btn-dark`}>
                       <Link
                         className={` text-light`}
-                        to={`admin/orders/${order.id}`}
+                        to={`/admins/orders/${order.id}`}
                       >
                         detalle
                       </Link>
