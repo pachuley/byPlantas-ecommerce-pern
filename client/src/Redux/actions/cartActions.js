@@ -172,10 +172,9 @@ export const removeAllItemsGuest = () => async (dispatch,getState) => {
   localStorage.setItem('cartItemsGuest', JSON.stringify(arr));
 }
 
-export const joinCarts = () => (dispatch,getState) => {
+export const joinCarts = () => async (dispatch,getState) => {
   let cartItemsAux = getState().cart.cartItems
   let cartItemsGuestAux = getState().cart.cartItemsGuest
-  let orderIdAux = cartItemsAux[0].orderId
   let arrAux = [...cartItemsAux]
   let discount = 0
   const isAuth = getState().userLogin.userLogin;
@@ -185,6 +184,40 @@ export const joinCarts = () => (dispatch,getState) => {
       token: isAuth ? isAuth.token : null,
     },
   };
+  const resp = await axios.get(`${REACT_APP_BACKEND_URL}/users/${isAuth.id}/cart`)
+  let orderIdAux = resp.data[0].id
+
+  if(cartItemsAux.length === 0 && cartItemsGuestAux.length > 0){
+    cartItemsGuestAux.forEach(async e => {
+      e.orderId = orderIdAux
+      const { data } = await axios.post(
+        `${REACT_APP_BACKEND_URL}/users/${isAuth.id}/cart`,
+        { productId: e.productId, quantity: e.quantity, discount },
+        config
+      );
+      dispatch({
+        type: CART_ADD_ITEM,
+        payload: {
+          orderId: data.orderId,
+          productId: data.productId,
+          name: data.productName,
+          description: data.productDescription,
+          price: data.productPrice,
+          /* stock: data.stockProduct, */
+          imgs: data.imgs,
+          quantity: data.quantity,
+          total: data.total,
+        },
+      });
+      dispatch({
+        type: CART_REMOVE_ITEM_GUEST,
+        payload: e.productId
+      })
+      localStorage.setItem('cartItemsGuest', JSON.stringify(getState().cart.cartItemsGuest));
+      localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+    })
+  }
+
   cartItemsAux.forEach(item => {
     cartItemsGuestAux.forEach(async itemGuest => {
       if(item.productId !== itemGuest.productId){
