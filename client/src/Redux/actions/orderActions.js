@@ -4,6 +4,7 @@ import {
   CREATE_ORDER,
   DELETE_ORDER,
   UPDATE_ORDER,
+  GET_ORDERS_USER
 } from "../types";
 const { REACT_APP_BACKEND_URL } = process.env;
 let userLocalstorage = JSON.parse(localStorage.getItem("userInfo"));
@@ -20,6 +21,19 @@ export const getAllOrders = () => (dispatch,getState) => {
     dispatch({ type: GET_ALL_ORDERS, payload: res.data });
   });
 };
+
+export const getOrderUser = () => (dispatch, getState) => {
+  const isAuth = getState().userLogin.userLogin;
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      token: isAuth ? isAuth.token : null,
+    },
+  };
+  axios.get(`${REACT_APP_BACKEND_URL}/users/${isAuth.id}/cart`, config).then((res) => {
+    dispatch({ type: GET_ORDERS_USER, payload: res.data });
+  });
+}
 
 export const createOrder = (id) => (dispatch, getState) => {
   const isAuth = getState().userLogin.userLogin;
