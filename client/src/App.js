@@ -10,6 +10,7 @@ import Footer from "./Ui_Components/Footer/Footer";
 import Home from "./Components/Home/Home";
 import ProductList from "./Components/ProductList/ProductsList";
 import AccountContainer from "./Components/AccountContainer/AccountContainer";
+import Reset from "./Components/ResetPassword/ResetPassword";
 import Admins from './Components/Admins/Admins';
 import OrderTable from "./Components/OrderTable/OrderTable";
 import Order from "./Components/Order/Order";
@@ -36,9 +37,11 @@ function App() {
           <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/checkout/:id" exact render={({match}) => <CheckOut match={match}/>} />
           {/* <Route path="/checkout/" exact render={() => <CheckOut />} /> */}
-          <Route path="/orders" exact render={() => <OrderTable />} />
+          <Route path="/login/reset" exact render={()=><Reset/>}/>
+          <Route path="/login/reset/:token" exact render={()=><Reset/>}/>
+          <Route path="/admins/orders" exact render={() => <OrderTable />} />
           <Route path="/users" exact render={() => <UsersTable />} />
-          <Route path="/admin/orders/:id" render={({ match }) => <Order match={match} />}/>
+          <Route path="/admins/orders/:id" render={({ match }) => <Order match={match} />}/>
           <Route path="/register" exact render={() => <FormUser />} />
           <Route path="/profile" exact render={() => <Profile />} />
         </Switch>
