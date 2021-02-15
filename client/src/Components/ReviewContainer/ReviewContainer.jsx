@@ -17,12 +17,14 @@ const ReviewContainer = ({ reviews, match }) => {
         {open && <FormReview idProd={match.params.id}/>}
         {
           userLocalstorage &&
-          <button 
-            className="btn btnByPlantas my-1 btn-sm"
-            onClick={handleClick}
-            >
-              Agregar Review
-            </button>
+          <div className="w-25 mx-auto">
+            <button 
+              className="btn btnByPlantas my-1 btn-sm"
+              onClick={handleClick}
+              >
+                Agregar Review
+              </button>
+          </div>
         }
       </div>
       <div className={`${styles.containercards}`}>
