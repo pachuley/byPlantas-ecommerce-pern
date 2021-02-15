@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BtnCart from '../Commons/BtnCart';
+import BtnUpdateCart from  '../Commons/BtnUpdateCart/BtnUpdateCart'
 import { removeFromCart, removeFromCartGuest } from '../../Redux/actions/cartActions';
 import {FaTrashAlt,FaPlusSquare} from 'react-icons/fa'
 import styles from './cartline.module.css'
@@ -14,6 +15,9 @@ const CartLine = ({ product }) => {
   const cart = useSelector(state => state.cart)
   const isAuth =  userLogin.userLogin
   const dispatch = useDispatch();
+
+  let totalCartline = cart.cartItems.length > 0 ? cart.cartItems.find(it => it.productId === productId) : null
+  let totalCartlineGuest = cart.cartItemsGuest.length > 0 ? cart.cartItemsGuest.find(it => it.productId === productId) : null
 
   const removeItem = id => {
     let itemCart = cart.cartItems.find(element => element.productId === id)
@@ -33,14 +37,22 @@ const CartLine = ({ product }) => {
       <div className='col-3'>
         <h5 className={`${styles.titleCart}`}>{productName || product.name}</h5>
       </div>
-      <div className='col-3'>
-        <BtnCart 
+      <div className='col-2'>
+        {
+          product.orderId ? 
+            <BtnUpdateCart 
             productId={productId} 
             quantity={quantity}
-        />
+            />
+          :
+          <BtnCart 
+            productId={productId} 
+            quantity={quantity}
+          />
+        }
       </div>
       <div className={`${styles.textContainer}`}>
-        <span>Precio: ARS {productPrice || product.price}</span>
+        <span>Precio: ARS {isAuth ? totalCartline?.total : totalCartlineGuest?.total}</span>
         <span>Cant: {quantity}</span>
       </div>
       <div>

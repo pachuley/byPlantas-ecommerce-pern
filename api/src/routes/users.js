@@ -431,7 +431,7 @@ server.get("/:userId/orderlines", async(req, res) => {
         productId: element.orderline.productId,
         productPrice: parseFloat(element.orderline.price),
         quantity: element.orderline.quantity,
-        total: parseFloat(element.orderline.total),
+        total: parseFloat(element.orderline.quantity) * parseFloat(element.orderline.price),
         productName: element.name,
         imgs: element.imgs,
         productDescription: element.description,

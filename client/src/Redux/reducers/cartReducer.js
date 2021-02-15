@@ -1,15 +1,23 @@
-import { CART_ADD_ITEM,CART_ITEMS_GET, CART_REMOVE_ITEM, FETCH_ITEMS_REQUEST, FETCH_ITEM_ERROR,FETCH_ITEMS_GUEST_REQUEST,
+import {
+  CART_ADD_ITEM,
+  CART_ITEMS_GET,
+  CART_REMOVE_ITEM,
+  FETCH_ITEMS_REQUEST,
+  FETCH_ITEM_ERROR,
+  FETCH_ITEMS_GUEST_REQUEST,
   CART_ADD_ITEM_GUEST,
   CART_REMOVE_ITEM_GUEST,
   CART_ITEMS_GET_GUEST,
   CART_REMOVE_ITEMS_GUEST,
-  FETCH_ITEM_ERROR_GUEST,
-  JOIN_CARTS
+  JOIN_CARTS,
+  UPDATE_ITEM_CART,
 } from '../types';
 
 const cartItemsStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
 
-const cartItemsStorageGuest = localStorage.getItem('cartItemsGuest') ? JSON.parse(localStorage.getItem('cartItemsGuest')) : [];
+const cartItemsStorageGuest = localStorage.getItem('cartItemsGuest')
+  ? JSON.parse(localStorage.getItem('cartItemsGuest'))
+  : [];
 
 const initialState = {
   cartItems: cartItemsStorage,
@@ -30,7 +38,7 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         isFetching: false,
         cartItems: action.payload,
-    }
+      };
 
     case CART_ADD_ITEM:
       const item = action.payload;
@@ -53,13 +61,13 @@ export const cartReducer = (state = initialState, action) => {
         };
       }
 
-    case CART_REMOVE_ITEM: 
+    case CART_REMOVE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter(x=> x.productId !== parseInt(action.payload)),
+        cartItems: state.cartItems.filter(x => x.productId !== parseInt(action.payload)),
         isFetching: false,
-      }
-      /* case CART_REMOVE_ITEMS_GUEST:
+      };
+    /* case CART_REMOVE_ITEMS_GUEST:
         return  */
 
     case FETCH_ITEM_ERROR:
@@ -69,54 +77,59 @@ export const cartReducer = (state = initialState, action) => {
         error: action.error,
       };
 
-      case FETCH_ITEMS_GUEST_REQUEST:
-        return {
-          ...state,
-          isFetching: true,
-        };
-      case CART_ITEMS_GET_GUEST:
-        return {
-          ...state,
-          isFetching: false,
-          cartItemsGuest: action.payload,
-      }
-      case CART_ADD_ITEM_GUEST:
-  
-          const itemGuest = action.payload;
-          const existItemGuest = state.cartItemsGuest.find(i => i.productId === itemGuest.productId);
-  
-          if(existItemGuest){
-            let auxArrayGuest = state.cartItemsGuest.filter(it => {
-              return it.productId !== itemGuest.productId;
-            });
-            return {
-              ...state,
-              cartItemsGuest: [...auxArrayGuest, action.payload],
-              isFetching: false,
-            };
-          }else{
-            return {
-              ...state,
-              cartItemsGuest: [...state.cartItemsGuest, action.payload]
-            }
-          }
-  
-      case CART_REMOVE_ITEM_GUEST:
-        return{
-          ...state,
-          cartItemsGuest: state.cartItemsGuest.filter(item => item.productId !== action.payload)
-        }
-      
-      case CART_REMOVE_ITEMS_GUEST:
-        return {
-          ...state,
-          cartItemsGuest: action.payload
-        }
+    case FETCH_ITEMS_GUEST_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case CART_ITEMS_GET_GUEST:
+      return {
+        ...state,
+        isFetching: false,
+        cartItemsGuest: action.payload,
+      };
+    case CART_ADD_ITEM_GUEST:
+      const itemGuest = action.payload;
+      const existItemGuest = state.cartItemsGuest.find(i => i.productId === itemGuest.productId);
 
-        case JOIN_CARTS:
-          return{
-            ...state
-          }
+      if (existItemGuest) {
+        let auxArrayGuest = state.cartItemsGuest.filter(it => {
+          return it.productId !== itemGuest.productId;
+        });
+        return {
+          ...state,
+          cartItemsGuest: [...auxArrayGuest, action.payload],
+          isFetching: false,
+        };
+      } else {
+        return {
+          ...state,
+          cartItemsGuest: [...state.cartItemsGuest, action.payload],
+        };
+      }
+
+    case CART_REMOVE_ITEM_GUEST:
+      return {
+        ...state,
+        cartItemsGuest: state.cartItemsGuest.filter(item => item.productId !== action.payload),
+      };
+
+    case CART_REMOVE_ITEMS_GUEST:
+      return {
+        ...state,
+        cartItemsGuest: action.payload,
+      };
+
+    case JOIN_CARTS:
+      return {
+        ...state,
+      };
+    case UPDATE_ITEM_CART:
+      return {
+        ...state,
+          cartItems: [...state.cartItems],
+          isFetching: false,
+      };
 
     default:
       return state;

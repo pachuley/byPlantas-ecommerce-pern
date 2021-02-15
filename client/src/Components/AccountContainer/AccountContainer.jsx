@@ -13,13 +13,13 @@ const AccountContainer = ({history, location}) => {
                 <FormLogin history={history} location={location}/>
             </div>
             <h4 className={`${styles.titles} mb-4`}>O ingresa con tu usuario Google</h4>
-            <div>
+            <div className="mx-auto w-25">
                 <GoogleCredentialsLogin />
             </div>
             <div>
                 <h4 className={`${styles.titles} mt-4 mb-4`}>Y si no tienes un usuario siempre te puedes registrar y crear una cuenta nueva!</h4>
             </div>
-            <div>
+            <div className="mx-auto w-25">
                 <div className = {`${styles.buttonContainer}`}>
                     <Link to="/register" className={`btn btnByPlantas`}>
                         Nuevo Usuario
