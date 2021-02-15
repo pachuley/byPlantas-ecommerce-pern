@@ -32,7 +32,7 @@ const Cart = () => {
       if(isAuth){
         dispatch(getItems())
         dispatch(getOrderUser())
-        dispatch(updateOrder(orderid,'active'))  
+        // dispatch(updateOrder(orderid,'active'))  
       }
     },[])
     const orderid = cartItems[0]?.orderId
