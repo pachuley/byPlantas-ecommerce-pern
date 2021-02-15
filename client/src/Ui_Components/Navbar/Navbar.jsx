@@ -26,7 +26,7 @@ const NavBar = () => {
                         </li>
                         {userLogin.userLogin === null || userLogin.userLogin.role !== "ADMIN_ROLE" ?
                             <li className={`nav-item ${styles.liMargin}`}>
-                                <NavLink className={`${styles.link}`} activeClassName={`${styles.alink}`} exact to="/cart" ><FaShoppingCart size={20}/></NavLink>
+                                <NavLink className={`${styles.link}`} activeClassName={`${styles.alink}`} exact to="/cart" ><FaShoppingCart size={25}/></NavLink>
                                 <span class="badge badge-info">{cartItems.length === 0 ? '' : cartItems.length}</span>
                             </li>
                             : ""}
