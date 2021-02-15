@@ -5,6 +5,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {getItems, removeAllItems,removeAllItemsGuest,joinCarts} from '../../Redux/actions/cartActions'
 import {updateOrder} from '../../Redux/actions/orderActions'
+import {getOrderUser} from '../../Redux/actions/orderActions'
 import Swal from 'sweetalert2'
 import { useHistory } from "react-router"
 import styles from './cart.module.css'
@@ -30,7 +31,8 @@ const Cart = () => {
     useEffect(()=>{
       if(isAuth){
         dispatch(getItems())
-        dispatch(updateOrder(orderid,'active'))
+        dispatch(getOrderUser())
+        dispatch(updateOrder(orderid,'active'))  
       }
     },[])
     const orderid = cartItems[0]?.orderId
@@ -144,23 +146,23 @@ const Cart = () => {
           }
           </div>
           <div className="col-2">
-              <div className={`text-center`}>Precio ({cartItems.length}) items</div>
-              <p className="text-center mt-1">Total: ${totalCart()}</p>
-              {
-                isAuth ? 
-                <BtnCheckout
-                  disabled={orderid === undefined ? true : false}
-                  orderId={orderid !== undefined ? cartItems[0].orderId : ''}
-                  handleCheckout={handleCheckout}
-                />
-                :
-                <Link to='/login' className="btn btnByPlantas btn-sm">
-                  Ingresa a tu cuenta!
-                </Link>
-              }
+                <div className={`text-center`}>Precio ({cartItems.length}) items</div>
+                <p className="text-center mt-1">Total: ${totalCart()}</p>
+                {
+                  isAuth ? 
+                  <BtnCheckout
+                    disabled={orderid === undefined ? true : false}
+                    orderId={orderid !== undefined ? cartItems[0].orderId : ''}
+                    handleCheckout={handleCheckout}
+                  />
+                  :
+                  <Link to='/login' className="btn btnByPlantas btn-sm">
+                    Ingresa a tu cuenta!
+                  </Link>
+                }
+            </div>
           </div>
         </div>
-      </div>
         
     )
 }
