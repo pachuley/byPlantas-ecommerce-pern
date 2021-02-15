@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-/* import styles from './formCategory.module.css'; */
 import Swal from 'sweetalert2'
 import axios from 'axios';
 import {useFormik} from 'formik'
@@ -44,7 +43,7 @@ const ContactForm = () => {
 
     return(
         <div className={`${styles.contacts} mt-7`}>
-            <form className={`w-80 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
+            <form className={`w-100 py-3 needs-validation mx-auto`} onSubmit={formik.handleSubmit}>
                 <h2 className={`${styles.titles}`}>Contáctanos!</h2>
                 <label htmlFor='inputEmail' className='form-label'>Email</label>
                 <input 
@@ -52,7 +51,7 @@ const ContactForm = () => {
                     name='email' 
                     className='form-control' 
                     type='email' 
-                    placeholder='Dinos tu correo electrónico' 
+                    placeholder='Dinos tu email' 
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
