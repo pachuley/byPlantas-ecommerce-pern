@@ -23,24 +23,22 @@ export default function Order({ match }) {
 
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
-  const [status, setStatus] = useState(order.status);
+  const [status, setStatus] = useState();
   const userLogin = useSelector((state) => state.userLogin);
 
   var logged = userLogin.userLogin;
-  console.log(logged);
-  useEffect(() => {
-    getOrder();
-  }, [status]);
   const getOrder = () => {
-    console.log("order");
     axios
       .get(`${REACT_APP_BACKEND_URL}/orders/${match.params.id}/orders`, config)
       .then((res) => {
-        setOrder(res.data[0]);
-        setFecha(res.data[0].createdAt.split("T", 1));
-        setHora(res.data[0].createdAt.substr(11).split(".", 1));
+        setOrder(res.data);
+        setFecha(res.data.createdAt.split("T", 1));
+        setHora(res.data.createdAt.substr(11).split(".", 1));
       });
   };
+  useEffect(() => {
+    getOrder();
+  }, []);
   useEffect(() => {
     if (!logged) {
       if (!localStorage.getItem("Cart")) {
@@ -62,7 +60,6 @@ export default function Order({ match }) {
     axios
       .get(`${REACT_APP_BACKEND_URL}/users/${match.params.id}/cart`, config)
       .then((resp) => {
-        console.log(resp);
         setProducts(resp.data[0].products);
         var subtotal = 0;
         resp.data[0].products.forEach((x) => {
@@ -78,7 +75,6 @@ export default function Order({ match }) {
       });
   };
   const handleStatus = (e) => {
-    console.log(e.target.value);
     setStatus(e.target.value);
   };
 
@@ -87,8 +83,7 @@ export default function Order({ match }) {
     axios
       .put(`${REACT_APP_BACKEND_URL}/orders/${order.id}`, body, config)
       .then((res) => {
-        console.log(res);
-        window.location = `/admin/orders/${order.id}`;
+        window.location = `/admins/orders/${order.id}`;
       });
   };
   let isAuth =
@@ -97,7 +92,7 @@ export default function Order({ match }) {
     <Fragment>
       <div className="container mt-5">
         <button className={`btn btn-dark mt-4`}>
-          <Link className={`text-light`} to={`/orders`}>
+          <Link className={`text-light`} to={`/admins/orders`}>
             Atras
           </Link>
         </button>
