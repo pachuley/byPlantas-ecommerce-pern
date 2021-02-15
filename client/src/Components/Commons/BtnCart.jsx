@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import style from './BtnCart.module.css'
 import Swal from 'sweetalert2'
-import axios from 'axios'
 import { useSelector,useDispatch} from 'react-redux'
 import {addToCart,addToCartGuest} from '../../Redux/actions/cartActions'
+import {FaPlus} from 'react-icons/fa'
 
 export default function BtnCart ({productId, quantity}){
 
@@ -68,8 +68,8 @@ var logged =  userLogin.userLogin
                     className={`btn btn-sm m-2 ${style.btnCart}`} 
                     onClick={addQty}>+</button>
             </div>
-            <div>
-                <button type='button' onClick={handle} className='btn btnByPlantas mt-2 mb-3'>Agregar Producto</button>
+            <div className=''>
+                <button type='button' onClick={handle} className='d-flex justify-content-center align-items-center btn btnByPlantas mt-2 mb-3'><FaPlus/> <span>Producto</span></button>
             </div>
         </div>
     )

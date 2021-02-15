@@ -4,7 +4,8 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM, FETCH_ITEMS_REQUEST, FETCH_ITEM_ERROR,
   CART_REMOVE_ITEM_GUEST,       
   CART_REMOVE_ITEMS_GUEST,
   FETCH_ITEM_ERROR_GUEST,
-  JOIN_CARTS} from '../types';
+  JOIN_CARTS,
+  UPDATE_ITEM_CART} from '../types';
 const { REACT_APP_BACKEND_URL } = process.env;
 
 //TODO: ver stock en action
@@ -264,3 +265,35 @@ export const joinCarts = () => async (dispatch,getState) => {
   })
 }
 
+
+export const updateItem = (idProduct, quantity) => (dispatch, getState) => {
+  const isAuth = getState().userLogin.userLogin;
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+      token: isAuth ? isAuth.token : null,
+    },
+  };
+
+    axios.put(`${REACT_APP_BACKEND_URL}/users/${isAuth.id}/cart`,{productId:idProduct, quantity: quantity})
+    .then(res => {
+      dispatch({
+        type: UPDATE_ITEM_CART,
+        payload: res.data
+      })
+      axios.get(`${REACT_APP_BACKEND_URL}/users/${isAuth.id}/orderlines`,config)
+      .then(resp => {
+        dispatch({
+          type: CART_ITEMS_GET,
+          payload: resp.data,
+        });
+        localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+      })
+    })
+    .catch(error => {
+      dispatch({
+        type: FETCH_ITEM_ERROR,
+        error: error.toString(),
+      });
+    })
+}
