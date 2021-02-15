@@ -5,6 +5,7 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
+const { passwordReset } = require("./passwordReset/passwordReset")
 const { verifyToken, verifyRoleAdmin } = require("../middlewares/authHandler");
 
 // Routes
@@ -387,6 +388,58 @@ server.get("/:userId/orderlines", async(req, res) => {
       ok: false,
     })
   }
+});
+server.put("/reset/resetpassword",async(req, res) => {
+  const { newPassword, token,email } = req.body;
+  const saltHash = await bcrypt.genSalt(10);
+  const encryptedpassword = await bcrypt.hash(newPassword, saltHash);
+  jwt.verify(token, SECRET, (error, user) => {
+  if (error) res.status(400).json(error);
+  else {
+    User.findOne({
+      where: { email: email },
+    })
+      .then((user) => {
+        if (newPassword) {
+          if (newPassword.includes(" ")) {
+            res.json({
+              error: {
+                message: "La contraseña no puede tener espacios en blanco",
+              },
+            });
+          }
+          user.update({
+            encryptedpassword:encryptedpassword
+          }).then(()=>{
+            res.json({
+              status:'success',
+            })
+          }).catch((e)=>{
+            res.json({
+              status:'error',
+              message:e.message
+            })
+          })
+        }
+      })
+  }
+});
+});
+
+server.post("/reset/password",(req, res) => {
+  User.findOne({
+    where: { email: req.body.email },
+  }).then((user) => {
+    console.log(user.dataValues);
+    passwordReset(user);
+    res.json({
+      status:"success",
+    });
+  }).catch((error)=>{
+    res.status(400).json({
+      error:error.message
+    })
+  })
 });
 
 module.exports = server;
