@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { USER_LOGIN_FAIL, USER_LOGIN_LOGOUT, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from '../types';
+import { USER_LOGIN_FAIL, USER_LOGIN_LOGOUT, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_RESET_PASSWORD } from '../types';
 const { REACT_APP_BACKEND_URL } = process.env;
 
 export const login = (email, password) => async dispatch => {
@@ -38,4 +38,22 @@ export const logout = () => dispatch => {
   localStorage.removeItem('userInfo');
   localStorage.removeItem('cartItems');
   window.location = '/'
+}
+export const resetPassword= (password, token,email)=>(dispatch)=>{
+  let config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  dispatch({
+    type:USER_RESET_PASSWORD
+  })
+  axios
+    .put(`${process.env.REACT_APP_BACKEND_URL}/users/reset/resetpassword`, { newPassword: password, token:token,email:email })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((e) => {
+      return e;
+    });
 }
