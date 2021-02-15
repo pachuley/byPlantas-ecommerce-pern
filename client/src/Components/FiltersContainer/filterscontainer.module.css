@@ -1,6 +1,32 @@
+.searchBarContainer{
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.searchBar {
+    margin-right: 1rem;
+}
+
+.buttonContainer{
+    margin-right: 1rem;
+}
+
 .btnLimpiar {
     background-color: rgb(163, 49, 49);
     color: #f5f5ef;
     border: #f5f5ef;
     border-radius: 2px;
 }
+
+@media (max-width: 540px) {
+    .precioContainer {
+        display: none;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .categoriesFilterContainer {
+        display: none;
+    }
+  }
