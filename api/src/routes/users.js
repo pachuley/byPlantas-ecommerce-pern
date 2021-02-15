@@ -395,7 +395,7 @@ server.get("/:userId/cart", (req, res) => {
   Order.findAll({
     attributes: ["id", "userId", "status"],
     where: {
-      [Op.and]: [{ userId: req.params.userId }, { status: "active" }],
+      [Op.and]: [{ userId: req.params.userId }],
     },
     include: [
       {
