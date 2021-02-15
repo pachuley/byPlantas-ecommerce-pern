@@ -175,17 +175,17 @@ export const removeAllItemsGuest = () => async (dispatch,getState) => {
 export const joinCarts = () => async (dispatch,getState) => {
   let cartItemsAux = getState().cart.cartItems
   let cartItemsGuestAux = getState().cart.cartItemsGuest
+  let orderIdAux = getState().orders.orderUser[0].id
   let arrAux = [...cartItemsAux]
   let discount = 0
   const isAuth = getState().userLogin.userLogin;
+
   let config = {
     headers: {
       'Content-Type': 'application/json',
       token: isAuth ? isAuth.token : null,
     },
   };
-  const resp = await axios.get(`${REACT_APP_BACKEND_URL}/users/${isAuth.id}/cart`)
-  let orderIdAux = resp.data[0].id
 
   if(cartItemsAux.length === 0 && cartItemsGuestAux.length > 0){
     cartItemsGuestAux.forEach(async e => {
