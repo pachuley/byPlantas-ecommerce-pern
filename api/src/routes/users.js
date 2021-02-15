@@ -120,7 +120,7 @@ server.post("/login", async (req, res) => {
         const findOrder = await Order.findOrCreate({
           where: {
             userId: user.id,
-            status: "active",
+            [Op.or]: [{ status: 'active' }, { status: 'processing' }],
           },
         });
         const token = jwt.sign({ user }, SECRET, { expiresIn: 3600 });
@@ -345,8 +345,33 @@ server.put("/:userId/cart/:productId", verifyToken, (req, res) => {
   });
 });
 
-server.put("/:userId/cart", verifyToken, (req, res) => {
-  let order;
+server.put("/:userId/cart", async (req, res) => {
+  let order = await Order.findOne({where: {
+    [Op.and] : [
+      {userId : parseInt(req.params.userId)},
+      {status: 'active'}
+    ]
+  }})
+  if(!order){
+    return res.status(400).json({message: 'Error al encontrar orden a editar'})
+  }
+  Orderline.update({
+    quantity: req.body.quantity
+  },
+  {
+    where: {
+      [Op.and]: [{ orderId: order.id }, { productId: parseInt(req.body.productId) }],
+    }
+  }
+  ).then(resp => {
+    res.status(200).json(resp)
+  })
+  .catch(err => {
+    res.status(400).json(err)
+  })
+
+
+  /* et order;
   Order.findOne({ where: { userId: req.params.userId, status: "active" } })
     .then((r) => {
       order = r.id;
@@ -363,10 +388,10 @@ server.put("/:userId/cart", verifyToken, (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-    });
+    }); */
 });
 
-server.get("/:userId/cart", verifyToken, (req, res) => {
+server.get("/:userId/cart", (req, res) => {
   Order.findAll({
     attributes: ["id", "userId", "status"],
     where: {
