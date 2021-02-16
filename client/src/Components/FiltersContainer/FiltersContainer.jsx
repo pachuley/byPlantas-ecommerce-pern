@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import CategoriesFilter from '../CategoriesFilters/CategoriesFilters'
 import InputFilter from '../InputFilter/InputFilter'
 import styles from './filterscontainer.module.css'
+import {FaTrashAlt} from 'react-icons/fa'
 
 const FiltersContainer = (
     {categories,handleCategory,categorySelected,handleInputFilter, handleCleanFilters, value, count, sortProducts}) => {
@@ -44,11 +45,11 @@ const FiltersContainer = (
                         />
                     </div>
                 </div>
-                <div className={`${styles.buttonContainer}`}>
+                <div className={`${styles.trashButtonContainer}`}>
                     <button 
-                        className={`${styles.btnLimpiar}`}
+                        className={`btn ${styles.trashButton}`} 
                         onClick={handleCleanFilters}>
-                        Limpiar
+                        Limpiar <FaTrashAlt className="ml-1"/>
                     </button>
                 </div>
             </div>
