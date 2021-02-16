@@ -97,20 +97,9 @@ const Cart = () => {
     }
 
     return (
-      <div className="container">
+      <div className={`${styles.cartContainer}`}>
         <div className="row py-2">
-          <div className="col-6">
-            <h5 className={`m-0 py-1`}>Aquí están los productos que elegiste</h5>
-          </div>
-          <div className="col-6">
-            <button 
-              className="btn btn-sm btn-danger" 
-              onClick={handleRemoveAll}
-              disabled={cartItems.length === 0 && cartItemsGuest.length === 0 ? true : false}
-              >
-                Vaciar <FaTrashAlt className="ml-1"/>
-              </button>
-          </div>
+            <h2 className={`m-0 text-center p-5`}>Aquí están los productos que elegiste</h2>
         </div>
         <div className={`${styles.cart}`}>
           <div className={`${styles.cartlinesContainer} col-9`}>
@@ -126,16 +115,16 @@ const Cart = () => {
           {
             (cartItemsGuest.length > 0) ? 
             <>
-                <div className="alert alert-primary d-flex justify-content-between" role="alert">
+                <div className="alert alert-primary d-flex justify-content-evenly align-items-center col-6 align-self-center" role="alert">
                   <span>Productos que agrego como invitado</span>
-                  <div>
+                  <div className="d-flex">
                   <button 
-                    className="btn btn-success btn_sm mx-1"
+                    className="btn btnByPlantas btn_sm mx-1"
                     onClick={joinCartHandle}
                     disabled={isAuth === null ? true : false}
                   ><FaPlusSquare/></button>
                   <button 
-                    className="btn btn-success btn_sm"
+                    className="btn btnByPlantas btn_sm mx-1"
                     onClick={() => {dispatch(removeAllItemsGuest())}}
                     ><FaTrashAlt/></button>
                   </div>
@@ -149,21 +138,32 @@ const Cart = () => {
             : null
           }
           </div>
-          <div className="col-2">
-                <div className={`text-center`}>Precio ({cartItems.length}) items</div>
-                <p className="text-center mt-1">Total: ${totalCart()}</p>
-                {
-                  isAuth ? 
-                  <BtnCheckout
-                    disabled={orderid === undefined ? true : false}
-                    orderId={orderid !== undefined ? cartItems[0].orderId : ''}
-                    handleCheckout={handleCheckout}
-                  />
-                  :
-                  <Link to='/login' className="btn btnByPlantas btn-sm">
-                    Ingresa a tu cuenta!
-                  </Link>
-                }
+          <div className={`${styles.checkoutContainer} col-2`}>
+                <span className={`${styles.price} text-center`}>Precio ({cartItems.length}) items</span>
+                <span className={`${styles.total} text-center`}>Total: ${totalCart()}</span>
+                <div className={`${styles.checkoutButtonContainer}`}>
+                  {
+                    isAuth ? 
+                    <BtnCheckout
+                      disabled={orderid === undefined ? true : false}
+                      orderId={orderid !== undefined ? cartItems[0].orderId : ''}
+                      handleCheckout={handleCheckout}
+                    />
+                    :
+                    <Link to='/login' className="btn btnByPlantas">
+                      Ingresa a tu cuenta!
+                    </Link>
+                  }
+                </div>
+                <div className={`${styles.trashButtonContainer}`}>
+                  <span className={`${styles.total} text-center`}>Vaciar carrito</span>
+                  <button 
+                    className={`btn ${styles.trashButton}`} 
+                    onClick={handleRemoveAll}
+                    disabled={cartItems.length === 0 && cartItemsGuest.length === 0 ? true : false}
+                    ><FaTrashAlt size={20} className="ml-1"/>
+                  </button>
+              </div>
             </div>
           </div>
         </div>
