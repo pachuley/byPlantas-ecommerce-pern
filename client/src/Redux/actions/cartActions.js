@@ -176,10 +176,10 @@ export const removeAllItemsGuest = () => async (dispatch,getState) => {
 export const joinCarts = () => async (dispatch,getState) => {
   let cartItemsAux = getState().cart.cartItems
   let cartItemsGuestAux = getState().cart.cartItemsGuest
-
   let arrAux = [...cartItemsAux]
   let discount = 0
   let orderIdAux = 0
+  const isAuth = getState().userLogin.userLogin;
 
   let config = {
     headers: {
