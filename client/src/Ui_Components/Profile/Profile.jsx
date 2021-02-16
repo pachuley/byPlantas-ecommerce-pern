@@ -48,7 +48,9 @@ const Profile = (props) => {
             </div>
             <div className={`${styles.tableDiv} col-6`}>
                 <table className={`table table-hover table-bordered table-dark ${styles.table}`}>
-                    
+                    <caption className={styles.tableCaption}>
+                        En esta tabla se ven tus ordenes de compra si aun no tiene una, te invitamos a dar un vistaso a nuestro <Link to="/products" className={styles.tableCaptionLink}>Catalogo!</Link>
+                    </caption>
                     <thead>
                         <tr>
                             <th scope='col'>Orden #</th>
