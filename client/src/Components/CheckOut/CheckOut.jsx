@@ -104,7 +104,7 @@ errors.clarification = 'Ingresar un detalle';
     e.preventDefault()
     let erroresestrueono = Object.keys(errors).length === 0
     Object.keys(errors).length === 0 ? setbtnDisabled(false) : setbtnDisabled(true)
-    
+    localStorage.removeItem('cartItems');    
   }
 
 
