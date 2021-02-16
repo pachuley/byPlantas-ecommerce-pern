@@ -42,13 +42,13 @@ const BtnUpdateCart = ({productId,quantity}) => {
     <div className="form-group">
         <input 
             type="number" 
-            className="form-control form-control-sm" 
+            className="form-control form-control-sm my-3" 
             onChange={handleChangeQty}
             value={qty}
             min={1}
             />
         <button 
-            className="btn btnByPlantas mt-1"
+            className="btn btnByPlantas my-3"
             onClick={handleUpdate}
         >
             <FaEdit/> Editar

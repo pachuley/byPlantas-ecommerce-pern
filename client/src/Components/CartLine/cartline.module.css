@@ -2,21 +2,53 @@
     border: 2px solid #a17e30;
     background-color: #fff;
     height: 10rem;
+    width: 100%;
     display: flex;
     align-items: center;
     align-content: space-between;
-    padding: 0.5em;
-    padding-right: 1em;
+    justify-content: center;
+    padding: 1rem;
     margin: 0;
-    margin-right: 0;
-    margin-left: 0;
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
 }
+
+@media (max-width: 720px) {
+    .cartlineContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        height: auto;
+        padding: 1rem;
+    }
+  }
+
+.imgTitleContainer{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0; 
+    padding: 0;
+}
+
+@media (max-width: 720px) {
+    .imgTitleContainer {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+  }
 
 .imgContainer {
     display: flex;
-    margin: 1em;
-    float: left;
+    padding: 0.5rem;
     justify-content: center;
 }
 
@@ -24,41 +56,71 @@
     border: none;
     height: 7rem;
     width: auto;
-
 }
 
-.detailsContainer {
-    margin-left: 15%;
-    text-align: left;
-}
+@media (max-width: 720px) {
+    .img {
+        height: auto;
+        width: auto;
+    }
+  }
 
 .titleContainer {
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .titleCart {
     font-weight: 500;
     line-height: 1;
     margin: 0;
+    width: 100%
 }
+
+.buttonDetailsContainer{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0; 
+    padding: 0;
+}
+
+@media (max-width: 720px) {
+    .buttonDetailsContainer {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        height: auto;
+        padding: 0;
+        margin: 0;
+    }
+  }
 
 .textContainer {
     display: flex;
     flex-direction: column;
     text-align: center;
-    margin: 1em;
-    margin-right: 5rem;
+    padding: 1em;
+}
+
+.buttonContainer{
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 }
 
 .btnCierre {
     background: rgb(163, 49, 49);
-    border-radius: 50%;
+    border-radius: 5px;
     color: #f5f5ef;
     border: none;
-    height: 2.2em;
-    width: 2.2em;
-    align-self: flex-end;
+    height: 2.2rem;
+    width: 2.2rem;
 }
 
 .btnContador:focus {

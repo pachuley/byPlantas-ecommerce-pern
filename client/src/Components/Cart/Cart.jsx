@@ -115,16 +115,16 @@ const Cart = () => {
           {
             (cartItemsGuest.length > 0) ? 
             <>
-                <div className="alert alert-primary d-flex justify-content-between" role="alert">
+                <div className="alert alert-primary d-flex justify-content-evenly align-items-center col-6 align-self-center" role="alert">
                   <span>Productos que agrego como invitado</span>
-                  <div>
+                  <div className="d-flex">
                   <button 
                     className="btn btnByPlantas btn_sm mx-1"
                     onClick={joinCartHandle}
                     disabled={isAuth === null ? true : false}
                   ><FaPlusSquare/></button>
                   <button 
-                    className="btn btn-success btn_sm"
+                    className="btn btnByPlantas btn_sm mx-1"
                     onClick={() => {dispatch(removeAllItemsGuest())}}
                     ><FaTrashAlt/></button>
                   </div>
@@ -150,7 +150,7 @@ const Cart = () => {
                       handleCheckout={handleCheckout}
                     />
                     :
-                    <Link to='/login' className="btn btnByPlantas btn-sm">
+                    <Link to='/login' className="btn btnByPlantas">
                       Ingresa a tu cuenta!
                     </Link>
                   }
@@ -161,8 +161,7 @@ const Cart = () => {
                     className={`btn ${styles.trashButton}`} 
                     onClick={handleRemoveAll}
                     disabled={cartItems.length === 0 && cartItemsGuest.length === 0 ? true : false}
-                    >
-                      Vaciar <FaTrashAlt className="ml-1"/>
+                    ><FaTrashAlt size={20} className="ml-1"/>
                   </button>
               </div>
             </div>
