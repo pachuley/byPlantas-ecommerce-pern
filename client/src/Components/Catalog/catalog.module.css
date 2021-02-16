@@ -8,6 +8,7 @@
     padding-left: 0;
     padding-right: 0;
     margin: auto;
+    width: 100%;
 }
 
 .aviso {
@@ -30,4 +31,5 @@
     justify-content: space-evenly;
     margin: auto;
     padding: 2rem;
+    width: 100%;
 }
