@@ -414,8 +414,14 @@ server.get("/:userId/orderlines", async(req, res) => {
   
   try{
     let order = await Order.findOne({
-      where: { userId: parseInt(req.params.userId)},
+    //   where: { userId: parseInt(req.params.userId)}, { status:}
+    where: {
+
+       userId: req.params.userId , 
+      [Op.or]:[{ status: 'active'  },{ status: 'processing'  }],
+    }
     });
+    
     let orderlines = await order.getProducts()
      
     let arrAux = []
