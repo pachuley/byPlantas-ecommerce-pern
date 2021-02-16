@@ -51,3 +51,9 @@
     background-position: 0;
     justify-content: center;
 }
+
+.buttonContainer{
+    margin: auto;
+    width: 7rem;
+    height: auto;
+}
