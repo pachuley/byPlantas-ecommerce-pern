@@ -354,9 +354,10 @@ server.put("/:userId/cart/:productId", verifyToken, (req, res) => {
 
 server.put("/:userId/cart", async (req, res) => {
   let order = await Order.findOne({where: {
-    [Op.and] : [
-      {userId : parseInt(req.params.userId)},
-      {status: 'active'}
+    userId : parseInt(req.params.userId),
+    [Op.or] : [
+      {status: 'active'},
+      {status: 'processing'}
     ]
   }})
   if(!order){
