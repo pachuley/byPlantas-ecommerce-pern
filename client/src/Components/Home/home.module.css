@@ -11,7 +11,7 @@
 }
 
 .filosofia {
-    padding: 2.5em 7em;
+    padding: 2.5rem 7rem;
     justify-content: space-around;
     text-align: center;
     width: 70%;
@@ -20,7 +20,7 @@
 
 .filosofiaP {
     font-style: italic;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     color: #a17e30;
     font-weight: 500;
 }
@@ -28,7 +28,7 @@
 .carruselOfertas {
     text-align: center;
     align-content: center;
-    margin: 0 6em;
+    margin: 0 6rem;
     background-color: #a17e30;
     justify-content: space-around;
 }
@@ -39,7 +39,7 @@
 
 .contacts {
     align-content: center;
-    margin: 5em 10em;
+    margin: 5em 10rem;
 }
 
 .profile {

@@ -1,22 +1,26 @@
 .productCard {
-    display: block;
+    display: flex;
+    flex-direction: column;
     padding: 0;
     text-align: center;
-    margin: 1em;
+    margin: 1rem;
+    width: 15rem;
 }
 
 .imgContainer {
     display: flex;
     justify-content: center;
     align-content: center;
-    margin: 1em;
-    max-height: 15em;
+    margin: 1rem;
+    max-height: 12rem;
     width: auto;
 }
 
 .productImg {
     border: none;
     padding: none;
+    max-height: 10rem;
+    width: auto;
 }
 
 .bodyContainer {

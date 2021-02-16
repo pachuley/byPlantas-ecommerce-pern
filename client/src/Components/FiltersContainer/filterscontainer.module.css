@@ -1,6 +1,39 @@
-.btnLimpiar {
+.searchBarContainer{
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.searchBar {
+    margin-right: 1rem;
+}
+
+.trashButtonContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.trashButton{
+    display: flex;
+    align-items: center;
     background-color: rgb(163, 49, 49);
     color: #f5f5ef;
-    border: #f5f5ef;
-    border-radius: 2px;
+    border-radius: 5px;
+    height: 2rem;
+    width: auto;
 }
+
+@media (max-width: 540px) {
+    .precioContainer {
+        display: none;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .categoriesFilterContainer {
+        display: none;
+    }
+  }
