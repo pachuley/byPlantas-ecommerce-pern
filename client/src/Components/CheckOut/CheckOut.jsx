@@ -131,10 +131,9 @@ errors.clarification = 'Ingresar un detalle';
         </div>
         <div className={`${styles.shippingdetail}`}>
         {/* disabled={Object.keys(errors).length > 0} */}
-          <form onSubmit={handleSubmit} className="mx-auto w-50 py-3" >
-            <h4 className={`m-0 text-left p-5`}>Datos de envio</h4>
-            <button className={`btn btnByPlantas`} type='submit' disabled={Object.keys(errors).length > 0}>Aceptar para pagar</button>
-            <div>
+          <form onSubmit={handleSubmit} className={`${styles.shippingForm} mx-auto`} >
+            <h4 className={`m-0 text-center pb-3`}>Datos de envío</h4>
+            <div className={`m-auto pb-3`}>
               <label>Nombre:</label>
               <input
                 className={`${errors.name && "danger"}`}
@@ -173,6 +172,7 @@ errors.clarification = 'Ingresar un detalle';
                 className={`${errors.address && "danger"}`}
                 type="text"
                 name="address"
+                row='5'
                 onChange={handleInputChange}
                 value={input.address}
               />
@@ -200,10 +200,11 @@ errors.clarification = 'Ingresar un detalle';
               />
               {errors.clarification && <p className="my-2 error">{errors.clarification}</p>}
             </div>
+            <button className={`btn btnByPlantas ${styles.shippingButton}`} type='submit' disabled={Object.keys(errors).length > 0}>Pagar</button>
           </form>
         </div>
       </div>
-      <div className="text-center container">
+      <div className={`${styles.payment}`}>
         { btnDisabled ? '' :
         <Payment btnDisabled={btnDisabled}/>
         }
