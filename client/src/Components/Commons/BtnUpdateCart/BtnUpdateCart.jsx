@@ -30,7 +30,7 @@ const BtnUpdateCart = ({productId,quantity}) => {
         })
         }else{
             dispatch(updateItem(productId,qty))
-            setQty(0)
+            setQty(qty)
             Swal.fire({
                 title: 'Se edito la cantidad!',
                 icon: 'success'
