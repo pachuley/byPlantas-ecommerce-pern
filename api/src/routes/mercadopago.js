@@ -100,7 +100,7 @@ server.get("/pagos", (req, res)=>{
         id: order.userId , 
       }
     });
-    sendEmail(`${user.firstname}`,`${user.email}`,`order: ${order.id} address: ${user.address}`,`Su orden ${order.id} fue procesada`)
+    sendEmail(user.firstname,user.email, user.lastname, order.id)
     Order.create({
       userId: userId,
     })
