@@ -225,9 +225,12 @@ server.post("/:userId/cart", verifyToken, async (req, res) => {
   try {
     let product = await Product.findOne({ where: { id: parseInt(req.body.productId) } });
     let order = await Order.findOne({
-      where: { userId: parseInt(req.params.userId) },
+      where: {
+        userId: req.params.userId,
+        [Op.or]:[{ status: 'active'  },{ status: 'processing'  }],
+      },
     });
-
+    
     await order.addProduct(product);
     let orderline = await Orderline.findOne({
       where: {
@@ -310,7 +313,10 @@ server.delete("/:userId/cart", async(req, res) => {
 server.delete("/:userId/cart/:productId", verifyToken, (req, res) => {
   var prod;
   Order.findOne({
-    where: { userId: req.params.userId},
+    where: {
+      userId: parseInt(req.params.userId) , 
+     [Op.or]:[{ status: 'active'  },{ status: 'processing'}],
+   }
   }).then((order) => {
     Product.findByPk(req.params.productId).then((prod) => {
       order.removeProducts(prod).then(resp => {
@@ -414,8 +420,14 @@ server.get("/:userId/orderlines", async(req, res) => {
   
   try{
     let order = await Order.findOne({
-      where: { userId: parseInt(req.params.userId)},
+    //   where: { userId: parseInt(req.params.userId)}, { status:}
+    where: {
+
+       userId: req.params.userId , 
+      [Op.or]:[{ status: 'active'  },{ status: 'processing'  }],
+    }
     });
+    
     let orderlines = await order.getProducts()
      
     let arrAux = []

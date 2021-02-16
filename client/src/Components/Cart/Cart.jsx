@@ -19,7 +19,6 @@ const Cart = () => {
   const dispatch=useDispatch()
   const isAuth =  userLogin.userLogin
   let history = useHistory()
-  console.log(cartItemsGuest.length > 0 )
 
   const totalCart = () => {
       let totalCart = 0
@@ -36,7 +35,7 @@ const Cart = () => {
       if(isAuth){
         dispatch(getItems())
         dispatch(getOrderUser())
-        dispatch(updateOrder(orderid,'active'))  
+        // dispatch(updateOrder(orderid,'active'))  
       }
     },[])
     const orderid = cartItems[0]?.orderId
@@ -54,6 +53,7 @@ const Cart = () => {
       })
       if(result.isConfirmed){
           dispatch(updateOrder(orderid,'processing'))
+          dispatch(getOrderUser())
           history.push(`/checkout/${orderid}`)
       }
     }
