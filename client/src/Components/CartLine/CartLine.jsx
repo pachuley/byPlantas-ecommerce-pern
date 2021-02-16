@@ -59,7 +59,7 @@ const CartLine = ({ product }) => {
           <span>Cant: {quantity}</span>
         </div>
       </div>
-      <div className={`${styles.buttonContainer} col-1`}>
+      <div className={`${styles.buttonTrashContainer} col-1`}>
         <button className={`${styles.btnCierre}`} onClick={() => removeItem(productId)}>
           <FaTrashAlt/>
         </button>

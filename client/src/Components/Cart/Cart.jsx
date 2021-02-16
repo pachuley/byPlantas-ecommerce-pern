@@ -161,7 +161,7 @@ const Cart = () => {
                     className={`btn ${styles.trashButton}`} 
                     onClick={handleRemoveAll}
                     disabled={cartItems.length === 0 && cartItemsGuest.length === 0 ? true : false}
-                    ><FaTrashAlt size={20} className="ml-1"/>
+                    ><FaTrashAlt size={20}/>
                   </button>
               </div>
             </div>

@@ -79,6 +79,7 @@
 
 .buttonDetailsContainer{
     display: flex;
+    flex-direction: row-reverse;
     align-content: center;
     align-items: center;
     justify-content: center;
@@ -103,16 +104,35 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    padding: 1em;
 }
 
 .buttonContainer{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.buttonTrashContainer{
     padding: 1rem;
     display: flex;
     justify-content: center;
     align-content: center;
     align-items: center;
 }
+
+@media (max-width: 720px) {
+    .buttonTrashContainer {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        height: auto;
+        width: auto;
+        padding: 0;
+        margin: 0;
+    }
+  }
 
 .btnCierre {
     background: rgb(163, 49, 49);

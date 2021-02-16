@@ -49,7 +49,7 @@ const FiltersContainer = (
                     <button 
                         className={`btn ${styles.trashButton}`} 
                         onClick={handleCleanFilters}>
-                        Limpiar <FaTrashAlt className="ml-1"/>
+                        <FaTrashAlt size={20}/>
                     </button>
                 </div>
             </div>
