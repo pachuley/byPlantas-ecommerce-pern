@@ -115,7 +115,7 @@ const Cart = () => {
         <div className={`${styles.cart}`}>
           <div className={`${styles.cartlinesContainer} col-9`}>
           {
-            isAuth !== null && (cartItems.length === 0 && cartItemsGuest.length === 0) ? 
+            (cartItems.length === 0 && cartItemsGuest.length === 0) ? 
               <div className="alert alert-primary" role="alert">
                 El carrito está vacío
               </div>
