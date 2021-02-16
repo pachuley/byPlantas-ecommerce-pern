@@ -31,16 +31,16 @@ const CartLine = ({ product }) => {
   };
   return (
     <div className={`${styles.cartlineContainer}`}>
-      <div className={`${styles.imgTitleContainer} col-5`}>
-        <div className={`${styles.imgContainer} col-5`}>
+      <div className={`${styles.imgTitleContainer}`}>
+        <div className={`${styles.imgContainer}`}>
           <img src={imgs ? imgs : imgDefault} className={`${styles.img} img-fluid img-thumbnail`} alt='' />
         </div>
-        <div className={`${styles.titleContainer} col-7`}>
+        <div className={`${styles.titleContainer}`}>
           <h5 className={`${styles.titleCart}`}>{productName || product.name}</h5>
         </div>
       </div>
-      <div className={`${styles.buttonDetailsContainer} col-5`}>
-        <div className={`${styles.buttonContainer} col-5`}>
+      <div className={`${styles.buttonDetailsContainer}`}>
+        <div className={`${styles.buttonContainer}`}>
           {
             product.orderId ? 
               <BtnUpdateCart 
@@ -54,12 +54,12 @@ const CartLine = ({ product }) => {
             />
           }
         </div>
-        <div className={`${styles.textContainer} col-7`}>
+        <div className={`${styles.textContainer}`}>
           <span>Precio: ARS {isAuth ? totalCartline?.total : totalCartlineGuest?.total}</span>
           <span>Cant: {quantity}</span>
         </div>
       </div>
-      <div className={`${styles.buttonTrashContainer} col-1`}>
+      <div className={`${styles.buttonTrashContainer}`}>
         <button className={`${styles.btnCierre}`} onClick={() => removeItem(productId)}>
           <FaTrashAlt/>
         </button>
