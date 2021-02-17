@@ -102,11 +102,11 @@ const Cart = () => {
             <h2 className={`m-0 text-center p-5`}>Aquí están los productos que elegiste</h2>
         </div>
         <div className={`${styles.cart}`}>
-          <div className={`${styles.cartlinesContainer} col-9`}>
+          <div className={`${styles.cartlinesContainer}`}>
           {
             (cartItems.length === 0 && cartItemsGuest.length === 0) ? 
-              <div className="alert alert-primary" role="alert">
-                El carrito está vacío
+              <div className={`${styles.aviso} alert alert-primary`} role="alert">
+                <p className={`${styles.avisoP}`}>El carrito está vacío</p>
               </div>
             : cartItems.map((product, index) => {
               return <CartLine product={product} />
@@ -115,8 +115,8 @@ const Cart = () => {
           {
             (cartItemsGuest.length > 0) ? 
             <>
-                <div className="alert alert-primary d-flex justify-content-evenly align-items-center col-6 align-self-center" role="alert">
-                  <span>Productos que agrego como invitado</span>
+                <div className={`${styles.aviso} alert alert-primary`} role="alert">
+                  <p className={`${styles.avisoP}`}>Productos que agrego como invitado</p>
                   <div className="d-flex">
                   <button 
                     className="btn btnByPlantas btn_sm mx-1"
@@ -138,7 +138,7 @@ const Cart = () => {
             : null
           }
           </div>
-          <div className={`${styles.checkoutContainer} col-2`}>
+          <div className={`${styles.checkoutContainer}`}>
                 <span className={`${styles.price} text-center`}>Precio ({cartItems.length}) items</span>
                 <span className={`${styles.total} text-center`}>Total: ${totalCart()}</span>
                 <div className={`${styles.checkoutButtonContainer}`}>
@@ -161,7 +161,7 @@ const Cart = () => {
                     className={`btn ${styles.trashButton}`} 
                     onClick={handleRemoveAll}
                     disabled={cartItems.length === 0 && cartItemsGuest.length === 0 ? true : false}
-                    ><FaTrashAlt size={20} className="ml-1"/>
+                    ><FaTrashAlt size={20}/>
                   </button>
               </div>
             </div>

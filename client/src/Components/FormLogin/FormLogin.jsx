@@ -52,7 +52,7 @@ const FormLogin = ({ location, ...props }) => {
   }, [history, userLogin]);  
   
   return (
-    <div className={`${styles.formLoginContainer} col-md-6`}>
+    <div className={`${styles.formLoginContainer}`}>
       {error && (
         <div className='alert alert-primary' role='alert'>
           {error}

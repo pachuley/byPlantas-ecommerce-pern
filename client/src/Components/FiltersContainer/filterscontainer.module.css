@@ -1,11 +1,20 @@
 .searchBarContainer{
-    margin: 1rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    width: 30%;
 }
 
-.searchBar {
-    margin-right: 1rem;
+.precioContainer{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    width: 25%;
+}
+
+.precioSearchbar {
+    width: 75%;
 }
 
 .trashButtonContainer{
@@ -26,14 +35,23 @@
     width: auto;
 }
 
-@media (max-width: 540px) {
-    .precioContainer {
-        display: none;
+@media (max-width: 720px) {
+    .searchBarContainer {
+        width: 50%;
     }
-  }
-
-  @media (max-width: 720px) {
     .categoriesFilterContainer {
         display: none;
     }
-  }
+}
+
+@media (max-width: 540px) {
+    .searchBarContainer {
+        width: 75%;
+    }
+    .counterSpan {
+        display: none;
+    }
+    .precioContainer {
+        display: none;
+    }
+}

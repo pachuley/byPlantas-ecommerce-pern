@@ -9,10 +9,10 @@ const FiltersContainer = (
     
     return ( 
         <Fragment>
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center p-2">
                 <div className={`${styles.searchBarContainer}`}>
-                    <div className={`${styles.searchBar}`}>
-                        <span>
+                    <div>
+                        <span className={`${styles.counterSpan}`}>
                             ({count}){count === 1 ? ' Producto' : ' Productos'}
                         </span>
                     </div>
@@ -24,17 +24,15 @@ const FiltersContainer = (
                     </div>
                 </div>
                 <div className={`${styles.precioContainer}`}>
-                    <div className="d-flex align-items-center">
-                        <p className="m-0 px-2">Precio:</p>
-                        <select 
-                            className="form-control"
-                            onChange={sortProducts}
-                        >
-                            <option>Precio</option>
-                            <option value="menorPrecio">Menor precio</option>
-                            <option value="mayorPrecio">Mayor precio</option>
-                        </select>
-                    </div>
+                    <span>Precio: </span>
+                    <select 
+                        className={`${styles.precioSearchbar} form-control`}
+                        onChange={sortProducts}
+                    >
+                        <option>Precio</option>
+                        <option value="menorPrecio">Menor precio</option>
+                        <option value="mayorPrecio">Mayor precio</option>
+                    </select>
                 </div>
                 <div className={`${styles.categoriesFilterContainer}`}>
                     <div className="">
@@ -49,7 +47,7 @@ const FiltersContainer = (
                     <button 
                         className={`btn ${styles.trashButton}`} 
                         onClick={handleCleanFilters}>
-                        Limpiar <FaTrashAlt className="ml-1"/>
+                        <FaTrashAlt size={20}/>
                     </button>
                 </div>
             </div>

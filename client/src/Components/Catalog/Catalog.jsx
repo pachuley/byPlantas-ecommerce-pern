@@ -11,7 +11,7 @@ const Catalog = ({products}) => {
     const handlePageChange = (page) => {
         setCurrentpage(page)
     }
-    const productsPag = paginate(products, currentpage, 9)
+    const productsPag = paginate(products, currentpage, 12)
     return (
         <div className={`${styles.catalogContainer}`}>
             <div className='Catalog'>
@@ -24,7 +24,7 @@ const Catalog = ({products}) => {
                         <hr/>
                         <div className={`${styles.catalog}`}>
                             {productsPag.map(product=> 
-                            <div className="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                            <div>
                                 <ProductCard
                                 key={product.id}
                                 id = {product.id}
@@ -40,7 +40,7 @@ const Catalog = ({products}) => {
                         <div className="d-flex py-2 justify-content-center">
                             <Pagination
                                 itemsCount = {products.length}
-                                pageSize = {9}
+                                pageSize = {12}
                                 onPageChange={handlePageChange}
                                 currentPage={currentpage}
                             />
