@@ -1,15 +1,12 @@
 .home {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     background-color: #f5f5ef;
     background-size: cover;
     background-position: top;
+    justify-content: center;
 }
-
-@media (max-width: 540px) {
-    .carouselContainer {
-        display: none;
-    }
-  }
 
 .titles {
     font-weight: 500;
