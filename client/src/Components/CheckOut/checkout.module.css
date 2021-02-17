@@ -47,7 +47,7 @@
 
 .payment{
     display: flex;
-    width: 50%;
+    width: 40%;
     justify-content: center;
     margin-top: 3rem;
 }
@@ -67,6 +67,9 @@
         width: 80%;
     }
     .shippingdetail{
+        width: 60%;
+    }
+    .payment{
         width: 60%;
     }
 }
